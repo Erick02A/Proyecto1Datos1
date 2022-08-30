@@ -9,6 +9,6 @@ public class appController {
 
     @FXML
     protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        welcomeText.setText("Comeme los huevos!");
     }
 }
