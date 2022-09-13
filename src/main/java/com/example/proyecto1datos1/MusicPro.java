@@ -8,9 +8,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MusicPro extends Application {
+    public String window;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MusicPro.class.getResource("hello-view.fxml"));
+        window ="users.fxml";
+        FXMLLoader fxmlLoader = new FXMLLoader(MusicPro.class.getResource(window));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Probando commit");
         stage.setScene(scene);
