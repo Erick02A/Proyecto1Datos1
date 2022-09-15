@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="En proceso la creacion de usuarios">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/usuario.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +52,7 @@
       <workItem from="1661833183187" duration="267000" />
       <workItem from="1662499465006" duration="200000" />
       <workItem from="1663221256831" duration="10341000" />
-      <workItem from="1663271767878" duration="384000" />
+      <workItem from="1663271767878" duration="647000" />
     </task>
     <task id="LOCAL-00001" summary="En proceso la creacion de usuarios">
       <created>1663226265352</created>
@@ -76,7 +75,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663232482947</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="En proceso la creacion de usuarios">
+      <created>1663272288606</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1663272288606</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
