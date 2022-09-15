@@ -13,7 +13,7 @@ public class MusicPro extends Application {
     public void start(Stage stage) throws IOException {
         window ="users.fxml";
         FXMLLoader fxmlLoader = new FXMLLoader(MusicPro.class.getResource(window));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 520, 240);
         stage.setTitle("Probando commit");
         stage.setScene(scene);
         stage.show();

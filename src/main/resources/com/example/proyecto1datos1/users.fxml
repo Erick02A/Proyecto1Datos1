@@ -5,14 +5,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="285.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField layoutX="43.0" layoutY="86.0" />
+      <TextField id="Nombre" layoutX="43.0" layoutY="86.0" />
       <Text layoutX="43.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" />
-      <TextField layoutX="207.0" layoutY="86.0" />
-      <TextField layoutX="43.0" layoutY="188.0" />
-      <TextField layoutX="207.0" layoutY="188.0" />
+      <TextField id="Correo" layoutX="207.0" layoutY="86.0" />
+      <TextField id="Provincia" layoutX="43.0" layoutY="188.0" />
+      <TextField id="Contraseña" layoutX="207.0" layoutY="188.0" />
       <Text layoutX="43.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Provicia" />
       <Text layoutX="207.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo" />
       <Text layoutX="207.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña" />
