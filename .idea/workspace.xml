@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="">
+    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="En proceso la creacion de usuarios">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/MusicPro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/MusicPro.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/proyecto1datos1/users.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/proyecto1datos1/users.fxml" afterDir="false" />
     </list>
@@ -46,8 +47,16 @@
       <updated>1661832780494</updated>
       <workItem from="1661833183187" duration="267000" />
       <workItem from="1662499465006" duration="200000" />
-      <workItem from="1663221256831" duration="3807000" />
+      <workItem from="1663221256831" duration="5987000" />
     </task>
+    <task id="LOCAL-00001" summary="En proceso la creacion de usuarios">
+      <created>1663226265352</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1663226265352</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -63,5 +72,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="En proceso la creacion de usuarios" />
+    <option name="LAST_COMMIT_MESSAGE" value="En proceso la creacion de usuarios" />
   </component>
 </project>

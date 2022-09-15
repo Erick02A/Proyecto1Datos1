@@ -5,10 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Usuarios implements Initializable{
+public class Usuarios implements Initializable {
     @FXML
     private ChoiceBox<String> Provincias;
     @FXML
@@ -31,12 +32,31 @@ public class Usuarios implements Initializable{
         Provincias.getItems().addAll(provincias);
         Provincias.setOnAction(this::getProvincia);
     }
-    public void getProvincia(ActionEvent event){
+
+    public void getProvincia(ActionEvent event) {
         String provincia = Provincias.getValue();
-        System.out.println(provincia);
+        //System.out.println(provincia);
 
     }
-    public Usuarios(){
 
+    public void user(ActionEvent event) throws IOException {
+
+        VerificarUsuario();
+    }
+
+
+    private void VerificarUsuario() throws IOException {
+        String provincia = Provincias.getValue();
+        if (Nombre.getText().equals("Andres") && Contraseña.getText().equals("12345") && Correo.getText().equals("Andresito@gmail.com") && provincia.equals("Alajuela")) {
+
+            System.out.println(Nombre.getText());
+            System.out.println(Contraseña.getText());
+            System.out.println(Correo.getText());
+            System.out.println(provincia);
+        }else if (Nombre.getText().isEmpty() && Contraseña.getText().isEmpty() && Correo.getText().isEmpty() && provincia == null) {
+            Error.setText("Verifique que todos los espacios esten llenos");
+        } else {
+            Error.setText("Usuario incorrecto");
+        }
     }
 }
