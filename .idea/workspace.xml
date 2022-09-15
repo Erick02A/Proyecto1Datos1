@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="En proceso la creacion de usuarios">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/usuario.java" beforeDir="false" />
-    </list>
+    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="cambio de ventana" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -101,6 +99,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="En proceso la creacion de usuarios" />
-    <option name="LAST_COMMIT_MESSAGE" value="En proceso la creacion de usuarios" />
+    <MESSAGE value="cambio de ventana" />
+    <option name="LAST_COMMIT_MESSAGE" value="cambio de ventana" />
   </component>
 </project>
