@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import java.util.ArrayList;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +29,20 @@ public class Usuarios implements Initializable {
 
     private String[] provincias = {"Alajuela", "San Jose", "Cartago", "Limon", "Puntarenas", "Heredia", "Guanacaste"};
 
+    public static ArrayList<usuario> Usuario;
+
+
+    public static ArrayList<usuario> getUsuarios() {
+        return Usuario;
+    }
+    public Usuarios() {
+        if(Usuario == null) {
+            this.Usuario = new ArrayList<usuario>();
+        }
+        else {
+            this.Usuario = Usuario;
+        }
+    }
 
     public void Datos() {
         String linea, Name, correo, contraseña, Provincia;
