@@ -43,11 +43,8 @@ public class Usuarios implements Initializable {
                 Provincia = datos[2];
                 contraseña = datos[3];
                 if (Nombre.getText().equals(Name) && Contraseña.getText().equals(contraseña) && Correo.getText().equals(correo) && provincia.equals(Provincia)) {
-                    System.out.println(Name);
-                    System.out.println(contraseña);
-                    System.out.println(correo);
-                    System.out.println(Provincia);
-                    Error.setText("yessss");
+                    MusicPro m = new MusicPro();
+                    m.CambiarPantalla("hello-view.fxml");
 
 
 
