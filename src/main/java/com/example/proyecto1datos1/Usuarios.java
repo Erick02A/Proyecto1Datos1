@@ -4,10 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
+import java.util.ArrayList;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class Usuarios implements Initializable {
     @FXML
@@ -24,9 +26,60 @@ public class Usuarios implements Initializable {
     private PasswordField Contraseña;
 
 
+
     private String[] provincias = {"Alajuela", "San Jose", "Cartago", "Limon", "Puntarenas", "Heredia", "Guanacaste"};
 
+    public static ArrayList<usuario> Usuario;
 
+
+    public static ArrayList<usuario> getUsuarios() {
+        return Usuario;
+    }
+    public Usuarios() {
+        if(Usuario == null) {
+            this.Usuario = new ArrayList<usuario>();
+        }
+        else {
+            this.Usuario = Usuario;
+        }
+    }
+
+    public void Datos() {
+        String linea, Name, correo, contraseña, Provincia;
+        String provincia = Provincias.getValue();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+            linea = "";
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(",");
+                Name = datos[0];
+                correo = datos[1];
+                Provincia = datos[2];
+                contraseña = datos[3];
+                if (Nombre.getText().equals(Name) && Contraseña.getText().equals(contraseña) && Correo.getText().equals(correo) && provincia.equals(Provincia)) {
+                    System.out.println(Name);
+                    System.out.println(contraseña);
+                    System.out.println(correo);
+                    System.out.println(Provincia);
+                    Error.setText("yessss");
+
+
+
+                }else if (Nombre.getText().isEmpty() | Contraseña.getText().isEmpty() | Correo.getText().isEmpty() | provincia == null) {
+                    Error.setText("Verifique que todos los espacios esten llenos");
+
+                }else{Error.setText("Usuario incorrecto");}
+            }
+
+
+
+        } catch (IOException est) {
+            System.out.println("error");
+            throw new RuntimeException(est);
+
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Provincias.getItems().addAll(provincias);
@@ -41,22 +94,7 @@ public class Usuarios implements Initializable {
 
     public void user(ActionEvent event) throws IOException {
 
-        VerificarUsuario();
+        Datos();
     }
 
-
-    private void VerificarUsuario() throws IOException {
-        String provincia = Provincias.getValue();
-        if (Nombre.getText().equals("Andres") && Contraseña.getText().equals("12345") && Correo.getText().equals("Andresito@gmail.com") && provincia.equals("Alajuela")) {
-
-            System.out.println(Nombre.getText());
-            System.out.println(Contraseña.getText());
-            System.out.println(Correo.getText());
-            System.out.println(provincia);
-        }else if (Nombre.getText().isEmpty() && Contraseña.getText().isEmpty() && Correo.getText().isEmpty() && provincia == null) {
-            Error.setText("Verifique que todos los espacios esten llenos");
-        } else {
-            Error.setText("Usuario incorrecto");
-        }
-    }
 }
