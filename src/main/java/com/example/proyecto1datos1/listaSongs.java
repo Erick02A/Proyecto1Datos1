@@ -3,10 +3,12 @@ package com.example.proyecto1datos1;
 public class listaSongs {
     private Songs cabeza;
     private Songs last;
+    private int size;
 
     public listaSongs(Songs song,Songs last){
         cabeza = null;
         last = null;
+        size = 0;
     }
     public void addsong(String cancion, String genero, String artista, String album, String año, String letra, String pad){
         if (cabeza==null){
@@ -19,6 +21,10 @@ public class listaSongs {
             Temp.setPrev(nuevo);
             cabeza = nuevo;
         }
+        size++;
+    }
+    public int getSize(){
+        return size;
     }
     public boolean estaVacio(){
         return (cabeza==null)?true:false;
@@ -31,6 +37,15 @@ public class listaSongs {
             last.setNext(null);
             cabeza.setPrev(null);
         }
+    }
+    public String obtener(int index){
+        int contador = 0;
+        Songs temporal = cabeza;
+        while (contador<index){
+            temporal=temporal.getNext();
+            contador++;
+        }
+        return temporal.getCancion();
     }
 
 }
