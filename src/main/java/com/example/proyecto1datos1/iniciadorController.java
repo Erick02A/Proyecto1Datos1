@@ -1,14 +1,23 @@
 package com.example.proyecto1datos1;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import java.io.IOException;
 
 public class iniciadorController {
     @FXML
-    private Label welcomeText;
-
+    private Button Login;
     @FXML
-    protected void onHelloButtonClick() {
+    private Label Error;
+    @FXML
+    private TextField Correo;
+    @FXML
+    private PasswordField Contraseña;
 
+
+    public void user(ActionEvent event) throws IOException {
+
+        Usuarios.Datos(Contraseña.getText(),Correo.getText(),Error);
     }
 }

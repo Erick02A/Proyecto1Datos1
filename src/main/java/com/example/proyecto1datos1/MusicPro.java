@@ -15,7 +15,7 @@ public class MusicPro extends Application {
     public void start(Stage stage) throws Exception {
         Window = stage;
         Parent root = FXMLLoader.load(getClass().getResource("users.fxml"));
-        stage.setTitle("Inicio de sesion");
+        stage.setTitle("MusicPro");
         stage.setScene(new Scene(root, 600, 285));
         stage.show();
     }

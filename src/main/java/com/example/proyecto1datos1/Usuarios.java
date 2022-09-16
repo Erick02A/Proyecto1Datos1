@@ -1,27 +1,15 @@
 package com.example.proyecto1datos1;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import java.util.ArrayList;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class Usuarios {
-    @FXML
-    private Button Login;
-    @FXML
-    private Label Error;
-    @FXML
-    private TextField Correo;
-    @FXML
-    private PasswordField Contraseña;
+public class Usuarios{
 
-    public void Datos() {
+
+    public static void Datos(String Contraseña, String Correo, Label error) {
         String linea, Name, correo, contraseña, Provincia;
 
         try {
@@ -34,16 +22,16 @@ public class Usuarios {
                 correo = datos[1];
                 Provincia = datos[2];
                 contraseña = datos[3];
-                if ( Contraseña.getText().equals(contraseña) && Correo.getText().equals(correo)) {
+                if ( Contraseña.equals(contraseña) && Correo.equals(correo)) {
                     MusicPro m = new MusicPro();
-                    m.CambiarPantalla("hello-view.fxml");
+                    m.CambiarPantalla("repro.fxml");
 
 
 
-                }else if (Contraseña.getText().isEmpty() | Correo.getText().isEmpty()) {
-                    Error.setText("Verifique que todos los espacios esten llenos");
+                }else if (Contraseña.isEmpty() | Correo.isEmpty()) {
+                    error.setText("Verifique que todos los espacios esten llenos");
 
-                }else{Error.setText("Usuario incorrecto");}
+                }else{error.setText("Usuario incorrecto");}
             }
 
 
@@ -53,9 +41,5 @@ public class Usuarios {
             throw new RuntimeException(est);
 
         }
-    }
-    public void user(ActionEvent event) throws IOException {
-
-        Datos();
     }
 }
