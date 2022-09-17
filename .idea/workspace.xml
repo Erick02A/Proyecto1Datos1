@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="se añade el modulo media de JavaFx">
+    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="se crea el reproductor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
     </list>
@@ -62,7 +62,7 @@
       <workItem from="1663298907889" duration="57000" />
       <workItem from="1663366788605" duration="4543000" />
       <workItem from="1663427805154" duration="4168000" />
-      <workItem from="1663431992219" duration="1479000" />
+      <workItem from="1663431992219" duration="3191000" />
     </task>
     <task id="LOCAL-00001" summary="En proceso la creacion de usuarios">
       <created>1663226265352</created>
@@ -155,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663431252753</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="se crea el reproductor">
+      <created>1663433507016</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1663433507016</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,6 +187,7 @@
     <MESSAGE value="implementacion de algunos enlaces en las listas" />
     <MESSAGE value="." />
     <MESSAGE value="se añade el modulo media de JavaFx" />
-    <option name="LAST_COMMIT_MESSAGE" value="se añade el modulo media de JavaFx" />
+    <MESSAGE value="se crea el reproductor" />
+    <option name="LAST_COMMIT_MESSAGE" value="se crea el reproductor" />
   </component>
 </project>

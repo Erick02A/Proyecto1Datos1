@@ -35,7 +35,6 @@ public class reproControler implements Initializable {
     private boolean bucle;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        songNumber = 0;
         song = new ArrayList<File>();
         directory = new File("music");
         files = directory.listFiles();
@@ -45,17 +44,19 @@ public class reproControler implements Initializable {
                 System.out.println(file);
             }
         }
-        media = new Media(song.get(songNumber).toURI().toString());
-        mediaplayer = new MediaPlayer(media);
+        //media = new Media(song.get(songNumber).toURI().toString());
+        //mediaplayer = new MediaPlayer(media);
     }
     public void PlayPause(){
-        //if(play==false){
+        if(play==false){
             //mediaplayer.play();
-            //System.out.println("play");
-        //}else {
+            System.out.println("play");
+            play=true;
+        }else {
             //mediaplayer.pause();
-            //System.out.println("pause");
-        //}
+            System.out.println("pause");
+            play=false;
+        }
     }
     public void previusSong(){
         System.out.println("back");
