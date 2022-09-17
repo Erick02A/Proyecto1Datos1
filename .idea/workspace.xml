@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="Creacion de listas doblemente enlasadas y los nodos Songs">
+    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="implementacion de algunos enlaces en las listas">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/listaSongs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/listaSongs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/proyecto1datos1/repro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/proyecto1datos1/repro.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,18 +33,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -55,6 +57,8 @@
       <workItem from="1662499465006" duration="200000" />
       <workItem from="1663221256831" duration="10341000" />
       <workItem from="1663271767878" duration="647000" />
+      <workItem from="1663298907889" duration="57000" />
+      <workItem from="1663366788605" duration="2814000" />
     </task>
     <task id="LOCAL-00001" summary="En proceso la creacion de usuarios">
       <created>1663226265352</created>
@@ -119,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663293610470</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="implementacion de algunos enlaces en las listas">
+      <created>1663298944291</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1663298944291</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,6 +152,7 @@
     <MESSAGE value="cambio de ventana" />
     <MESSAGE value="Detalles menores" />
     <MESSAGE value="Creacion de listas doblemente enlasadas y los nodos Songs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creacion de listas doblemente enlasadas y los nodos Songs" />
+    <MESSAGE value="implementacion de algunos enlaces en las listas" />
+    <option name="LAST_COMMIT_MESSAGE" value="implementacion de algunos enlaces en las listas" />
   </component>
 </project>

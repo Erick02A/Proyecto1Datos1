@@ -5,7 +5,7 @@ public class listaSongs {
     private Songs last;
     private int size;
 
-    public listaSongs(Songs song,Songs last){
+    public listaSongs(Songs cabeza,Songs last,int size){
         cabeza = null;
         last = null;
         size = 0;
@@ -22,6 +22,10 @@ public class listaSongs {
             cabeza = nuevo;
         }
         size++;
+    }
+    public void eliminar(Songs song){
+        song.getPrev().setNext(song.getNext());
+        song.getNext().setPrev(song.getPrev());
     }
     public int getSize(){
         return size;
