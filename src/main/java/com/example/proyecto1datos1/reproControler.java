@@ -35,25 +35,27 @@ public class reproControler implements Initializable {
     private boolean bucle;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        songNumber = 0;
         song = new ArrayList<File>();
         directory = new File("music");
         files = directory.listFiles();
         if (files != null){
             for(File file: files){
                 song.add(file);
+                System.out.println(file);
             }
         }
         media = new Media(song.get(songNumber).toURI().toString());
         mediaplayer = new MediaPlayer(media);
     }
     public void PlayPause(){
-        if(play==false){
-            mediaplayer.play();
-            System.out.println("play");
-        }else {
-            mediaplayer.pause();
-            System.out.println("pause");
-        }
+        //if(play==false){
+            //mediaplayer.play();
+            //System.out.println("play");
+        //}else {
+            //mediaplayer.pause();
+            //System.out.println("pause");
+        //}
     }
     public void previusSong(){
         System.out.println("back");
