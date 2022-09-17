@@ -1,6 +1,8 @@
 package com.example.proyecto1datos1;
 
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -43,7 +45,14 @@ public class reproControler implements Initializable {
                 song.add(file);
                 System.out.println(file);
             }
+            volumenbar.valueProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                    System.out.println(volumenbar.getValue());
+                }
+            });
         }
+        System.out.println(song.get(songNumber).toURI().toString());
         //media = new Media(song.get(songNumber).toURI().toString());
         //mediaplayer = new MediaPlayer(media);
     }
@@ -65,7 +74,13 @@ public class reproControler implements Initializable {
         System.out.println("next");
     }
     public void listBucle(){
-        System.out.println("bucle");
+        if (bucle==false) {
+            System.out.println("bucle");
+            bucle= true;
+        }else {
+            System.out.println("No bucle");
+            bucle= false;
+        }
     }
     public void LikeSong(){
         System.out.println("like");

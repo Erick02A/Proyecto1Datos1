@@ -7,7 +7,7 @@ public class Songs {
     private String album;
     private String año;
     private String letra;
-    private String pad;
+    private Object data;
     private Songs next;
     private Songs prev;
 
@@ -18,7 +18,7 @@ public class Songs {
         this.album = album;
         this.año = año;
         this.letra = letra;
-        this.pad = pad;
+        this.data = data;
         this.next = null;
         this.prev = null;
     }
@@ -30,8 +30,8 @@ public class Songs {
         this.prev = prev;
     }
 
-    public void setPad(String pad) {
-        this.pad = pad;
+    public void setPad(String data) {
+        this.data = data;
     }
 
     public void setLetra(String letra) {
@@ -58,8 +58,8 @@ public class Songs {
         this.cancion = cancion;
     }
 
-    public String getPad() {
-        return pad;
+    public String getdata() {
+        return (String) data;
     }
 
     public String getLetra() {
