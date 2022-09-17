@@ -60,10 +60,12 @@ public class reproControler implements Initializable {
         if(play==false){
             //mediaplayer.play();
             System.out.println("play");
+            pauseButton.setText("⏸");
             play=true;
         }else {
             //mediaplayer.pause();
             System.out.println("pause");
+            pauseButton.setText("▶");
             play=false;
         }
     }
@@ -76,9 +78,11 @@ public class reproControler implements Initializable {
     public void listBucle(){
         if (bucle==false) {
             System.out.println("bucle");
+            BucleButton.setText("🔁");
             bucle= true;
         }else {
             System.out.println("No bucle");
+            BucleButton.setText("🔀");
             bucle= false;
         }
     }
