@@ -6,9 +6,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class reproControler implements Initializable {
     @FXML
@@ -17,15 +23,37 @@ public class reproControler implements Initializable {
     private Slider volumenbar;
     @FXML
     private ProgressBar SongProgresbar;
+    private Media media;
+    private MediaPlayer mediaplayer;
+    private File directory;
+    private File[] files;
+    private ArrayList<File> song;
+    private int songNumber;
+    private Timer timer;
+    private TimerTask task;
     private boolean play;
     private boolean bucle;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        play = false;
-        bucle = false;
+        song = new ArrayList<File>();
+        directory = new File("music");
+        files = directory.listFiles();
+        if (files != null){
+            for(File file: files){
+                song.add(file);
+            }
+        }
+        media = new Media(song.get(songNumber).toURI().toString());
+        mediaplayer = new MediaPlayer(media);
     }
     public void PlayPause(){
-        System.out.println("play");
+        if(play==false){
+            mediaplayer.play();
+            System.out.println("play");
+        }else {
+            mediaplayer.pause();
+            System.out.println("pause");
+        }
     }
     public void previusSong(){
         System.out.println("back");
