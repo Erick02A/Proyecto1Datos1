@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="255.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="255.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto1datos1.reproControler">
    <children>
       <Button fx:id="pauseButton" layoutX="288.0" layoutY="191.0" mnemonicParsing="false" onAction="#PlayPause" text="⏯" />
       <Button fx:id="PreviusButton" layoutX="237.0" layoutY="191.0" mnemonicParsing="false" onAction="#previusSong" text="⏮" />
