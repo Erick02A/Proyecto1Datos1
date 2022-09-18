@@ -1,0 +1,77 @@
+Index: src/main/java/com/example/proyecto1datos1/Usuarios.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/Usuarios.java b/src/main/java/com/example/proyecto1datos1/Usuarios.java
+--- a/src/main/java/com/example/proyecto1datos1/Usuarios.java	
++++ b/src/main/java/com/example/proyecto1datos1/Usuarios.java	
+@@ -13,8 +13,8 @@
+         String linea, Name, correo, contraseña, Provincia;
+ 
+         try {
+-            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
++            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
++            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+             linea = "";
+             while ((linea = br.readLine()) != null) {
+                 String[] datos = linea.split(",");
+Index: src/main/resources/com/example/proyecto1datos1/hello-view.fxml
+===================================================================
+diff --git a/src/main/resources/com/example/proyecto1datos1/hello-view.fxml b/src/main/resources/com/example/proyecto1datos1/hello-view.fxml
+deleted file mode 100644
+--- a/src/main/resources/com/example/proyecto1datos1/hello-view.fxml	
++++ /dev/null	
+@@ -1,51 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-
+-<?import javafx.scene.Cursor?>
+-<?import javafx.scene.control.Button?>
+-<?import javafx.scene.control.ContextMenu?>
+-<?import javafx.scene.control.MenuItem?>
+-<?import javafx.scene.control.ProgressBar?>
+-<?import javafx.scene.layout.Pane?>
+-<?import javafx.scene.text.Font?>
+-
+-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+-   <children>
+-      <Button layoutX="207.0" layoutY="194.0" mnemonicParsing="false" text="⏮">
+-         <font>
+-            <Font size="15.0" />
+-         </font>
+-      </Button>
+-      <Button layoutX="274.0" layoutY="194.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="45.0" text="⏯">
+-         <font>
+-            <Font name="Broadway" size="18.0" />
+-         </font></Button>
+-      <Button layoutX="346.0" layoutY="194.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" text="⏭" textAlignment="CENTER">
+-         <font>
+-            <Font name="Berlin Sans FB Demi Bold" size="15.0" />
+-         </font></Button>
+-      <Button layoutX="58.0" layoutY="194.0" mnemonicParsing="false" text="🔁">
+-         <font>
+-            <Font size="15.0" />
+-         </font></Button>
+-      <Button layoutX="491.0" layoutY="194.0" mnemonicParsing="false" text="❤" textAlignment="JUSTIFY" textFill="#ea0303">
+-         <font>
+-            <Font name="Bell MT Italic" size="15.0" />
+-         </font>
+-         <cursor>
+-            <Cursor fx:constant="HAND" />
+-         </cursor></Button>
+-      <ProgressBar layoutX="58.0" layoutY="147.0" prefHeight="18.0" prefWidth="487.0" progress="0.0" />
+-      <Button accessibleRole="MENU" blendMode="HARD_LIGHT" cache="true" layoutX="58.0" layoutY="14.0" minWidth="53.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="53.0" text="⚙">
+-         <contextMenu>
+-            <ContextMenu>
+-              <items>
+-                <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+-              </items>
+-            </ContextMenu>
+-         </contextMenu>
+-         <font>
+-            <Font size="36.0" />
+-         </font>
+-      </Button>
+-   </children>
+-</Pane>
