@@ -10,6 +10,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Paint;
 
 import java.io.File;
 import java.net.URL;
@@ -35,6 +36,7 @@ public class reproControler implements Initializable {
     private TimerTask task;
     private boolean play;
     private boolean bucle;
+    private boolean like;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         song = new ArrayList<File>();
@@ -87,6 +89,23 @@ public class reproControler implements Initializable {
         }
     }
     public void LikeSong(){
-        System.out.println("like");
+        if(like==false) {
+            System.out.println("like");
+            LikeButton.setTextFill(Paint.valueOf("#e70606"));
+            like= true;
+        }else {
+            System.out.println("No Like");
+            LikeButton.setTextFill(Paint.valueOf("#000000"));
+            like= false;
+        }
+    }
+    public void setBucle(boolean B){
+        bucle=B;
+    }
+    public void setLike(boolean D){
+        like=D;
+    }
+    public  void setPlay(boolean F){
+        play=F;
     }
 }
