@@ -22,7 +22,6 @@ public class MusicPro extends Application {
     public void CambiarPantalla(String fxml) throws IOException{
         Parent pane =  FXMLLoader.load(getClass().getResource(fxml));
         Window.getScene().setRoot(pane);
-
     }
 
     public static void main(String[] args) {
