@@ -9,14 +9,12 @@ import java.io.FileReader;
 public class Usuarios{
 
 
-    public static void Datos(String Contraseña, String Correo, Label error) {
+    public static void Datos(String Contraseña, String Correo, Label error) throws IOException {
         String linea, Name, correo, contraseña, Provincia;
 
-
         try {
-            //reproControler.PlayPause();
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
-            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
             linea = "";
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(",");
@@ -39,7 +37,7 @@ public class Usuarios{
 
 
         } catch (IOException est) {
-            System.out.println("error");
+           System.out.println("error");
             throw new RuntimeException(est);
 
         }
