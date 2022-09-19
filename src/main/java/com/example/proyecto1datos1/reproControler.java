@@ -8,9 +8,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+import javafx.scene.paint.Paint;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Paint;
 
 import java.io.File;
 import java.net.URL;
@@ -26,17 +26,18 @@ public class reproControler implements Initializable {
     private Slider volumenbar;
     @FXML
     private ProgressBar SongProgresbar;
-    private Media media;
-    private MediaPlayer mediaplayer;
     private File directory;
     private File[] files;
     private ArrayList<File> song;
     private int songNumber;
     private Timer timer;
     private TimerTask task;
+    private Media media;
+    private MediaPlayer mediaPlayer;
     private boolean play;
     private boolean bucle;
     private boolean like;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         song = new ArrayList<File>();
@@ -51,22 +52,21 @@ public class reproControler implements Initializable {
                 @Override
                 public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                     System.out.println(volumenbar.getValue());
+                    mediaPlayer.setVolume(volumenbar.getValue());
                 }
             });
         }
         System.out.println(song.get(songNumber).toURI().toString());
-        //media = new Media(song.get(songNumber).toURI().toString());
-        //mediaplayer = new MediaPlayer(media);
+        media= new Media(song.get(songNumber).toURI().toString());
+        mediaPlayer= new MediaPlayer(media);
     }
     public void PlayPause(){
         if(play==false){
-            //mediaplayer.play();
-            System.out.println("play");
+           mediaPlayer.play();
             pauseButton.setText("⏸");
             play=true;
         }else {
-            //mediaplayer.pause();
-            System.out.println("pause");
+            mediaPlayer.pause();
             pauseButton.setText("▶");
             play=false;
         }
@@ -79,11 +79,9 @@ public class reproControler implements Initializable {
     }
     public void listBucle(){
         if (bucle==false) {
-            System.out.println("bucle");
             BucleButton.setText("🔁");
             bucle= true;
         }else {
-            System.out.println("No bucle");
             BucleButton.setText("🔀");
             bucle= false;
         }

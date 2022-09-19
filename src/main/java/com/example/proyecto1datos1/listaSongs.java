@@ -1,5 +1,7 @@
 package com.example.proyecto1datos1;
 
+import java.io.File;
+
 public class listaSongs {
     private Songs cabeza;
     private Songs last;
@@ -10,13 +12,13 @@ public class listaSongs {
         last = null;
         size = 0;
     }
-    public void addsong(String cancion, String genero, String artista, String album, String año, String letra, String pad){
+    public void addsong(String cancion, String genero, String artista, String album, String año, String letra, File data){
         if (cabeza==null){
-            cabeza = new Songs(cancion, genero, artista, album, año, letra, pad);
+            cabeza = new Songs(cancion, genero, artista, album, año, letra, data);
             last = cabeza;
         }else {
             Songs Temp = cabeza;
-            Songs nuevo = new Songs(cancion, genero, artista, album, año, letra, pad);
+            Songs nuevo = new Songs(cancion, genero, artista, album, año, letra, data);
             nuevo.setNext(Temp);
             Temp.setPrev(nuevo);
             cabeza = nuevo;

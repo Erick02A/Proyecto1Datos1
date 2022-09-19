@@ -1,5 +1,7 @@
 package com.example.proyecto1datos1;
 
+import java.io.File;
+
 public class Songs {
     private String cancion;
     private String genero;
@@ -7,11 +9,11 @@ public class Songs {
     private String album;
     private String año;
     private String letra;
-    private Object data;
+    private File data;
     private Songs next;
     private Songs prev;
 
-    public Songs(String cancion, String genero, String artista, String album, String año, String letra, String pad) {
+    public Songs(String cancion, String genero, String artista, String album, String año, String letra, File data) {
         this.cancion = cancion;
         this.genero = genero;
         this.artista = artista;
@@ -30,7 +32,7 @@ public class Songs {
         this.prev = prev;
     }
 
-    public void setPad(String data) {
+    public void setPad(File data) {
         this.data = data;
     }
 
@@ -58,8 +60,8 @@ public class Songs {
         this.cancion = cancion;
     }
 
-    public String getdata() {
-        return (String) data;
+    public File getdata() {
+        return data;
     }
 
     public String getLetra() {
