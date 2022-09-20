@@ -1,0 +1,273 @@
+Index: src/main/java/com/example/proyecto1datos1/reproControler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto1datos1;\r\n\r\n\r\nimport javafx.beans.value.ChangeListener;\r\nimport javafx.beans.value.ObservableValue;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.Initializable;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.ProgressBar;\r\nimport javafx.scene.control.Slider;\r\nimport javafx.scene.media.Media;\r\nimport javafx.scene.media.MediaPlayer;\r\nimport javafx.scene.paint.Paint;\r\n\r\nimport java.io.File;\r\nimport java.net.URL;\r\nimport java.util.ArrayList;\r\nimport java.util.ResourceBundle;\r\nimport java.util.Timer;\r\nimport java.util.TimerTask;\r\n\r\npublic class reproControler implements Initializable {\r\n    @FXML\r\n    private Button pauseButton, PreviusButton, NextButton, BucleButton,LikeButton;\r\n    @FXML\r\n    private Slider volumenbar;\r\n    @FXML\r\n    private ProgressBar SongProgresbar;\r\n    private Media media;\r\n    private MediaPlayer mediaplayer;\r\n    private File directory;\r\n    private File[] files;\r\n    private ArrayList<File> song;\r\n    private int songNumber;\r\n    private Timer timer;\r\n    private TimerTask task;\r\n    private boolean play;\r\n    private boolean bucle;\r\n    private boolean like;\r\n    @Override\r\n    public void initialize(URL url, ResourceBundle resourceBundle) {\r\n        song = new ArrayList<File>();\r\n        directory = new File(\"music\");\r\n        files = directory.listFiles();\r\n        if (files != null){\r\n            for(File file: files){\r\n                song.add(file);\r\n                System.out.println(file);\r\n            }\r\n            volumenbar.valueProperty().addListener(new ChangeListener<Number>() {\r\n                @Override\r\n                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {\r\n                    System.out.println(volumenbar.getValue());\r\n                }\r\n            });\r\n        }\r\n        System.out.println(song.get(songNumber).toURI().toString());\r\n        //media = new Media(song.get(songNumber).toURI().toString());\r\n        //mediaplayer = new MediaPlayer(media);\r\n    }\r\n    public void PlayPause(){\r\n        if(play==false){\r\n            //mediaplayer.play();\r\n            System.out.println(\"play\");\r\n            pauseButton.setText(\"⏸\");\r\n            play=true;\r\n        }else {\r\n            //mediaplayer.pause();\r\n            System.out.println(\"pause\");\r\n            pauseButton.setText(\"▶\");\r\n            play=false;\r\n        }\r\n    }\r\n    public void previusSong(){\r\n        System.out.println(\"back\");\r\n    }\r\n    public void NextSong(){\r\n        System.out.println(\"next\");\r\n    }\r\n    public void listBucle(){\r\n        if (bucle==false) {\r\n            System.out.println(\"bucle\");\r\n            BucleButton.setText(\"\uD83D\uDD01\");\r\n            bucle= true;\r\n        }else {\r\n            System.out.println(\"No bucle\");\r\n            BucleButton.setText(\"\uD83D\uDD00\");\r\n            bucle= false;\r\n        }\r\n    }\r\n    public void LikeSong(){\r\n        if(like==false) {\r\n            System.out.println(\"like\");\r\n            LikeButton.setTextFill(Paint.valueOf(\"#e70606\"));\r\n            like= true;\r\n        }else {\r\n            System.out.println(\"No Like\");\r\n            LikeButton.setTextFill(Paint.valueOf(\"#000000\"));\r\n            like= false;\r\n        }\r\n    }\r\n    public void setBucle(boolean B){\r\n        bucle=B;\r\n    }\r\n    public void setLike(boolean D){\r\n        like=D;\r\n    }\r\n    public  void setPlay(boolean F){\r\n        play=F;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/reproControler.java b/src/main/java/com/example/proyecto1datos1/reproControler.java
+--- a/src/main/java/com/example/proyecto1datos1/reproControler.java	(revision 2b7a8c2f12e3db6a3a6277d0ea82e3032674be34)
++++ b/src/main/java/com/example/proyecto1datos1/reproControler.java	(date 1663631313922)
+@@ -8,9 +8,9 @@
+ import javafx.scene.control.Button;
+ import javafx.scene.control.ProgressBar;
+ import javafx.scene.control.Slider;
++import javafx.scene.paint.Paint;
+ import javafx.scene.media.Media;
+ import javafx.scene.media.MediaPlayer;
+-import javafx.scene.paint.Paint;
+ 
+ import java.io.File;
+ import java.net.URL;
+@@ -26,17 +26,18 @@
+     private Slider volumenbar;
+     @FXML
+     private ProgressBar SongProgresbar;
+-    private Media media;
+-    private MediaPlayer mediaplayer;
+     private File directory;
+     private File[] files;
+     private ArrayList<File> song;
+     private int songNumber;
+     private Timer timer;
+     private TimerTask task;
++    private Media media;
++    private MediaPlayer mediaPlayer;
+     private boolean play;
+     private boolean bucle;
+     private boolean like;
++
+     @Override
+     public void initialize(URL url, ResourceBundle resourceBundle) {
+         song = new ArrayList<File>();
+@@ -51,22 +52,21 @@
+                 @Override
+                 public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                     System.out.println(volumenbar.getValue());
++                    mediaPlayer.setVolume(volumenbar.getValue());
+                 }
+             });
+         }
+         System.out.println(song.get(songNumber).toURI().toString());
+-        //media = new Media(song.get(songNumber).toURI().toString());
+-        //mediaplayer = new MediaPlayer(media);
++        media= new Media(song.get(songNumber).toURI().toString());
++        mediaPlayer= new MediaPlayer(media);
+     }
+     public void PlayPause(){
+         if(play==false){
+-            //mediaplayer.play();
+-            System.out.println("play");
++           mediaPlayer.play();
+             pauseButton.setText("⏸");
+             play=true;
+         }else {
+-            //mediaplayer.pause();
+-            System.out.println("pause");
++            mediaPlayer.pause();
+             pauseButton.setText("▶");
+             play=false;
+         }
+@@ -79,11 +79,9 @@
+     }
+     public void listBucle(){
+         if (bucle==false) {
+-            System.out.println("bucle");
+             BucleButton.setText("🔁");
+             bucle= true;
+         }else {
+-            System.out.println("No bucle");
+             BucleButton.setText("🔀");
+             bucle= false;
+         }
+Index: src/main/java/com/example/proyecto1datos1/Songs.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto1datos1;\r\n\r\npublic class Songs {\r\n    private String cancion;\r\n    private String genero;\r\n    private String artista;\r\n    private String album;\r\n    private String año;\r\n    private String letra;\r\n    private Object data;\r\n    private Songs next;\r\n    private Songs prev;\r\n\r\n    public Songs(String cancion, String genero, String artista, String album, String año, String letra, String pad) {\r\n        this.cancion = cancion;\r\n        this.genero = genero;\r\n        this.artista = artista;\r\n        this.album = album;\r\n        this.año = año;\r\n        this.letra = letra;\r\n        this.data = data;\r\n        this.next = null;\r\n        this.prev = null;\r\n    }\r\n    public Songs getPrev() {\r\n        return prev;\r\n    }\r\n\r\n    public void setPrev(Songs prev) {\r\n        this.prev = prev;\r\n    }\r\n\r\n    public void setPad(String data) {\r\n        this.data = data;\r\n    }\r\n\r\n    public void setLetra(String letra) {\r\n        this.letra = letra;\r\n    }\r\n\r\n    public void setAño(String año) {\r\n        this.año = año;\r\n    }\r\n\r\n    public void setAlbum(String album) {\r\n        this.album = album;\r\n    }\r\n\r\n    public void setArtista(String artista) {\r\n        this.artista = artista;\r\n    }\r\n\r\n    public void setGenero(String genero) {\r\n        this.genero = genero;\r\n    }\r\n\r\n    public void setCancion(String cancion) {\r\n        this.cancion = cancion;\r\n    }\r\n\r\n    public String getdata() {\r\n        return (String) data;\r\n    }\r\n\r\n    public String getLetra() {\r\n        return letra;\r\n    }\r\n\r\n    public String getAño() {\r\n        return año;\r\n    }\r\n\r\n    public String getAlbum() {\r\n        return album;\r\n    }\r\n\r\n    public String getArtista() {\r\n        return artista;\r\n    }\r\n\r\n    public String getGenero() {\r\n        return genero;\r\n    }\r\n\r\n    public String getCancion() {\r\n        return cancion;\r\n    }\r\n\r\n    public void setNext(Songs songs){\r\n        next = songs;\r\n    }\r\n    public Songs getNext(){\r\n        return next;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/Songs.java b/src/main/java/com/example/proyecto1datos1/Songs.java
+--- a/src/main/java/com/example/proyecto1datos1/Songs.java	(revision 2b7a8c2f12e3db6a3a6277d0ea82e3032674be34)
++++ b/src/main/java/com/example/proyecto1datos1/Songs.java	(date 1663630343822)
+@@ -1,5 +1,7 @@
+ package com.example.proyecto1datos1;
+ 
++import java.io.File;
++
+ public class Songs {
+     private String cancion;
+     private String genero;
+@@ -7,11 +9,11 @@
+     private String album;
+     private String año;
+     private String letra;
+-    private Object data;
++    private File data;
+     private Songs next;
+     private Songs prev;
+ 
+-    public Songs(String cancion, String genero, String artista, String album, String año, String letra, String pad) {
++    public Songs(String cancion, String genero, String artista, String album, String año, String letra, File data) {
+         this.cancion = cancion;
+         this.genero = genero;
+         this.artista = artista;
+@@ -30,7 +32,7 @@
+         this.prev = prev;
+     }
+ 
+-    public void setPad(String data) {
++    public void setPad(File data) {
+         this.data = data;
+     }
+ 
+@@ -58,8 +60,8 @@
+         this.cancion = cancion;
+     }
+ 
+-    public String getdata() {
+-        return (String) data;
++    public File getdata() {
++        return data;
+     }
+ 
+     public String getLetra() {
+Index: src/main/java/com/example/proyecto1datos1/listaSongs.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto1datos1;\r\n\r\npublic class listaSongs {\r\n    private Songs cabeza;\r\n    private Songs last;\r\n    private int size;\r\n\r\n    public listaSongs(Songs cabeza,Songs last,int size){\r\n        cabeza = null;\r\n        last = null;\r\n        size = 0;\r\n    }\r\n    public void addsong(String cancion, String genero, String artista, String album, String año, String letra, String pad){\r\n        if (cabeza==null){\r\n            cabeza = new Songs(cancion, genero, artista, album, año, letra, pad);\r\n            last = cabeza;\r\n        }else {\r\n            Songs Temp = cabeza;\r\n            Songs nuevo = new Songs(cancion, genero, artista, album, año, letra, pad);\r\n            nuevo.setNext(Temp);\r\n            Temp.setPrev(nuevo);\r\n            cabeza = nuevo;\r\n        }\r\n        size++;\r\n    }\r\n    public void eliminar(Songs song){\r\n        song.getPrev().setNext(song.getNext());\r\n        song.getNext().setPrev(song.getPrev());\r\n    }\r\n    public int getSize(){\r\n        return size;\r\n    }\r\n    public boolean estaVacio(){\r\n        return (cabeza==null)?true:false;\r\n    }\r\n    public void bucle(Boolean a){\r\n        if(a==false) {\r\n            last.setNext(cabeza);\r\n            cabeza.setPrev(last);\r\n        }else {\r\n            last.setNext(null);\r\n            cabeza.setPrev(null);\r\n        }\r\n    }\r\n    public String obtener(int index){\r\n        int contador = 0;\r\n        Songs temporal = cabeza;\r\n        while (contador<index){\r\n            temporal=temporal.getNext();\r\n            contador++;\r\n        }\r\n        return temporal.getCancion();\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/listaSongs.java b/src/main/java/com/example/proyecto1datos1/listaSongs.java
+--- a/src/main/java/com/example/proyecto1datos1/listaSongs.java	(revision 2b7a8c2f12e3db6a3a6277d0ea82e3032674be34)
++++ b/src/main/java/com/example/proyecto1datos1/listaSongs.java	(date 1663630343801)
+@@ -1,5 +1,7 @@
+ package com.example.proyecto1datos1;
+ 
++import java.io.File;
++
+ public class listaSongs {
+     private Songs cabeza;
+     private Songs last;
+@@ -10,13 +12,13 @@
+         last = null;
+         size = 0;
+     }
+-    public void addsong(String cancion, String genero, String artista, String album, String año, String letra, String pad){
++    public void addsong(String cancion, String genero, String artista, String album, String año, String letra, File data){
+         if (cabeza==null){
+-            cabeza = new Songs(cancion, genero, artista, album, año, letra, pad);
++            cabeza = new Songs(cancion, genero, artista, album, año, letra, data);
+             last = cabeza;
+         }else {
+             Songs Temp = cabeza;
+-            Songs nuevo = new Songs(cancion, genero, artista, album, año, letra, pad);
++            Songs nuevo = new Songs(cancion, genero, artista, album, año, letra, data);
+             nuevo.setNext(Temp);
+             Temp.setPrev(nuevo);
+             cabeza = nuevo;
+Index: src/main/java/com/example/proyecto1datos1/Usuarios.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto1datos1;\r\n\r\nimport javafx.event.ActionEvent;\r\nimport javafx.scene.control.*;\r\nimport java.io.IOException;\r\nimport java.io.BufferedReader;\r\nimport java.io.FileReader;\r\n\r\npublic class Usuarios{\r\n\r\n\r\n    public static void Datos(String Contraseña, String Correo, Label error) {\r\n        String linea, Name, correo, contraseña, Provincia;\r\n\r\n\r\n        try {\r\n            //reproControler.PlayPause();\r\n            BufferedReader br = new BufferedReader(new FileReader(\"C:\\\\Users\\\\andre\\\\Desktop\\\\java\\\\Proyecto1Datos1\\\\src\\\\main\\\\java\\\\com\\\\example\\\\proyecto1datos1\\\\Users.csv\"));\r\n            //BufferedReader br = new BufferedReader(new FileReader(\"C:\\\\Users\\\\Erick\\\\Desktop\\\\Datos I\\\\Proyecto1Datos1\\\\src\\\\main\\\\java\\\\com\\\\example\\\\proyecto1datos1\\\\Users.csv\"));\r\n            linea = \"\";\r\n            while ((linea = br.readLine()) != null) {\r\n                String[] datos = linea.split(\",\");\r\n                Name = datos[0];\r\n                correo = datos[1];\r\n                Provincia = datos[2];\r\n                contraseña = datos[3];\r\n                if ( Contraseña.equals(contraseña) && Correo.equals(correo)) {\r\n                    MusicPro m = new MusicPro();\r\n                    m.CambiarPantalla(\"repro.fxml\");\r\n\r\n\r\n\r\n                }else if (Contraseña.isEmpty() | Correo.isEmpty()) {\r\n                    error.setText(\"Verifique que todos los espacios esten llenos\");\r\n\r\n                }else{error.setText(\"Usuario incorrecto\");}\r\n            }\r\n\r\n\r\n\r\n        } catch (IOException est) {\r\n            System.out.println(\"error\");\r\n            throw new RuntimeException(est);\r\n\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/Usuarios.java b/src/main/java/com/example/proyecto1datos1/Usuarios.java
+--- a/src/main/java/com/example/proyecto1datos1/Usuarios.java	(revision 2b7a8c2f12e3db6a3a6277d0ea82e3032674be34)
++++ b/src/main/java/com/example/proyecto1datos1/Usuarios.java	(date 1663463072407)
+@@ -9,14 +9,13 @@
+ public class Usuarios{
+ 
+ 
+-    public static void Datos(String Contraseña, String Correo, Label error) {
++    public static void Datos(String Contraseña, String Correo, Label error) throws IOException {
+         String linea, Name, correo, contraseña, Provincia;
+ 
+-
+         try {
+             //reproControler.PlayPause();
+-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
++            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
++            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+             linea = "";
+             while ((linea = br.readLine()) != null) {
+                 String[] datos = linea.split(",");
+@@ -39,7 +38,7 @@
+ 
+ 
+         } catch (IOException est) {
+-            System.out.println("error");
++           System.out.println("error");
+             throw new RuntimeException(est);
+ 
+         }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9ea46d4f-d316-429e-ada4-fa297ebef67e\" name=\"Changes\" comment=\".\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/MusicPro.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/MusicPro.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2E3mjmP8QNO53OdoooJO9JQe7My\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"last_opened_file_path\": \"C:/Users/Erick/Desktop/Datos I/Proyecto1Datos1\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"project.structure.last.edited\": \"Libraries\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9ea46d4f-d316-429e-ada4-fa297ebef67e\" name=\"Changes\" comment=\"\" />\r\n      <created>1661832780494</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1661832780494</updated>\r\n      <workItem from=\"1661833183187\" duration=\"267000\" />\r\n      <workItem from=\"1662499465006\" duration=\"200000\" />\r\n      <workItem from=\"1663221256831\" duration=\"10341000\" />\r\n      <workItem from=\"1663271767878\" duration=\"647000\" />\r\n      <workItem from=\"1663298907889\" duration=\"57000\" />\r\n      <workItem from=\"1663366788605\" duration=\"4543000\" />\r\n      <workItem from=\"1663427805154\" duration=\"4168000\" />\r\n      <workItem from=\"1663431992219\" duration=\"3939000\" />\r\n      <workItem from=\"1663438336385\" duration=\"2464000\" />\r\n      <workItem from=\"1663449902459\" duration=\"111000\" />\r\n      <workItem from=\"1663451768021\" duration=\"680000\" />\r\n      <workItem from=\"1663453186145\" duration=\"6753000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663226265352</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663226265352</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663228169550</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663228169550</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663232482947</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663232482947</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663272288606</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663272288606</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"cambio de ventana\">\r\n      <created>1663278993330</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663278993330</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"cambio de ventana\">\r\n      <created>1663279048897</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663279048897</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"Detalles menores\">\r\n      <created>1663282487809</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663282487809</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"Creacion de listas doblemente enlasadas y los nodos Songs\">\r\n      <created>1663293580673</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663293580673</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"Creacion de listas doblemente enlasadas y los nodos Songs\">\r\n      <created>1663293610470</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663293610470</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"implementacion de algunos enlaces en las listas\">\r\n      <created>1663298944291</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663298944291</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\".\">\r\n      <created>1663385264192</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663385264192</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\".\">\r\n      <created>1663386377019</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663386377019</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"se añade el modulo media de JavaFx\">\r\n      <created>1663431252753</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663431252753</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"se crea el reproductor\">\r\n      <created>1663433507016</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663433507016</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\".\">\r\n      <created>1663437753420</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663437753420</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\".\">\r\n      <created>1663457642600</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663457642600</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\".\">\r\n      <created>1663458303484</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663458303484</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"18\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"En proceso la creacion de usuarios\" />\r\n    <MESSAGE value=\"cambio de ventana\" />\r\n    <MESSAGE value=\"Detalles menores\" />\r\n    <MESSAGE value=\"Creacion de listas doblemente enlasadas y los nodos Songs\" />\r\n    <MESSAGE value=\"implementacion de algunos enlaces en las listas\" />\r\n    <MESSAGE value=\"se añade el modulo media de JavaFx\" />\r\n    <MESSAGE value=\"se crea el reproductor\" />\r\n    <MESSAGE value=\".\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\".\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 2b7a8c2f12e3db6a3a6277d0ea82e3032674be34)
++++ b/.idea/workspace.xml	(date 1663631313957)
+@@ -5,8 +5,19 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment=".">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_9_2022_21_47__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_9_2022_21_47__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06__Changes_1.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59__Changes_1.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13__Changes_1.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_36__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_36__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_45__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_45__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/MusicPro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/MusicPro.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Songs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Songs.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/listaSongs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/listaSongs.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -38,7 +49,7 @@
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+     "WebServerToolWindowFactoryState": "false",
+-    "last_opened_file_path": "C:/Users/Erick/Desktop/Datos I/Proyecto1Datos1",
++    "last_opened_file_path": "C:/javafx-sdk-19/lib/javafx.media.jar",
+     "node.js.detected.package.eslint": "true",
+     "node.js.detected.package.tslint": "true",
+     "node.js.selected.package.eslint": "(autodetect)",
+@@ -67,7 +78,9 @@
+       <workItem from="1663438336385" duration="2464000" />
+       <workItem from="1663449902459" duration="111000" />
+       <workItem from="1663451768021" duration="680000" />
+-      <workItem from="1663453186145" duration="6753000" />
++      <workItem from="1663453186145" duration="11797000" />
++      <workItem from="1663613515350" duration="8525000" />
++      <workItem from="1663622904161" duration="4186000" />
+     </task>
+     <task id="LOCAL-00001" summary="En proceso la creacion de usuarios">
+       <created>1663226265352</created>
+@@ -188,7 +201,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1663458303484</updated>
+     </task>
+-    <option name="localTasksCounter" value="18" />
++    <task id="LOCAL-00018" summary=".">
++      <created>1663459994693</created>
++      <option name="number" value="00018" />
++      <option name="presentableId" value="LOCAL-00018" />
++      <option name="project" value="LOCAL" />
++      <updated>1663459994693</updated>
++    </task>
++    <option name="localTasksCounter" value="19" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">

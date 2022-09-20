@@ -7,12 +7,12 @@ public class listaSongs {
     private Songs last;
     private int size;
 
-    public listaSongs(Songs cabeza,Songs last,int size){
-        cabeza = null;
-        last = null;
-        size = 0;
+    public listaSongs(){
+        this.cabeza = null;
+        this.last = null;
+        this.size = 0;
     }
-    public void addsong(String cancion, String genero, String artista, String album, String año, String letra, File data){
+    public void addsongfirst(String cancion, String genero, String artista, String album, String año, String letra, File data){
         if (cabeza==null){
             cabeza = new Songs(cancion, genero, artista, album, año, letra, data);
             last = cabeza;
@@ -22,6 +22,18 @@ public class listaSongs {
             nuevo.setNext(Temp);
             Temp.setPrev(nuevo);
             cabeza = nuevo;
+        }
+        size++;
+    }
+    public void addsonglast(String cancion, String genero, String artista, String album, String año, String letra, File data){
+        if (cabeza==null){
+            cabeza = new Songs(cancion, genero, artista, album, año, letra, data);
+            last = cabeza;
+        }else {
+            Songs nuevo = new Songs(cancion, genero,artista, album, año, letra, data);
+            last.setNext(nuevo);
+            nuevo.setPrev(last);
+            last = nuevo;
         }
         size++;
     }
@@ -53,5 +65,7 @@ public class listaSongs {
         }
         return temporal.getCancion();
     }
-
+    public Songs getCabeza(){
+        return cabeza;
+    }
 }

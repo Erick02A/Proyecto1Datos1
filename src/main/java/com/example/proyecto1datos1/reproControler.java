@@ -28,7 +28,7 @@ public class reproControler implements Initializable {
     private ProgressBar SongProgresbar;
     private File directory;
     private File[] files;
-    private ArrayList<File> song;
+    private listaSongs songs;
     private int songNumber;
     private Timer timer;
     private TimerTask task;
@@ -37,36 +37,36 @@ public class reproControler implements Initializable {
     private boolean play;
     private boolean bucle;
     private boolean like;
+    private Songs song;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        song = new ArrayList<File>();
         directory = new File("music");
         files = directory.listFiles();
         if (files != null){
             for(File file: files){
-                song.add(file);
+                songs.addsonglast("nombre","genero","artista","album","2001","letra",file);
                 System.out.println(file);
             }
             volumenbar.valueProperty().addListener(new ChangeListener<Number>() {
                 @Override
                 public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                     System.out.println(volumenbar.getValue());
-                    mediaPlayer.setVolume(volumenbar.getValue());
+                    //mediaPlayer.setVolume(volumenbar.getValue());
                 }
             });
         }
-        System.out.println(song.get(songNumber).toURI().toString());
-        media= new Media(song.get(songNumber).toURI().toString());
-        mediaPlayer= new MediaPlayer(media);
+        System.out.println(song.getdata().toURI().toString());
+        //media= new Media(song.get(songNumber).toURI().toString());
+        //mediaPlayer= new MediaPlayer(media);
     }
     public void PlayPause(){
         if(play==false){
-           mediaPlayer.play();
+            //mediaPlayer.play();
             pauseButton.setText("⏸");
             play=true;
         }else {
-            mediaPlayer.pause();
+            //mediaPlayer.pause();
             pauseButton.setText("▶");
             play=false;
         }
