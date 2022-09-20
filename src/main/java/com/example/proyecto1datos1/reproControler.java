@@ -41,6 +41,7 @@ public class reproControler implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        songs = new listaSongs();
         directory = new File("music");
         files = directory.listFiles();
         if (files != null){
@@ -56,6 +57,7 @@ public class reproControler implements Initializable {
                 }
             });
         }
+        song = songs.getCabeza();
         System.out.println(song.getdata().toURI().toString());
         //media= new Media(song.get(songNumber).toURI().toString());
         //mediaPlayer= new MediaPlayer(media);
@@ -88,11 +90,9 @@ public class reproControler implements Initializable {
     }
     public void LikeSong(){
         if(like==false) {
-            System.out.println("like");
             LikeButton.setTextFill(Paint.valueOf("#e70606"));
             like= true;
         }else {
-            System.out.println("No Like");
             LikeButton.setTextFill(Paint.valueOf("#000000"));
             like= false;
         }

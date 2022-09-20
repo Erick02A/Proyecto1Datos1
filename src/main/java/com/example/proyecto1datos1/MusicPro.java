@@ -13,7 +13,7 @@ public class MusicPro extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Arduino.Arduino();
+        //Arduino.Arduino();
         Window = stage;
         Parent root = FXMLLoader.load(getClass().getResource("users.fxml"));
         stage.setTitle("MusicPro");
