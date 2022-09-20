@@ -25,6 +25,7 @@ public class MusicPro extends Application {
         Window.getScene().setRoot(pane);
     }
 
+
     public static void main(String[] args) {
         launch();
     }
