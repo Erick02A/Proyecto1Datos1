@@ -11,6 +11,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.paint.Paint;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.net.URL;
@@ -46,7 +47,7 @@ public class reproControler implements Initializable {
         files = directory.listFiles();
         if (files != null){
             for(File file: files){
-                songs.addsonglast("nombre","genero","artista","album","2001","letra",file);
+                songs.addsonglast(file.toString(),"genero","artista","album","2001","letra",file);
                 System.out.println(file);
             }
             volumenbar.valueProperty().addListener(new ChangeListener<Number>() {
@@ -74,25 +75,48 @@ public class reproControler implements Initializable {
         }
     }
     public void previusSong(){
-        System.out.println("back");
+        if (song.getPrev() != null) {
+            song = song.getPrev();
+            System.out.println(song.getdata().toURI().toString());
+            media = new Media(song.getdata().toURI().toString());
+            //mediaPlayer= new MediaPlayer(media);
+            play=false;
+            PlayPause();
+        }else {
+            System.out.println(song.getdata().toURI().toString());
+            //mediaPlayer.seek(Duration.seconds(0));
+        }
     }
     public void NextSong(){
-        System.out.println("next");
+        if (song.getNext() != null) {
+            song = song.getNext();
+            System.out.println(song.getdata().toURI().toString());
+            media = new Media(song.getdata().toURI().toString());
+            //mediaPlayer= new MediaPlayer(media);
+            play=false;
+            PlayPause();
+        }else {
+            System.out.println(song.getdata().toURI().toString());
+        }
     }
     public void listBucle(){
         if (bucle==false) {
             BucleButton.setText("🔁");
+            songs.bucle(bucle);
             bucle= true;
         }else {
             BucleButton.setText("🔀");
+            songs.bucle(bucle);
             bucle= false;
         }
     }
     public void LikeSong(){
         if(like==false) {
+            System.out.println(song.getCancion()+" me gusta");
             LikeButton.setTextFill(Paint.valueOf("#e70606"));
             like= true;
         }else {
+            System.out.println(song.getCancion()+" no me gusta");
             LikeButton.setTextFill(Paint.valueOf("#000000"));
             like= false;
         }
