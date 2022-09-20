@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="Proceso de implementacion de arduino">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_17_48__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_17_48__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/BLU Triumphs!(1).mp3" beforeDir="false" afterPath="$PROJECT_DIR$/music/BLUTriumphs!(1).mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/BLU Triumphs!.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/music/BLUTriumphs!.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/RocketJumpWaltzOrchestra (1).mp3" beforeDir="false" afterPath="$PROJECT_DIR$/music/RocketJumpWaltzOrchestra(1).mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/Sad Sound.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/music/SadSound.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/Scrapped Upgrade Station (1).mp3" beforeDir="false" afterPath="$PROJECT_DIR$/music/ScrappedUpgradeStation(1).mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/Scrapped Upgrade Station.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/music/ScrappedUpgradeStation.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/Wet Hands.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/music/WetHands.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/TimeScheduleHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/TimeScheduleHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
-    </list>
+    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="Proceso de implementacion de arduino" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,7 +69,7 @@
       <workItem from="1663451768021" duration="680000" />
       <workItem from="1663453186145" duration="6753000" />
       <workItem from="1663633106892" duration="8933000" />
-      <workItem from="1663650458425" duration="730000" />
+      <workItem from="1663650458425" duration="1050000" />
     </task>
     <task id="LOCAL-00001" summary="En proceso la creacion de usuarios">
       <created>1663226265352</created>
@@ -253,7 +239,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663640973443</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Proceso de implementacion de arduino">
+      <created>1663651335140</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1663651335141</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,6 +272,7 @@
     <MESSAGE value="se añade el modulo media de JavaFx" />
     <MESSAGE value="se crea el reproductor" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="Proceso de implementacion de arduino" />
+    <option name="LAST_COMMIT_MESSAGE" value="Proceso de implementacion de arduino" />
   </component>
 </project>
