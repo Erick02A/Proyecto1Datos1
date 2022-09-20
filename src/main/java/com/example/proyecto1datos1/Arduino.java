@@ -11,7 +11,7 @@ public class Arduino {
 
 
         sp.setComPortParameters(9600, Byte.SIZE, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
-        sp.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING,300,300);
+        sp.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING,0,0);
 
         var hasOpened = sp.openPort();
         if(!hasOpened){throw new IllegalStateException("Error al abrir el serial port");}
@@ -21,6 +21,7 @@ public class Arduino {
         var timedSchedule = new TimeScheduleHandler(timeStart);
 
         sp.addDataListener(timedSchedule);
+
         System.out.println("Listen: " + timedSchedule.getListeningEvents());
         timer.schedule(timedSchedule,0 , 1000);
 

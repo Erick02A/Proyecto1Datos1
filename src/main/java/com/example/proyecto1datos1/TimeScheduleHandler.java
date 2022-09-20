@@ -9,7 +9,6 @@ import java.util.TimerTask;
 
 public class TimeScheduleHandler extends TimerTask implements SerialPortDataListener {
     private final long timeStart;
-
     public TimeScheduleHandler(long timeStart) {
         this.timeStart = timeStart;
 

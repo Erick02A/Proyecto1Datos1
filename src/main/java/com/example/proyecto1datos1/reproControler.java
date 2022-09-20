@@ -60,11 +60,11 @@ public class reproControler implements Initializable {
         song = songs.getCabeza();
         System.out.println(song.getdata().toURI().toString());
         media= new Media(song.getdata().toURI().toString());
-        //mediaPlayer= new MediaPlayer(media);
+        mediaPlayer= new MediaPlayer(media);
     }
     public void PlayPause(){
         if(play==false){
-            //mediaPlayer.play();
+            mediaPlayer.play();
             pauseButton.setText("⏸");
             play=true;
         }else {
