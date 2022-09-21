@@ -1,6 +1,9 @@
 package com.example.proyecto1datos1;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Songs {
     private String cancion;
@@ -10,6 +13,7 @@ public class Songs {
     private String año;
     private String letra;
     private File data;
+    private boolean like;
     private Songs next;
     private static Songs prev;
 
@@ -21,6 +25,7 @@ public class Songs {
         this.año = año;
         this.letra = letra;
         this.data = data;
+        this.like = false;
         this.next = null;
         this.prev = null;
     }
@@ -58,6 +63,11 @@ public class Songs {
 
     public void setCancion(String cancion) {
         this.cancion = cancion;
+    }
+    public void setLike(boolean like) throws IOException {
+        this.like=like;
+        BufferedWriter Bf = new BufferedWriter(new FileWriter("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Likelist.csv"));
+
     }
 
     public File getdata() {

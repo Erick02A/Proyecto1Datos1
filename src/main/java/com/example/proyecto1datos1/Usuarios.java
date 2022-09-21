@@ -2,6 +2,8 @@ package com.example.proyecto1datos1;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
