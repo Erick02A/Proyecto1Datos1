@@ -93,7 +93,7 @@ if(digitalRead(buttonNext)== HIGH){
   delay(300);
   
   }
-  
+
 int sensorValue = analogRead(V);
 vol = analogRead(V); //potenciometro 10k
 if (vol >= 0 && vol <= 100){

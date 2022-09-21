@@ -1,0 +1,215 @@
+Index: src/main/java/com/example/proyecto1datos1/Arduino.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto1datos1;\r\n\r\nimport com.fazecast.jSerialComm.SerialPort;\r\n\r\nimport java.util.Scanner;\r\n\r\npublic class Arduino {\r\n    public void Arduino() throws InterruptedException {\r\n        var sp = SerialPort.getCommPort(\"COM5\");\r\n\r\n        sp.setComPortParameters(9600, Byte.SIZE, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);\r\n        sp.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING,0,0);\r\n\r\n        var hasOpened = sp.openPort();\r\n        if(!hasOpened){throw new IllegalStateException(\"Error al abrir el serial port\");}\r\n\r\n        Scanner data = new Scanner(sp.getInputStream());\r\n\r\n        while (data.hasNextLine()){\r\n            if (data.nextLine() == \"Play0\"){\r\n                System.out.println(\"Play\");\r\n                break;\r\n            }\r\n            else if (data.nextLine() == \"Previous\"){\r\n                System.out.println(\"Play\");\r\n                break;\r\n            }else if (data.nextLine() == \"Next\"){\r\n                System.out.println(\"Next\");\r\n                break;\r\n            }else if (data.nextLine() == \"Like\"){\r\n                System.out.println(\"Like\");\r\n                break;\r\n            }else if (data.nextLine() == \"NOLike\"){\r\n                System.out.println(\"DisLike\");\r\n                break;\r\n            }else if (data.nextLine() == \"Bucle\"){\r\n                System.out.println(\"Bucle\");\r\n                break;\r\n            }else if (data.nextLine() == \"NOBucle\"){\r\n                System.out.println(\"NoBucle\");\r\n                break;\r\n            }else {\r\n                System.out.println(data.nextLine());\r\n            }\r\n        }\r\n\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/Arduino.java b/src/main/java/com/example/proyecto1datos1/Arduino.java
+--- a/src/main/java/com/example/proyecto1datos1/Arduino.java	(revision 274284137a15e13dd54ac4dc84a2e202316a5e32)
++++ b/src/main/java/com/example/proyecto1datos1/Arduino.java	(date 1663783536588)
+@@ -4,46 +4,62 @@
+ 
+ import java.util.Scanner;
+ 
+-public class Arduino {
+-    public void Arduino() throws InterruptedException {
++public class Arduino extends reproControler{
++
++
++    public static void Arduino() throws InterruptedException {
+         var sp = SerialPort.getCommPort("COM5");
+ 
+         sp.setComPortParameters(9600, Byte.SIZE, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
+-        sp.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING,0,0);
++        sp.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
+ 
+         var hasOpened = sp.openPort();
+-        if(!hasOpened){throw new IllegalStateException("Error al abrir el serial port");}
++        if (!hasOpened) {
++            throw new IllegalStateException("Error al abrir el serial port");
++        }
+ 
+         Scanner data = new Scanner(sp.getInputStream());
+ 
+-        while (data.hasNextLine()){
+-            if (data.nextLine() == "Play0"){
++        try {
++            while (data.hasNextLine()) {
++                String dato = (data.nextLine());
++                Orden(dato);
++            }
++
++        } catch (Exception e) {
++            System.out.println("3");
++            throw new RuntimeException(e);
++        }
++
++
++    }
++
++    private static void Orden(String dato) {
++        System.out.println(dato);
++        switch (dato){
++            case "Play":
+                 System.out.println("Play");
+                 break;
+-            }
+-            else if (data.nextLine() == "Previous"){
+-                System.out.println("Play");
++            case "Previous":
++                System.out.println("Previous");
+                 break;
+-            }else if (data.nextLine() == "Next"){
++            case "Next":
+                 System.out.println("Next");
+                 break;
+-            }else if (data.nextLine() == "Like"){
++            case "Like":
+                 System.out.println("Like");
+                 break;
+-            }else if (data.nextLine() == "NOLike"){
+-                System.out.println("DisLike");
++            case "NOLike":
++                System.out.println("NoLike");
+                 break;
+-            }else if (data.nextLine() == "Bucle"){
++            case "Bucle":
+                 System.out.println("Bucle");
+                 break;
+-            }else if (data.nextLine() == "NOBucle"){
+-                System.out.println("NoBucle");
++            case "NOBucle":
++                System.out.println("noBucle");
+                 break;
+-            }else {
+-                System.out.println(data.nextLine());
+-            }
++
+         }
+-
+     }
+ 
+ }
+Index: src/main/java/com/example/proyecto1datos1/reproControler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto1datos1;\r\n\r\n\r\nimport com.fazecast.jSerialComm.SerialPort;\r\nimport javafx.beans.value.ChangeListener;\r\nimport javafx.beans.value.ObservableValue;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.Initializable;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.ProgressBar;\r\nimport javafx.scene.control.Slider;\r\nimport javafx.scene.media.Media;\r\nimport javafx.scene.media.MediaPlayer;\r\nimport javafx.scene.paint.Paint;\r\nimport javafx.stage.FileChooser;\r\nimport javafx.util.Duration;\r\n\r\nimport java.io.File;\r\nimport java.net.URL;\r\nimport java.util.ResourceBundle;\r\nimport java.util.Scanner;\r\nimport java.util.Timer;\r\nimport java.util.TimerTask;\r\n\r\npublic class reproControler implements Initializable {\r\n    @FXML\r\n    private Button pauseButton;\r\n    @FXML\r\n    private Button PreviusButton;\r\n    @FXML\r\n    private Button NextButton;\r\n    @FXML\r\n    private Button BucleButton;\r\n    @FXML\r\n    private Button LikeButton;\r\n    @FXML\r\n    private Button buttonDelete;\r\n    @FXML\r\n    private Button buttonAdd;\r\n    @FXML\r\n    private Slider volumenbar;\r\n    @FXML\r\n    private ProgressBar SongProgresbar;\r\n    private File directory;\r\n    private File[] files;\r\n    private listaSongs songs;\r\n    private int songNumber;\r\n    private Timer timer;\r\n    private TimerTask task;\r\n    private Media media;\r\n    private MediaPlayer mediaPlayer;\r\n    private boolean play;\r\n    private boolean bucle;\r\n    private boolean like;\r\n    private boolean runing;\r\n    private Songs song;\r\n\r\n    @Override\r\n    public void initialize(URL url, ResourceBundle resourceBundle) {\r\n        songs = new listaSongs();\r\n        directory = new File(\"music\");\r\n        files = directory.listFiles();\r\n        if (files != null){\r\n            for(File file: files){\r\n                songs.addsonglast(file.toString(),\"genero\",\"artista\",\"album\",\"2001\",\"letra\",file);\r\n            }\r\n            volumenbar.valueProperty().addListener(new ChangeListener<Number>() {\r\n                @Override\r\n                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {\r\n                    mediaPlayer.setVolume(volumenbar.getValue());\r\n                }\r\n            });\r\n        }\r\n        song = songs.getCabeza();\r\n        System.out.println(song.getdata().toURI().toString());\r\n        media= new Media(song.getdata().toURI().toString());\r\n        mediaPlayer= new MediaPlayer(media);\r\n    }\r\n    public void PlayPause(){\r\n        if(play==false){\r\n            mediaPlayer.play();\r\n            pauseButton.setText(\"⏸\");\r\n            beginTimer();\r\n            play=true;\r\n        }else {\r\n            mediaPlayer.pause();\r\n            pauseButton.setText(\"▶\");\r\n            cancelTimer();\r\n            play=false;\r\n        }\r\n    }\r\n    public void previusSong(){\r\n        if (song.getPrev() != null) {\r\n            song = song.getPrev();\r\n            mediaPlayer.stop();\r\n            media = new Media(song.getdata().toURI().toString());\r\n            mediaPlayer= new MediaPlayer(media);\r\n            play=false;\r\n            PlayPause();\r\n        }else {\r\n            mediaPlayer.seek(Duration.seconds(0));\r\n            SongProgresbar.setProgress(0);\r\n        }\r\n    }\r\n    public void NextSong(){\r\n        if (song.getNext() != null) {\r\n            song = song.getNext();\r\n            mediaPlayer.stop();\r\n            media = new Media(song.getdata().toURI().toString());\r\n            mediaPlayer= new MediaPlayer(media);\r\n            play=false;\r\n            PlayPause();\r\n        }\r\n    }\r\n    public void listBucle(){\r\n        if (bucle==false) {\r\n            BucleButton.setText(\"\uD83D\uDD01\");\r\n            songs.bucle(bucle);\r\n            bucle= true;\r\n        }else {\r\n            BucleButton.setText(\"\uD83D\uDD00\");\r\n            songs.bucle(bucle);\r\n            bucle= false;\r\n        }\r\n    }\r\n    public void LikeSong(){\r\n        if(like==false) {\r\n            LikeButton.setTextFill(Paint.valueOf(\"#e70606\"));\r\n            like= true;\r\n        }else {\r\n            LikeButton.setTextFill(Paint.valueOf(\"#000000\"));\r\n            like= false;\r\n        }\r\n    }\r\n    public void beginTimer(){\r\n        timer = new Timer();\r\n        task = new TimerTask() {\r\n            @Override\r\n            public void run() {\r\n                runing = true;\r\n                double current = mediaPlayer.getCurrentTime().toSeconds();\r\n                double end = media.getDuration().toSeconds();\r\n                SongProgresbar.setProgress(current/end);\r\n\r\n                if (current/end == 1){\r\n                    cancelTimer();\r\n                }\r\n            }\r\n        };\r\n        timer.scheduleAtFixedRate(task,1000,1000);\r\n    }\r\n    public void cancelTimer(){\r\n        runing=false;\r\n        timer.cancel();\r\n    }\r\n    public void Delete(){\r\n        if (Songs.getPrev()==null){\r\n\r\n        }else{\r\n            songs.eliminar(song);\r\n        }\r\n\r\n    }\r\n    public void Add(){\r\n        FileChooser F = new FileChooser();\r\n        File file = F.showOpenDialog(null);\r\n        if (file == null){\r\n\r\n        }else{\r\n            songs.addsongfirst(file.toString(),\"genero\",\"artista\",\"album\",\"2001\",\"letra\",file);\r\n        }\r\n    }\r\n    public void setBucle(boolean B){\r\n        bucle=B;\r\n    }\r\n    public void setLike(boolean D){\r\n        like=D;\r\n    }\r\n    public  void setPlay(boolean F){\r\n        play=F;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/reproControler.java b/src/main/java/com/example/proyecto1datos1/reproControler.java
+--- a/src/main/java/com/example/proyecto1datos1/reproControler.java	(revision 274284137a15e13dd54ac4dc84a2e202316a5e32)
++++ b/src/main/java/com/example/proyecto1datos1/reproControler.java	(date 1663785126939)
+@@ -76,6 +76,7 @@
+         System.out.println(song.getdata().toURI().toString());
+         media= new Media(song.getdata().toURI().toString());
+         mediaPlayer= new MediaPlayer(media);
++
+     }
+     public void PlayPause(){
+         if(play==false){
+@@ -181,4 +182,6 @@
+         play=F;
+     }
+ 
++
++
+ }
+Index: src/main/java/com/example/proyecto1datos1/iniciadorController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto1datos1;\r\n\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXML;\r\nimport javafx.scene.control.*;\r\nimport java.io.IOException;\r\n\r\npublic class iniciadorController extends Arduino {\r\n    @FXML\r\n    private Button Login;\r\n    @FXML\r\n    private Label Error;\r\n    @FXML\r\n    private TextField Correo;\r\n    @FXML\r\n    private PasswordField Contraseña;\r\n\r\n\r\n    public void user(ActionEvent event) throws IOException, InterruptedException {\r\n\r\n        Usuarios.Datos(Contraseña.getText(),Correo.getText(),Error);\r\n        //Arduino();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/iniciadorController.java b/src/main/java/com/example/proyecto1datos1/iniciadorController.java
+--- a/src/main/java/com/example/proyecto1datos1/iniciadorController.java	(revision 274284137a15e13dd54ac4dc84a2e202316a5e32)
++++ b/src/main/java/com/example/proyecto1datos1/iniciadorController.java	(date 1663783749256)
+@@ -5,7 +5,7 @@
+ import javafx.scene.control.*;
+ import java.io.IOException;
+ 
+-public class iniciadorController extends Arduino {
++public class iniciadorController{
+     @FXML
+     private Button Login;
+     @FXML
+@@ -17,8 +17,8 @@
+ 
+ 
+     public void user(ActionEvent event) throws IOException, InterruptedException {
+-
++        //Arduino.Arduino();
+         Usuarios.Datos(Contraseña.getText(),Correo.getText(),Error);
+-        //Arduino();
++
+     }
+ }
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9ea46d4f-d316-429e-ada4-fa297ebef67e\" name=\"Changes\" comment=\"Proceso de implementacion de arduino\">\r\n      <change afterPath=\"$PROJECT_DIR$/music/HappySound.mp3\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2E3mjmP8QNO53OdoooJO9JQe7My\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,\r\n    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/javafx-sdk-19/lib/javafx.media.jar&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;\r\n  }\r\n}</component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9ea46d4f-d316-429e-ada4-fa297ebef67e\" name=\"Changes\" comment=\"\" />\r\n      <created>1661832780494</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1661832780494</updated>\r\n      <workItem from=\"1661833183187\" duration=\"267000\" />\r\n      <workItem from=\"1662499465006\" duration=\"200000\" />\r\n      <workItem from=\"1663221256831\" duration=\"10341000\" />\r\n      <workItem from=\"1663271767878\" duration=\"647000\" />\r\n      <workItem from=\"1663298907889\" duration=\"57000\" />\r\n      <workItem from=\"1663366788605\" duration=\"4543000\" />\r\n      <workItem from=\"1663427805154\" duration=\"4168000\" />\r\n      <workItem from=\"1663431992219\" duration=\"3939000\" />\r\n      <workItem from=\"1663438336385\" duration=\"2464000\" />\r\n      <workItem from=\"1663449902459\" duration=\"111000\" />\r\n      <workItem from=\"1663451768021\" duration=\"680000\" />\r\n      <workItem from=\"1663453186145\" duration=\"6753000\" />\r\n      <workItem from=\"1663633106892\" duration=\"8933000\" />\r\n      <workItem from=\"1663650458425\" duration=\"730000\" />\r\n      <workItem from=\"1663697509472\" duration=\"10275000\" />\r\n      <workItem from=\"1663737091998\" duration=\"3856000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663226265352</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663226265352</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663228169550</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663228169550</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663232482947</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663232482947</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663272288606</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663272288606</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"cambio de ventana\">\r\n      <created>1663278993330</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663278993330</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"cambio de ventana\">\r\n      <created>1663279048897</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663279048897</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"Detalles menores\">\r\n      <created>1663282487809</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663282487809</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"Creacion de listas doblemente enlasadas y los nodos Songs\">\r\n      <created>1663293580673</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663293580673</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"Creacion de listas doblemente enlasadas y los nodos Songs\">\r\n      <created>1663293610470</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663293610470</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"implementacion de algunos enlaces en las listas\">\r\n      <created>1663298944291</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663298944291</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\".\">\r\n      <created>1663385264192</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663385264192</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\".\">\r\n      <created>1663386377019</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663386377019</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"se añade el modulo media de JavaFx\">\r\n      <created>1663431252753</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663431252753</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"se crea el reproductor\">\r\n      <created>1663433507016</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663433507016</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\".\">\r\n      <created>1663437753420</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663437753420</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\".\">\r\n      <created>1663457642600</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663457642600</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\".\">\r\n      <created>1663458303484</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663458303484</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00018\" summary=\".\">\r\n      <created>1663631382645</created>\r\n      <option name=\"number\" value=\"00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00018\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663631382645</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00019\" summary=\".\">\r\n      <created>1663631397610</created>\r\n      <option name=\"number\" value=\"00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00019\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663631397610</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00020\" summary=\".\">\r\n      <created>1663635253587</created>\r\n      <option name=\"number\" value=\"00020\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00020\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663635253587</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00021\" summary=\".\">\r\n      <created>1663636210870</created>\r\n      <option name=\"number\" value=\"00021\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00021\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663636210870</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00022\" summary=\".\">\r\n      <created>1663638594392</created>\r\n      <option name=\"number\" value=\"00022\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00022\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663638594392</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00023\" summary=\".\">\r\n      <created>1663638627672</created>\r\n      <option name=\"number\" value=\"00023\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00023\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663638627672</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00024\" summary=\".\">\r\n      <created>1663640973443</created>\r\n      <option name=\"number\" value=\"00024\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00024\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663640973443</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00025\" summary=\".\">\r\n      <created>1663720245466</created>\r\n      <option name=\"number\" value=\"00025\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00025\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663720245466</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00026\" summary=\"Proceso de implementacion de arduino\">\r\n      <created>1663763613670</created>\r\n      <option name=\"number\" value=\"00026\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00026\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663763613670</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"27\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"En proceso la creacion de usuarios\" />\r\n    <MESSAGE value=\"cambio de ventana\" />\r\n    <MESSAGE value=\"Detalles menores\" />\r\n    <MESSAGE value=\"Creacion de listas doblemente enlasadas y los nodos Songs\" />\r\n    <MESSAGE value=\"implementacion de algunos enlaces en las listas\" />\r\n    <MESSAGE value=\"se añade el modulo media de JavaFx\" />\r\n    <MESSAGE value=\"se crea el reproductor\" />\r\n    <MESSAGE value=\".\" />\r\n    <MESSAGE value=\"Proceso de implementacion de arduino\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Proceso de implementacion de arduino\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 274284137a15e13dd54ac4dc84a2e202316a5e32)
++++ b/.idea/workspace.xml	(date 1663785126699)
+@@ -5,8 +5,11 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="Proceso de implementacion de arduino">
+-      <change afterPath="$PROJECT_DIR$/music/HappySound.mp3" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/sketch_sep17b/sketch_sep17b.ino" beforeDir="false" afterPath="$PROJECT_DIR$/sketch_sep17b/sketch_sep17b.ino" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/iniciadorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/iniciadorController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -75,6 +78,7 @@
+       <workItem from="1663650458425" duration="730000" />
+       <workItem from="1663697509472" duration="10275000" />
+       <workItem from="1663737091998" duration="3856000" />
++      <workItem from="1663779748143" duration="4711000" />
+     </task>
+     <task id="LOCAL-00001" summary="En proceso la creacion de usuarios">
+       <created>1663226265352</created>
+@@ -258,7 +262,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1663763613670</updated>
+     </task>
+-    <option name="localTasksCounter" value="27" />
++    <task id="LOCAL-00027" summary="Proceso de implementacion de arduino">
++      <created>1663764015211</created>
++      <option name="number" value="00027" />
++      <option name="presentableId" value="LOCAL-00027" />
++      <option name="project" value="LOCAL" />
++      <updated>1663764015211</updated>
++    </task>
++    <option name="localTasksCounter" value="28" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+Index: sketch_sep17b/sketch_sep17b.ino
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#include <Arduino.h>\r\n\r\nint ledLike = 2;\r\nint ledBucle = 3;\r\nint led1 = 4;\r\nint led2 = 5;\r\nint led3 = 6;\r\nint led4 = 7;\r\nint led5 = 8;\r\nint buttonLike = 9;\r\nint buttonBucle = 10;\r\nint buttonPrevious = 11;\r\nint buttonNext = 13;\r\nint buttonPlayPause = 12;\r\nint V = 0;\r\nlong vol;\r\n\r\nvoid setup() {\r\n  // put your setup code here, to run once:\r\n  pinMode(ledLike, OUTPUT);  \r\n  pinMode(ledBucle, OUTPUT);\r\n  pinMode(led1, OUTPUT);\r\n  pinMode(led2, OUTPUT);\r\n  pinMode(led3, OUTPUT);\r\n  pinMode(led4, OUTPUT);\r\n  pinMode(led5, OUTPUT);\r\n  pinMode(buttonLike, INPUT);\r\n  pinMode(buttonBucle, INPUT);\r\n  pinMode(buttonPrevious, INPUT);\r\n  pinMode(buttonNext, INPUT);\r\n  pinMode(buttonPlayPause, INPUT);\r\n  pinMode(V, OUTPUT);\r\n\r\n  Serial.begin(9600);\r\n\r\n}\r\n\r\nvoid loop() {\r\n  if(Serial.available()>0){\r\n    int entrada = Serial.read();\r\n    switch(entrada)\r\n    {\r\n      case 'L':\r\n        digitalWrite(ledLike,HIGH);\r\n        break;\r\n\r\n      case 'D':\r\n        digitalWrite(ledLike,LOW);\r\n        break;\r\n    }\r\n    }\r\n\r\n\r\n\r\n  \r\n  // put your main code here, to run repeatedly:\r\n  if(digitalRead(buttonLike)== HIGH){\r\n    if (digitalRead(ledLike)== HIGH){\r\n       Serial.write(\"NOLike\");\r\n      digitalWrite(ledLike,LOW);\r\n      delay(300);}\r\n    else if(digitalRead(ledLike)== LOW){\r\n      Serial.write(\"Like\");\r\n      digitalWrite(ledLike,HIGH);\r\n      delay(300);\r\n  }\r\n  }\r\n  \r\nif(digitalRead(buttonBucle)== HIGH){\r\n  if (digitalRead(ledBucle)== HIGH){\r\n    Serial.write(\"NOBucle\");\r\n    digitalWrite(ledBucle,LOW);\r\n    delay(300);\r\n}else if(digitalRead(ledBucle)== LOW){\r\n    Serial.write(\"Bucle\");\r\n    digitalWrite(ledBucle,HIGH);\r\n    delay(300);\r\n  \r\n  }\r\n}\r\nif(digitalRead(buttonPlayPause)== HIGH){\r\n  Serial.write(\"Play\");\r\n  delay(300);\r\n  \r\n  }\r\nif(digitalRead(buttonPrevious)== HIGH){\r\n  Serial.write(\"Previous\");\r\n  delay(300);\r\n  \r\n  }\r\nif(digitalRead(buttonNext)== HIGH){\r\n  Serial.write(\"Next\");\r\n  delay(300);\r\n  \r\n  }\r\n  \r\nint sensorValue = analogRead(V);\r\nvol = analogRead(V); //potenciometro 10k\r\nif (vol >= 0 && vol <= 100){\r\n    digitalWrite(led1, LOW);\r\n    digitalWrite(led2, LOW);\r\n    digitalWrite(led3, LOW);\r\n    digitalWrite(led4, LOW);\r\n    digitalWrite(led5, LOW);\r\n    Serial.println(sensorValue);\r\n    delay(1);\r\n } \r\n  else if (vol >= 100 && vol <= 200){\r\n    digitalWrite(led1, HIGH);\r\n    digitalWrite(led2, LOW);\r\n    digitalWrite(led3, LOW);\r\n    digitalWrite(led4, LOW);\r\n    digitalWrite(led5, LOW);\r\n    Serial.println(sensorValue);\r\n    delay(1);\r\n }\r\n else if (vol >= 200 && vol <= 300){\r\n    digitalWrite(led1, HIGH);\r\n    digitalWrite(led2, HIGH);\r\n    digitalWrite(led3, LOW);\r\n    digitalWrite(led4, LOW);\r\n    digitalWrite(led5, LOW);\r\n    Serial.println(sensorValue);\r\n    delay(1);\r\n }\r\n else if (vol >= 300 && vol <= 500){\r\n    digitalWrite(led1, HIGH);\r\n    digitalWrite(led2, HIGH);\r\n    digitalWrite(led3, HIGH);\r\n    digitalWrite(led4, LOW);\r\n    digitalWrite(led5, LOW);\r\n    Serial.println(sensorValue);\r\n    delay(1);\r\n }\r\n else if (vol >= 500 && vol <= 700){\r\n    digitalWrite(led1, HIGH);\r\n    digitalWrite(led2, HIGH);\r\n    digitalWrite(led3, HIGH);\r\n    digitalWrite(led4, HIGH);\r\n    digitalWrite(led5, LOW);\r\n    Serial.println(sensorValue);\r\n    delay(1);\r\n }\r\n else{\r\n    digitalWrite(led1, HIGH);\r\n    digitalWrite(led2, HIGH);\r\n    digitalWrite(led3, HIGH);\r\n    digitalWrite(led4, HIGH);\r\n    digitalWrite(led5, HIGH);\r\n    Serial.println(sensorValue);\r\n    delay(1);\r\n\r\n\r\n}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/sketch_sep17b/sketch_sep17b.ino b/sketch_sep17b/sketch_sep17b.ino
+--- a/sketch_sep17b/sketch_sep17b.ino	(revision 274284137a15e13dd54ac4dc84a2e202316a5e32)
++++ b/sketch_sep17b/sketch_sep17b.ino	(date 1663780590907)
+@@ -93,7 +93,7 @@
+   delay(300);
+   
+   }
+-  
++
+ int sensorValue = analogRead(V);
+ vol = analogRead(V); //potenciometro 10k
+ if (vol >= 0 && vol <= 100){

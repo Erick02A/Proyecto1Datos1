@@ -4,46 +4,62 @@ import com.fazecast.jSerialComm.SerialPort;
 
 import java.util.Scanner;
 
-public class Arduino {
-    public void Arduino() throws InterruptedException {
+public class Arduino extends reproControler{
+
+
+    public static void Arduino() throws InterruptedException {
         var sp = SerialPort.getCommPort("COM5");
 
         sp.setComPortParameters(9600, Byte.SIZE, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
-        sp.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING,0,0);
+        sp.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
 
         var hasOpened = sp.openPort();
-        if(!hasOpened){throw new IllegalStateException("Error al abrir el serial port");}
+        if (!hasOpened) {
+            throw new IllegalStateException("Error al abrir el serial port");
+        }
 
         Scanner data = new Scanner(sp.getInputStream());
 
-        while (data.hasNextLine()){
-            if (data.nextLine() == "Play0"){
-                System.out.println("Play");
-                break;
+        try {
+            while (data.hasNextLine()) {
+                String dato = (data.nextLine());
+                Orden(dato);
             }
-            else if (data.nextLine() == "Previous"){
-                System.out.println("Play");
-                break;
-            }else if (data.nextLine() == "Next"){
-                System.out.println("Next");
-                break;
-            }else if (data.nextLine() == "Like"){
-                System.out.println("Like");
-                break;
-            }else if (data.nextLine() == "NOLike"){
-                System.out.println("DisLike");
-                break;
-            }else if (data.nextLine() == "Bucle"){
-                System.out.println("Bucle");
-                break;
-            }else if (data.nextLine() == "NOBucle"){
-                System.out.println("NoBucle");
-                break;
-            }else {
-                System.out.println(data.nextLine());
-            }
+
+        } catch (Exception e) {
+            System.out.println("3");
+            throw new RuntimeException(e);
         }
 
+
+    }
+
+    private static void Orden(String dato) {
+        System.out.println(dato);
+        switch (dato){
+            case "Play":
+                System.out.println("Play");
+                break;
+            case "Previous":
+                System.out.println("Previous");
+                break;
+            case "Next":
+                System.out.println("Next");
+                break;
+            case "Like":
+                System.out.println("Like");
+                break;
+            case "NOLike":
+                System.out.println("NoLike");
+                break;
+            case "Bucle":
+                System.out.println("Bucle");
+                break;
+            case "NOBucle":
+                System.out.println("noBucle");
+                break;
+
+        }
     }
 
 }
