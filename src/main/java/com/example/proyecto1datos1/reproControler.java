@@ -48,7 +48,7 @@ public class reproControler implements Initializable {
         files = directory.listFiles();
         if (files != null){
             for(File file: files){
-                songs.addsonglast(file.toString(),"genero","artista","album","2001","letra",file);
+                songs.addsonglast(file.getName(),"genero","artista","album","2001","letra",file);
             }
             volumenbar.valueProperty().addListener(new ChangeListener<Number>() {
                 @Override
@@ -145,7 +145,7 @@ public class reproControler implements Initializable {
     public void Add(){
         FileChooser F = new FileChooser();
         File file = F.showOpenDialog(null);
-        songs.addsongfirst(file.toString(),"genero","artista","album","2001","letra",file);
+        songs.addsongfirst(file.getName(),"genero","artista","album","2001","letra",file);
     }
     public void setBucle(boolean B){
         bucle=B;
