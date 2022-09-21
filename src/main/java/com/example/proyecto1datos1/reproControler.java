@@ -8,9 +8,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
-import javafx.scene.paint.Paint;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -37,6 +37,7 @@ public class reproControler implements Initializable {
     private boolean play;
     private boolean bucle;
     private boolean like;
+    private boolean runing;
     private Songs song;
 
     @Override
@@ -47,13 +48,11 @@ public class reproControler implements Initializable {
         if (files != null){
             for(File file: files){
                 songs.addsonglast(file.toString(),"genero","artista","album","2001","letra",file);
-                System.out.println(file);
             }
             volumenbar.valueProperty().addListener(new ChangeListener<Number>() {
                 @Override
                 public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                    System.out.println(volumenbar.getValue());
-                    //mediaPlayer.setVolume(volumenbar.getValue());
+                    mediaPlayer.setVolume(volumenbar.getValue());
                 }
             });
         }
@@ -66,36 +65,36 @@ public class reproControler implements Initializable {
         if(play==false){
             mediaPlayer.play();
             pauseButton.setText("⏸");
+            beginTimer();
             play=true;
         }else {
-            //mediaPlayer.pause();
+            mediaPlayer.pause();
             pauseButton.setText("▶");
+            cancelTimer();
             play=false;
         }
     }
     public void previusSong(){
         if (song.getPrev() != null) {
             song = song.getPrev();
-            System.out.println(song.getdata().toURI().toString());
+            mediaPlayer.stop();
             media = new Media(song.getdata().toURI().toString());
-            //mediaPlayer= new MediaPlayer(media);
+            mediaPlayer= new MediaPlayer(media);
             play=false;
             PlayPause();
         }else {
-            System.out.println(song.getdata().toURI().toString());
-            //mediaPlayer.seek(Duration.seconds(0));
+            mediaPlayer.seek(Duration.seconds(0));
+            SongProgresbar.setProgress(0);
         }
     }
     public void NextSong(){
         if (song.getNext() != null) {
             song = song.getNext();
-            System.out.println(song.getdata().toURI().toString());
+            mediaPlayer.stop();
             media = new Media(song.getdata().toURI().toString());
-            //mediaPlayer= new MediaPlayer(media);
+            mediaPlayer= new MediaPlayer(media);
             play=false;
             PlayPause();
-        }else {
-            System.out.println(song.getdata().toURI().toString());
         }
     }
     public void listBucle(){
@@ -119,6 +118,27 @@ public class reproControler implements Initializable {
             LikeButton.setTextFill(Paint.valueOf("#000000"));
             like= false;
         }
+    }
+    public void beginTimer(){
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                runing = true;
+                double current = mediaPlayer.getCurrentTime().toSeconds();
+                double end = media.getDuration().toSeconds();
+                SongProgresbar.setProgress(current/end);
+
+                if (current/end == 1){
+                    cancelTimer();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task,1000,1000);
+    }
+    public void cancelTimer(){
+        runing=false;
+        timer.cancel();
     }
     public void setBucle(boolean B){
         bucle=B;

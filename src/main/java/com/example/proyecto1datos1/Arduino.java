@@ -7,7 +7,7 @@ import java.util.Timer;
 public class Arduino {
     public static void Arduino() {
         long timeStart = System.currentTimeMillis();
-        var sp = SerialPort.getCommPort("COM5");
+        var sp = SerialPort.getCommPort("COM3");
 
 
         sp.setComPortParameters(9600, Byte.SIZE, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);

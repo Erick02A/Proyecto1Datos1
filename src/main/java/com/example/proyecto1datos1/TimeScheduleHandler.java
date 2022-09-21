@@ -16,8 +16,8 @@ public class TimeScheduleHandler extends TimerTask implements SerialPortDataList
     }
     @Override
     public void run(){
-        System.out.println("Time elapsed: " +(System.currentTimeMillis()- this.timeStart) + "milliseconds");
-        System.out.println(SerialPort.LISTENING_EVENT_DATA_RECEIVED);
+        //System.out.println("Time elapsed: " +(System.currentTimeMillis()- this.timeStart) + "milliseconds");
+        //System.out.println(SerialPort.LISTENING_EVENT_DATA_RECEIVED);
         //System.out.println(serialPortEvent.getEventType());
 
     }
