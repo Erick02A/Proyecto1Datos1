@@ -7,21 +7,22 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MusicPro extends Application {
     private static Stage Window;
 
     @Override
     public void start(Stage stage) throws Exception {
-        //Arduino.Arduino();
         Window = stage;
-        Parent root = FXMLLoader.load(getClass().getResource("users.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("users.fxml")));
         stage.setTitle("MusicPro");
         stage.setScene(new Scene(root, 600, 285));
         stage.show();
+
     }
     public void CambiarPantalla(String fxml) throws IOException{
-        Parent pane =  FXMLLoader.load(getClass().getResource(fxml));
+        Parent pane =  FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
         Window.getScene().setRoot(pane);
     }
 

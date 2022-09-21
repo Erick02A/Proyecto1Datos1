@@ -11,7 +11,7 @@ public class Songs {
     private String letra;
     private File data;
     private Songs next;
-    private Songs prev;
+    private static Songs prev;
 
     public Songs(String cancion, String genero, String artista, String album, String año, String letra, File data) {
         this.cancion = cancion;
@@ -24,7 +24,7 @@ public class Songs {
         this.next = null;
         this.prev = null;
     }
-    public Songs getPrev() {
+    public static Songs getPrev() {
         return prev;
     }
 

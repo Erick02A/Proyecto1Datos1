@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.io.IOException;
 
-public class iniciadorController {
+public class iniciadorController extends Arduino {
     @FXML
     private Button Login;
     @FXML
@@ -16,8 +16,9 @@ public class iniciadorController {
     private PasswordField Contraseña;
 
 
-    public void user(ActionEvent event) throws IOException {
+    public void user(ActionEvent event) throws IOException, InterruptedException {
 
         Usuarios.Datos(Contraseña.getText(),Correo.getText(),Error);
+        //Arduino();
     }
 }

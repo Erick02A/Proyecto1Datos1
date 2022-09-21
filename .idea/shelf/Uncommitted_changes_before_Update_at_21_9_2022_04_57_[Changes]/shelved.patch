@@ -1,0 +1,436 @@
+Index: src/main/java/com/example/proyecto1datos1/Arduino.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto1datos1;\r\n\r\nimport com.fazecast.jSerialComm.*;\r\nimport java.util.Timer;\r\n\r\n\r\npublic class Arduino {\r\n    public static void Arduino() {\r\n        long timeStart = System.currentTimeMillis();\r\n        var sp = SerialPort.getCommPort(\"COM3\");\r\n\r\n\r\n        sp.setComPortParameters(9600, Byte.SIZE, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);\r\n        sp.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING,0,0);\r\n\r\n        var hasOpened = sp.openPort();\r\n        if(!hasOpened){throw new IllegalStateException(\"Error al abrir el serial port\");}\r\n\r\n        Runtime.getRuntime().addShutdownHook(new Thread(() -> {sp.closePort();}));\r\n        var timer = new Timer();\r\n        var timedSchedule = new TimeScheduleHandler(timeStart);\r\n\r\n        sp.addDataListener(timedSchedule);\r\n\r\n        System.out.println(\"Listen: \" + timedSchedule.getListeningEvents());\r\n        timer.schedule(timedSchedule,0 , 1000);\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/Arduino.java b/src/main/java/com/example/proyecto1datos1/Arduino.java
+--- a/src/main/java/com/example/proyecto1datos1/Arduino.java	(revision 463e662ea33d3580d53c79afdc616b77d7ca9016)
++++ b/src/main/java/com/example/proyecto1datos1/Arduino.java	(date 1663757841169)
+@@ -6,24 +6,6 @@
+ 
+ public class Arduino {
+     public static void Arduino() {
+-        long timeStart = System.currentTimeMillis();
+-        var sp = SerialPort.getCommPort("COM3");
+-
+-
+-        sp.setComPortParameters(9600, Byte.SIZE, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
+-        sp.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING,0,0);
+-
+-        var hasOpened = sp.openPort();
+-        if(!hasOpened){throw new IllegalStateException("Error al abrir el serial port");}
+-
+-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {sp.closePort();}));
+-        var timer = new Timer();
+-        var timedSchedule = new TimeScheduleHandler(timeStart);
+-
+-        sp.addDataListener(timedSchedule);
+-
+-        System.out.println("Listen: " + timedSchedule.getListeningEvents());
+-        timer.schedule(timedSchedule,0 , 1000);
+ 
+     }
+ }
+\ No newline at end of file
+Index: src/main/java/com/example/proyecto1datos1/Usuarios.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto1datos1;\r\n\r\nimport javafx.event.ActionEvent;\r\nimport javafx.scene.control.*;\r\nimport java.io.IOException;\r\nimport java.io.BufferedReader;\r\nimport java.io.FileReader;\r\n\r\npublic class Usuarios{\r\n\r\n\r\n    public static void Datos(String Contraseña, String Correo, Label error) throws IOException {\r\n        String linea, Name, correo, contraseña, Provincia;\r\n\r\n        try {\r\n            //BufferedReader br = new BufferedReader(new FileReader(\"C:\\\\Users\\\\andre\\\\Desktop\\\\java\\\\Proyecto1Datos1\\\\src\\\\main\\\\java\\\\com\\\\example\\\\proyecto1datos1\\\\Users.csv\"));\r\n            BufferedReader br = new BufferedReader(new FileReader(\"C:\\\\Users\\\\Erick\\\\Desktop\\\\Datos I\\\\Proyecto1Datos1\\\\src\\\\main\\\\java\\\\com\\\\example\\\\proyecto1datos1\\\\Users.csv\"));\r\n            linea = \"\";\r\n            while ((linea = br.readLine()) != null) {\r\n                String[] datos = linea.split(\",\");\r\n                Name = datos[0];\r\n                correo = datos[1];\r\n                Provincia = datos[2];\r\n                contraseña = datos[3];\r\n                if ( Contraseña.equals(contraseña) && Correo.equals(correo)) {\r\n                    MusicPro m = new MusicPro();\r\n                    m.CambiarPantalla(\"repro.fxml\");\r\n\r\n\r\n\r\n                }else if (Contraseña.isEmpty() | Correo.isEmpty()) {\r\n                    error.setText(\"Verifique que todos los espacios esten llenos\");\r\n\r\n                }else{error.setText(\"Usuario incorrecto\");}\r\n            }\r\n\r\n\r\n\r\n        } catch (IOException est) {\r\n           System.out.println(\"error\");\r\n            throw new RuntimeException(est);\r\n\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/Usuarios.java b/src/main/java/com/example/proyecto1datos1/Usuarios.java
+--- a/src/main/java/com/example/proyecto1datos1/Usuarios.java	(revision 463e662ea33d3580d53c79afdc616b77d7ca9016)
++++ b/src/main/java/com/example/proyecto1datos1/Usuarios.java	(date 1663722935874)
+@@ -13,8 +13,8 @@
+         String linea, Name, correo, contraseña, Provincia;
+ 
+         try {
+-            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
++            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
++            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+             linea = "";
+             while ((linea = br.readLine()) != null) {
+                 String[] datos = linea.split(",");
+Index: src/main/java/com/example/proyecto1datos1/MusicPro.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto1datos1;\r\n\r\nimport javafx.application.Application;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\n\r\npublic class MusicPro extends Application {\r\n    private static Stage Window;\r\n\r\n    @Override\r\n    public void start(Stage stage) throws Exception {\r\n        //Arduino.Arduino();\r\n        Window = stage;\r\n        Parent root = FXMLLoader.load(getClass().getResource(\"users.fxml\"));\r\n        stage.setTitle(\"MusicPro\");\r\n        stage.setScene(new Scene(root, 600, 285));\r\n        stage.show();\r\n    }\r\n    public void CambiarPantalla(String fxml) throws IOException{\r\n        Parent pane =  FXMLLoader.load(getClass().getResource(fxml));\r\n        Window.getScene().setRoot(pane);\r\n    }\r\n\r\n\r\n    public static void main(String[] args) {\r\n        launch();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/MusicPro.java b/src/main/java/com/example/proyecto1datos1/MusicPro.java
+--- a/src/main/java/com/example/proyecto1datos1/MusicPro.java	(revision 463e662ea33d3580d53c79afdc616b77d7ca9016)
++++ b/src/main/java/com/example/proyecto1datos1/MusicPro.java	(date 1663757065174)
+@@ -13,7 +13,7 @@
+ 
+     @Override
+     public void start(Stage stage) throws Exception {
+-        //Arduino.Arduino();
++        Arduino.Arduino();
+         Window = stage;
+         Parent root = FXMLLoader.load(getClass().getResource("users.fxml"));
+         stage.setTitle("MusicPro");
+Index: src/main/java/com/example/proyecto1datos1/TimeScheduleHandler.java
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/TimeScheduleHandler.java b/src/main/java/com/example/proyecto1datos1/TimeScheduleHandler.java
+deleted file mode 100644
+--- a/src/main/java/com/example/proyecto1datos1/TimeScheduleHandler.java	(revision 463e662ea33d3580d53c79afdc616b77d7ca9016)
++++ /dev/null	(revision 463e662ea33d3580d53c79afdc616b77d7ca9016)
+@@ -1,39 +0,0 @@
+-package com.example.proyecto1datos1;
+-
+-import com.fazecast.jSerialComm.*;
+-import com.fazecast.jSerialComm.SerialPort;
+-import com.fazecast.jSerialComm.SerialPortDataListener;
+-import com.fazecast.jSerialComm.SerialPortEvent;
+-
+-import java.util.TimerTask;
+-
+-public class TimeScheduleHandler extends TimerTask implements SerialPortDataListener {
+-    private final long timeStart;
+-    public TimeScheduleHandler(long timeStart) {
+-        this.timeStart = timeStart;
+-
+-
+-    }
+-    @Override
+-    public void run(){
+-        //System.out.println("Time elapsed: " +(System.currentTimeMillis()- this.timeStart) + "milliseconds");
+-        //System.out.println(SerialPort.LISTENING_EVENT_DATA_RECEIVED);
+-        //System.out.println(serialPortEvent.getEventType());
+-
+-    }
+-    @Override
+-    public int getListeningEvents(){
+-        return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
+-    }
+-
+-    @Override
+-    public void serialEvent(SerialPortEvent serialPortEvent) {
+-        System.out.println(serialPortEvent.getEventType());
+-        if(serialPortEvent.getEventType() == SerialPort.LISTENING_EVENT_DATA_RECEIVED){
+-            System.out.println("Funciona xd");
+-
+-        }
+-
+-    }
+-
+-}
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <groupId>com.example</groupId>\r\n    <artifactId>Proyecto1Datos1</artifactId>\r\n    <version>1.0-SNAPSHOT</version>\r\n    <name>Proyecto1Datos1</name>\r\n\r\n    <properties>\r\n        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\r\n        <junit.version>5.8.2</junit.version>\r\n    </properties>\r\n\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-controls</artifactId>\r\n            <version>18.0.1</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-fxml</artifactId>\r\n            <version>18.0.1</version>\r\n        </dependency>\r\n        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-media -->\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-media</artifactId>\r\n            <version>18.0.1</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter-api</artifactId>\r\n            <version>${junit.version}</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter-engine</artifactId>\r\n            <version>${junit.version}</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <build>\r\n        <plugins>\r\n            <plugin>\r\n                <groupId>org.apache.maven.plugins</groupId>\r\n                <artifactId>maven-compiler-plugin</artifactId>\r\n                <version>3.10.1</version>\r\n                <configuration>\r\n                    <source>18</source>\r\n                    <target>18</target>\r\n                </configuration>\r\n            </plugin>\r\n            <plugin>\r\n                <groupId>org.openjfx</groupId>\r\n                <artifactId>javafx-maven-plugin</artifactId>\r\n                <version>0.0.8</version>\r\n                <executions>\r\n                    <execution>\r\n                        <!-- Default configuration for running with: mvn clean javafx:run -->\r\n                        <id>default-cli</id>\r\n                        <configuration>\r\n                            <mainClass>com.example.proyecto1datos1/com.example.proyecto1datos1.HelloApplication\r\n                            </mainClass>\r\n                            <launcher>app</launcher>\r\n                            <jlinkZipName>app</jlinkZipName>\r\n                            <jlinkImageName>app</jlinkImageName>\r\n                            <noManPages>true</noManPages>\r\n                            <stripDebug>true</stripDebug>\r\n                            <noHeaderFiles>true</noHeaderFiles>\r\n                        </configuration>\r\n                    </execution>\r\n                </executions>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 463e662ea33d3580d53c79afdc616b77d7ca9016)
++++ b/pom.xml	(date 1663738940252)
+@@ -11,25 +11,25 @@
+ 
+     <properties>
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+-        <junit.version>5.8.2</junit.version>
++        <junit.version>5.9.0</junit.version>
+     </properties>
+ 
+     <dependencies>
+         <dependency>
+             <groupId>org.openjfx</groupId>
+             <artifactId>javafx-controls</artifactId>
+-            <version>18.0.1</version>
++            <version>18.0.2</version>
+         </dependency>
+         <dependency>
+             <groupId>org.openjfx</groupId>
+             <artifactId>javafx-fxml</artifactId>
+-            <version>18.0.1</version>
++            <version>18.0.2</version>
+         </dependency>
+         <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-media -->
+         <dependency>
+             <groupId>org.openjfx</groupId>
+             <artifactId>javafx-media</artifactId>
+-            <version>18.0.1</version>
++            <version>18.0.2</version>
+         </dependency>
+ 
+         <dependency>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9ea46d4f-d316-429e-ada4-fa297ebef67e\" name=\"Changes\" comment=\".\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_22_45__Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_22_45__Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_22_55__Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_22_55__Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/music/a.mp3\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/pom.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pom.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/sketch_sep17b/sketch_sep17b.ino\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/sketch_sep17b/sketch_sep17b.ino\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/TimeScheduleHandler.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/TimeScheduleHandler.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2E3mjmP8QNO53OdoooJO9JQe7My\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Downloaded.Files.Path.Enabled\": \"true\",\r\n    \"Repository.Attach.Annotations\": \"false\",\r\n    \"Repository.Attach.JavaDocs\": \"false\",\r\n    \"Repository.Attach.Sources\": \"false\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"last_opened_file_path\": \"C:/javafx-sdk-19/lib/javafx.media.jar\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"project.structure.last.edited\": \"Libraries\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9ea46d4f-d316-429e-ada4-fa297ebef67e\" name=\"Changes\" comment=\"\" />\r\n      <created>1661832780494</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1661832780494</updated>\r\n      <workItem from=\"1661833183187\" duration=\"267000\" />\r\n      <workItem from=\"1662499465006\" duration=\"200000\" />\r\n      <workItem from=\"1663221256831\" duration=\"10341000\" />\r\n      <workItem from=\"1663271767878\" duration=\"647000\" />\r\n      <workItem from=\"1663298907889\" duration=\"57000\" />\r\n      <workItem from=\"1663366788605\" duration=\"4543000\" />\r\n      <workItem from=\"1663427805154\" duration=\"4168000\" />\r\n      <workItem from=\"1663431992219\" duration=\"3939000\" />\r\n      <workItem from=\"1663438336385\" duration=\"2464000\" />\r\n      <workItem from=\"1663449902459\" duration=\"111000\" />\r\n      <workItem from=\"1663451768021\" duration=\"680000\" />\r\n      <workItem from=\"1663453186145\" duration=\"6753000\" />\r\n      <workItem from=\"1663633106892\" duration=\"8933000\" />\r\n      <workItem from=\"1663650458425\" duration=\"730000\" />\r\n      <workItem from=\"1663697509472\" duration=\"9353000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663226265352</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663226265352</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663228169550</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663228169550</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663232482947</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663232482947</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663272288606</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663272288606</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"cambio de ventana\">\r\n      <created>1663278993330</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663278993330</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"cambio de ventana\">\r\n      <created>1663279048897</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663279048897</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"Detalles menores\">\r\n      <created>1663282487809</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663282487809</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"Creacion de listas doblemente enlasadas y los nodos Songs\">\r\n      <created>1663293580673</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663293580673</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"Creacion de listas doblemente enlasadas y los nodos Songs\">\r\n      <created>1663293610470</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663293610470</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"implementacion de algunos enlaces en las listas\">\r\n      <created>1663298944291</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663298944291</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\".\">\r\n      <created>1663385264192</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663385264192</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\".\">\r\n      <created>1663386377019</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663386377019</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"se añade el modulo media de JavaFx\">\r\n      <created>1663431252753</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663431252753</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"se crea el reproductor\">\r\n      <created>1663433507016</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663433507016</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\".\">\r\n      <created>1663437753420</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663437753420</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\".\">\r\n      <created>1663457642600</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663457642600</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\".\">\r\n      <created>1663458303484</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663458303484</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00018\" summary=\".\">\r\n      <created>1663631382645</created>\r\n      <option name=\"number\" value=\"00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00018\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663631382645</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00019\" summary=\".\">\r\n      <created>1663631397610</created>\r\n      <option name=\"number\" value=\"00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00019\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663631397610</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00020\" summary=\".\">\r\n      <created>1663635253587</created>\r\n      <option name=\"number\" value=\"00020\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00020\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663635253587</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00021\" summary=\".\">\r\n      <created>1663636210870</created>\r\n      <option name=\"number\" value=\"00021\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00021\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663636210870</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00022\" summary=\".\">\r\n      <created>1663638594392</created>\r\n      <option name=\"number\" value=\"00022\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00022\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663638594392</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00023\" summary=\".\">\r\n      <created>1663638627672</created>\r\n      <option name=\"number\" value=\"00023\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00023\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663638627672</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00024\" summary=\".\">\r\n      <created>1663640973443</created>\r\n      <option name=\"number\" value=\"00024\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00024\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663640973443</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"25\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"En proceso la creacion de usuarios\" />\r\n    <MESSAGE value=\"cambio de ventana\" />\r\n    <MESSAGE value=\"Detalles menores\" />\r\n    <MESSAGE value=\"Creacion de listas doblemente enlasadas y los nodos Songs\" />\r\n    <MESSAGE value=\"implementacion de algunos enlaces en las listas\" />\r\n    <MESSAGE value=\"se añade el modulo media de JavaFx\" />\r\n    <MESSAGE value=\"se crea el reproductor\" />\r\n    <MESSAGE value=\".\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\".\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 463e662ea33d3580d53c79afdc616b77d7ca9016)
++++ b/.idea/workspace.xml	(date 1663757841233)
+@@ -4,17 +4,19 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment=".">
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_22_45__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_22_45__Changes_.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_22_55__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_22_55__Changes_.xml" afterDir="false" />
++    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="Proceso de implementacion de arduino">
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_23_22__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_23_22__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_23_26__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_9_2022_23_26__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/music/a.mp3" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/music/Happy Sound.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/music/HappySound.mp3" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/music/explosion.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/music/explosion.mp3" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/sketch_sep17b/sketch_sep17b.ino" beforeDir="false" afterPath="$PROJECT_DIR$/sketch_sep17b/sketch_sep17b.ino" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/TimeScheduleHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/TimeScheduleHandler.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/MusicPro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/MusicPro.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/TimeScheduleHandler.java" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -49,14 +51,15 @@
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+     "WebServerToolWindowFactoryState": "false",
+-    "last_opened_file_path": "C:/javafx-sdk-19/lib/javafx.media.jar",
++    "last_opened_file_path": "C:/Users/andre/Desktop/java/Proyecto1Datos1/lib/jSerialComm-2.9.2.jar",
+     "node.js.detected.package.eslint": "true",
+     "node.js.detected.package.tslint": "true",
+     "node.js.selected.package.eslint": "(autodetect)",
+     "node.js.selected.package.tslint": "(autodetect)",
+     "project.structure.last.edited": "Libraries",
+     "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.2"
++    "project.structure.side.proportion": "0.2",
++    "settings.editor.selected.configurable": "build.tools"
+   }
+ }]]></component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+@@ -82,6 +85,8 @@
+       <workItem from="1663633106892" duration="8933000" />
+       <workItem from="1663650458425" duration="730000" />
+       <workItem from="1663697509472" duration="9353000" />
++      <workItem from="1663749718171" duration="736000" />
++      <workItem from="1663756763593" duration="1074000" />
+     </task>
+     <task id="LOCAL-00001" summary="En proceso la creacion de usuarios">
+       <created>1663226265352</created>
+@@ -279,4 +284,8 @@
+     <MESSAGE value="." />
+     <option name="LAST_COMMIT_MESSAGE" value="." />
+   </component>
++  <component name="XSLT-Support.FileAssociations.UIState">
++    <expand />
++    <select />
++  </component>
+ </project>
+\ No newline at end of file
+Index: sketch_sep17b/sketch_sep17b.ino
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#include <Arduino.h>\r\n\r\nint button1 = 2;\r\nint button2 = 4;\r\n\r\nvoid setup(){\r\n  pinMode(button1, INPUT);\r\n  pinMode(button2, INPUT);\r\n  Serial.begin(9600);\r\n\r\n}\r\n\r\nvoid loop() {\r\n  // put your main code here, to run repeatedly:\r\n  if(digitalRead(button1)== HIGH){\r\n  Serial.write(\"Saludos\");\r\n  delay(300);\r\n  }\r\n  if(digitalRead(button2)== HIGH){\r\n  Serial.write(\"S\");\r\n  delay(300);\r\n  }\r\n  else{\r\n  //nothin`\r\n    }\r\n  if(!Serial.available()){\r\n    return;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/sketch_sep17b/sketch_sep17b.ino b/sketch_sep17b/sketch_sep17b.ino
+--- a/sketch_sep17b/sketch_sep17b.ino	(revision 463e662ea33d3580d53c79afdc616b77d7ca9016)
++++ b/sketch_sep17b/sketch_sep17b.ino	(date 1663756525063)
+@@ -1,29 +1,155 @@
+ #include <Arduino.h>
+ 
+-int button1 = 2;
+-int button2 = 4;
++int ledLike = 2;
++int ledBucle = 3;
++int led1 = 4;
++int led2 = 5;
++int led3 = 6;
++int led4 = 7;
++int led5 = 8;
++int buttonLike = 9;
++int buttonBucle = 10;
++int buttonPrevious = 11;
++int buttonNext = 13;
++int buttonPlayPause = 12;
++int V = 0;
++long vol;
+ 
+-void setup(){
+-  pinMode(button1, INPUT);
+-  pinMode(button2, INPUT);
++void setup() {
++  // put your setup code here, to run once:
++  pinMode(ledLike, OUTPUT);  
++  pinMode(ledBucle, OUTPUT);
++  pinMode(led1, OUTPUT);
++  pinMode(led2, OUTPUT);
++  pinMode(led3, OUTPUT);
++  pinMode(led4, OUTPUT);
++  pinMode(led5, OUTPUT);
++  pinMode(buttonLike, INPUT);
++  pinMode(buttonBucle, INPUT);
++  pinMode(buttonPrevious, INPUT);
++  pinMode(buttonNext, INPUT);
++  pinMode(buttonPlayPause, INPUT);
++  pinMode(V, OUTPUT);
++
+   Serial.begin(9600);
+ 
+ }
+ 
+ void loop() {
++  if(Serial.available()>0){
++    int entrada = Serial.read();
++    switch(entrada)
++    {
++      case 'L':
++        digitalWrite(ledLike,HIGH);
++        break;
++
++      case 'D':
++        digitalWrite(ledLike,LOW);
++        break;
++    }
++    }
++
++
++
++  
+   // put your main code here, to run repeatedly:
+-  if(digitalRead(button1)== HIGH){
+-  Serial.write("Saludos");
++  if(digitalRead(buttonLike)== HIGH){
++    if (digitalRead(ledLike)== HIGH){
++       Serial.write("NOLike");
++      digitalWrite(ledLike,LOW);
++      delay(300);}
++    else if(digitalRead(ledLike)== LOW){
++      Serial.write("Like");
++      digitalWrite(ledLike,HIGH);
++      delay(300);
++  }
++  }
++  
++if(digitalRead(buttonBucle)== HIGH){
++  if (digitalRead(ledBucle)== HIGH){
++    Serial.write("NOBucle");
++    digitalWrite(ledBucle,LOW);
++    delay(300);
++}else if(digitalRead(ledBucle)== LOW){
++    Serial.write("Bucle");
++    digitalWrite(ledBucle,HIGH);
++    delay(300);
++  
++  }
++}
++if(digitalRead(buttonPlayPause)== HIGH){
++  Serial.write("Play");
+   delay(300);
++  
+   }
+-  if(digitalRead(button2)== HIGH){
+-  Serial.write("S");
++if(digitalRead(buttonPrevious)== HIGH){
++  Serial.write("Previous");
+   delay(300);
++  
+   }
+-  else{
+-  //nothin`
+-    }
+-  if(!Serial.available()){
+-    return;
+-    }
++if(digitalRead(buttonNext)== HIGH){
++  Serial.write("Next");
++  delay(300);
++  
++  }
++  
++int sensorValue = analogRead(V);
++vol = analogRead(V); //potenciometro 10k
++if (vol >= 0 && vol <= 100){
++    digitalWrite(led1, LOW);
++    digitalWrite(led2, LOW);
++    digitalWrite(led3, LOW);
++    digitalWrite(led4, LOW);
++    digitalWrite(led5, LOW);
++    Serial.println(sensorValue);
++    delay(1);
++ } 
++  else if (vol >= 100 && vol <= 200){
++    digitalWrite(led1, HIGH);
++    digitalWrite(led2, LOW);
++    digitalWrite(led3, LOW);
++    digitalWrite(led4, LOW);
++    digitalWrite(led5, LOW);
++    Serial.println(sensorValue);
++    delay(1);
++ }
++ else if (vol >= 200 && vol <= 300){
++    digitalWrite(led1, HIGH);
++    digitalWrite(led2, HIGH);
++    digitalWrite(led3, LOW);
++    digitalWrite(led4, LOW);
++    digitalWrite(led5, LOW);
++    Serial.println(sensorValue);
++    delay(1);
++ }
++ else if (vol >= 300 && vol <= 500){
++    digitalWrite(led1, HIGH);
++    digitalWrite(led2, HIGH);
++    digitalWrite(led3, HIGH);
++    digitalWrite(led4, LOW);
++    digitalWrite(led5, LOW);
++    Serial.println(sensorValue);
++    delay(1);
++ }
++ else if (vol >= 500 && vol <= 700){
++    digitalWrite(led1, HIGH);
++    digitalWrite(led2, HIGH);
++    digitalWrite(led3, HIGH);
++    digitalWrite(led4, HIGH);
++    digitalWrite(led5, LOW);
++    Serial.println(sensorValue);
++    delay(1);
++ }
++ else{
++    digitalWrite(led1, HIGH);
++    digitalWrite(led2, HIGH);
++    digitalWrite(led3, HIGH);
++    digitalWrite(led4, HIGH);
++    digitalWrite(led5, HIGH);
++    Serial.println(sensorValue);
++    delay(1);
++
++
++}
+ }
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_18\" default=\"true\" project-jdk-name=\"18\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 463e662ea33d3580d53c79afdc616b77d7ca9016)
++++ b/.idea/misc.xml	(date 1663722750457)
+@@ -7,7 +7,7 @@
+       </list>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_18" default="true" project-jdk-name="18" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_18" project-jdk-name="openjdk-18" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file

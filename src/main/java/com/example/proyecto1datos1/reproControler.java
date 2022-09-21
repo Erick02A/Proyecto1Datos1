@@ -1,8 +1,10 @@
 package com.example.proyecto1datos1;
 
 
+import com.fazecast.jSerialComm.SerialPort;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,12 +19,25 @@ import javafx.util.Duration;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class reproControler implements Initializable {
     @FXML
-    private Button pauseButton, PreviusButton, NextButton, BucleButton,LikeButton,buttonDelete,buttonAdd;
+    private Button pauseButton;
+    @FXML
+    private Button PreviusButton;
+    @FXML
+    private Button NextButton;
+    @FXML
+    private Button BucleButton;
+    @FXML
+    private Button LikeButton;
+    @FXML
+    private Button buttonDelete;
+    @FXML
+    private Button buttonAdd;
     @FXML
     private Slider volumenbar;
     @FXML
@@ -140,12 +155,21 @@ public class reproControler implements Initializable {
         timer.cancel();
     }
     public void Delete(){
-        songs.eliminar(song);
+        if (Songs.getPrev()==null){
+
+        }else{
+            songs.eliminar(song);
+        }
+
     }
     public void Add(){
         FileChooser F = new FileChooser();
         File file = F.showOpenDialog(null);
-        songs.addsongfirst(file.toString(),"genero","artista","album","2001","letra",file);
+        if (file == null){
+
+        }else{
+            songs.addsongfirst(file.toString(),"genero","artista","album","2001","letra",file);
+        }
     }
     public void setBucle(boolean B){
         bucle=B;
@@ -156,4 +180,5 @@ public class reproControler implements Initializable {
     public  void setPlay(boolean F){
         play=F;
     }
+
 }
