@@ -6,11 +6,13 @@ public class listaSongs {
     private Songs cabeza;
     private Songs last;
     private int size;
+    private boolean bucle;
 
     public listaSongs(){
         this.cabeza = null;
         this.last = null;
         this.size = 0;
+        this.bucle = false;
     }
     public void addsongfirst(String cancion, String genero, String artista, String album, String año, String letra, File data){
         if (cabeza==null){
@@ -38,8 +40,27 @@ public class listaSongs {
         size++;
     }
     public void eliminar(Songs song){
-        song.getPrev().setNext(song.getNext());
-        song.getNext().setPrev(song.getPrev());
+        if (bucle==true){
+            if (song == cabeza){
+                cabeza = cabeza.getNext();
+            }else if(song == last){
+                last = last.getPrev();
+            }
+            song.getPrev().setNext(song.getNext());
+            song.getNext().setPrev(song.getPrev());
+        }
+        else {
+            if(song == cabeza ){
+                cabeza = cabeza.getNext();
+                song.getNext().setPrev(null);
+            }else if(song == last){
+                last = last.getPrev();
+                song.getPrev().setNext(null);
+            }else {
+                song.getPrev().setNext(song.getNext());
+                song.getNext().setPrev(song.getPrev());
+            }
+        }
     }
     public int getSize(){
         return size;
@@ -51,9 +72,11 @@ public class listaSongs {
         if(a==false) {
             last.setNext(cabeza);
             cabeza.setPrev(last);
+            bucle = true;
         }else {
             last.setNext(null);
             cabeza.setPrev(null);
+            bucle = false;
         }
     }
     public String obtener(int index){

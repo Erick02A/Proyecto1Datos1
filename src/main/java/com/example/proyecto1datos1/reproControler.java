@@ -11,6 +11,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -21,7 +22,7 @@ import java.util.TimerTask;
 
 public class reproControler implements Initializable {
     @FXML
-    private Button pauseButton, PreviusButton, NextButton, BucleButton,LikeButton;
+    private Button pauseButton, PreviusButton, NextButton, BucleButton,LikeButton,buttonDelete,buttonAdd;
     @FXML
     private Slider volumenbar;
     @FXML
@@ -110,11 +111,9 @@ public class reproControler implements Initializable {
     }
     public void LikeSong(){
         if(like==false) {
-            System.out.println(song.getCancion()+" me gusta");
             LikeButton.setTextFill(Paint.valueOf("#e70606"));
             like= true;
         }else {
-            System.out.println(song.getCancion()+" no me gusta");
             LikeButton.setTextFill(Paint.valueOf("#000000"));
             like= false;
         }
@@ -139,6 +138,14 @@ public class reproControler implements Initializable {
     public void cancelTimer(){
         runing=false;
         timer.cancel();
+    }
+    public void Delete(){
+        songs.eliminar(song);
+    }
+    public void Add(){
+        FileChooser F = new FileChooser();
+        File file = F.showOpenDialog(null);
+        songs.addsongfirst(file.toString(),"genero","artista","album","2001","letra",file);
     }
     public void setBucle(boolean B){
         bucle=B;

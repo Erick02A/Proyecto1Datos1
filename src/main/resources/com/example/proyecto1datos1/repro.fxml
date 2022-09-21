@@ -5,14 +5,16 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="255.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto1datos1.reproControler">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="255.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto1datos1.reproControler">
    <children>
-      <Button fx:id="pauseButton" layoutX="288.0" layoutY="191.0" mnemonicParsing="false" onAction="#PlayPause" text="⏯" />
+      <Button fx:id="pauseButton" layoutX="288.0" layoutY="191.0" mnemonicParsing="false" onAction="#PlayPause" text="▶" />
       <Button fx:id="PreviusButton" layoutX="237.0" layoutY="191.0" mnemonicParsing="false" onAction="#previusSong" text="⏮" />
       <Button fx:id="NextButton" layoutX="335.0" layoutY="191.0" mnemonicParsing="false" onAction="#NextSong" text="⏭" />
-      <Button fx:id="BucleButton" layoutX="49.0" layoutY="191.0" mnemonicParsing="false" onAction="#listBucle" text="🔁" />
-      <Button fx:id="LikeButton" layoutX="498.0" layoutY="191.0" mnemonicParsing="false" onAction="#LikeSong" text="❤" textFill="#e70606" />
-      <Slider fx:id="volumenbar" layoutX="87.0" layoutY="197.0" max="200.0" value="100.0" />
+      <Button fx:id="BucleButton" layoutX="49.0" layoutY="191.0" mnemonicParsing="false" onAction="#listBucle" text="🔀" />
+      <Button fx:id="LikeButton" layoutX="498.0" layoutY="191.0" mnemonicParsing="false" onAction="#LikeSong" text="❤" textFill="#000000" />
+      <Slider fx:id="volumenbar" layoutX="87.0" layoutY="197.0" max="1.0" value="0.5" />
       <ProgressBar fx:id="SongProgresbar" layoutX="61.0" layoutY="150.0" prefHeight="18.0" prefWidth="477.0" progress="0.0" />
+      <Button fx:id="buttonDelete" layoutX="9.0" layoutY="15.0" mnemonicParsing="false" onAction="#Delete" text="Delete Song" />
+      <Button fx:id="buttonAdd" layoutX="100.0" layoutY="15.0" mnemonicParsing="false" onAction="#Add" text="Add Song" />
    </children>
 </Pane>
