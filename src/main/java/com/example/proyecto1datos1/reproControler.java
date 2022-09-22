@@ -48,7 +48,8 @@ public class reproControler implements Initializable {
         files = directory.listFiles();
         if (files != null){
             for(File file: files){
-                songs.addsonglast(file.getName(),"genero","artista","album","2001","letra",file);
+
+                    songs.addsonglast(file.getName(),"genero","artista","album","2001","letra",file);
             }
             volumenbar.valueProperty().addListener(new ChangeListener<Number>() {
                 @Override

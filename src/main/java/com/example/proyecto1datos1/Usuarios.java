@@ -3,15 +3,12 @@ package com.example.proyecto1datos1;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 
 public class Usuarios{
 
 
-    public static void Datos(String Contraseña, String Correo, Label error) throws IOException {
+    public static void Datos(String Contraseña, String Correo, Label error){
         String linea, Name, correo, contraseña, Provincia;
 
         try {
@@ -25,6 +22,11 @@ public class Usuarios{
                 Provincia = datos[2];
                 contraseña = datos[3];
                 if ( Contraseña.equals(contraseña) && Correo.equals(correo)) {
+                    BufferedWriter bw = new BufferedWriter(new FileWriter("activo.txt"));
+                    PrintWriter pw = new PrintWriter(bw);
+                    pw.write(Name);
+                    bw.close();
+                    pw.close();
                     MusicPro m = new MusicPro();
                     m.CambiarPantalla("repro.fxml");
 
@@ -35,9 +37,6 @@ public class Usuarios{
 
                 }else{error.setText("Usuario incorrecto");}
             }
-
-
-
         } catch (IOException est) {
            System.out.println("error");
             throw new RuntimeException(est);
