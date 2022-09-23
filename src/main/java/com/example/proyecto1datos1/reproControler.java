@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
@@ -14,7 +15,7 @@ import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
-import java.io.File;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -22,11 +23,13 @@ import java.util.TimerTask;
 
 public class reproControler implements Initializable {
     @FXML
-    private Button pauseButton, PreviusButton, NextButton, BucleButton,LikeButton,buttonDelete,buttonAdd;
+    private Button pauseButton, PreviusButton, NextButton,BucleButton,LikeButton,buttonDelete,buttonAdd;
     @FXML
     private Slider volumenbar;
     @FXML
     private ProgressBar SongProgresbar;
+    @FXML
+    private ComboBox<String> BiblioBox;
     private File directory;
     private File[] files;
     private listaSongs songs;
@@ -46,6 +49,18 @@ public class reproControler implements Initializable {
         songs = new listaSongs();
         directory = new File("music");
         files = directory.listFiles();
+        String activo = "";
+        try {
+            BufferedReader BR = new BufferedReader(new FileReader("activo.txt"));
+            activo= BR.readLine();
+            BufferedReader lista = new BufferedReader(new FileReader("src/main/java/com/example/proyecto1datos1/"+activo+".csv"));
+            System.out.println(lista.readLine());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         if (files != null){
             for(File file: files){
 
