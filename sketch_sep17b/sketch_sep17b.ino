@@ -56,11 +56,13 @@ void loop() {
   // put your main code here, to run repeatedly:
   if(digitalRead(buttonLike)== HIGH){
     if (digitalRead(ledLike)== HIGH){
-       Serial.write("NOLike");
+       //Serial.write("NOLike");
+       Serial.println("NOLike");
       digitalWrite(ledLike,LOW);
       delay(300);}
     else if(digitalRead(ledLike)== LOW){
-      Serial.write("Like");
+      //Serial.write("Like");
+      Serial.println("Like");
       digitalWrite(ledLike,HIGH);
       delay(300);
   }
@@ -68,28 +70,33 @@ void loop() {
   
 if(digitalRead(buttonBucle)== HIGH){
   if (digitalRead(ledBucle)== HIGH){
-    Serial.write("NOBucle");
+    //Serial.write("NOBucle");
+    Serial.println("NOBucle");
     digitalWrite(ledBucle,LOW);
     delay(300);
 }else if(digitalRead(ledBucle)== LOW){
-    Serial.write("Bucle");
+    //Serial.write("Bucle");
+    Serial.println("Bucle");
     digitalWrite(ledBucle,HIGH);
     delay(300);
   
   }
 }
 if(digitalRead(buttonPlayPause)== HIGH){
-  Serial.write("Play");
+  //Serial.write("Play");
+  Serial.println("Play");
   delay(300);
   
   }
 if(digitalRead(buttonPrevious)== HIGH){
-  Serial.write("Previous");
+  //Serial.write("Previous");
+  Serial.println("Previous");
   delay(300);
   
   }
 if(digitalRead(buttonNext)== HIGH){
-  Serial.write("Next");
+  //Serial.write("Next");
+  Serial.println("Next");
   delay(300);
   
   }
@@ -151,5 +158,5 @@ if (vol >= 0 && vol <= 100){
     delay(1);
 
 
-}
+}  
 }

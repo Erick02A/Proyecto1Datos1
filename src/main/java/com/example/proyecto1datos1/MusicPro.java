@@ -14,6 +14,7 @@ public class MusicPro extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         Window = stage;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("users.fxml")));
         stage.setTitle("MusicPro");

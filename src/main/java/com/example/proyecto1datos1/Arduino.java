@@ -21,7 +21,7 @@ public class Arduino extends reproControler{
         Scanner data = new Scanner(sp.getInputStream());
 
         try {
-            while (data.hasNextLine()) {
+            while (data.hasNextLine() ) {
                 String dato = (data.nextLine());
                 Orden(dato);
             }
@@ -36,29 +36,14 @@ public class Arduino extends reproControler{
 
     private static void Orden(String dato) {
         System.out.println(dato);
-        switch (dato){
-            case "Play":
-                System.out.println("Play");
-                break;
-            case "Previous":
-                System.out.println("Previous");
-                break;
-            case "Next":
-                System.out.println("Next");
-                break;
-            case "Like":
-                System.out.println("Like");
-                break;
-            case "NOLike":
-                System.out.println("NoLike");
-                break;
-            case "Bucle":
-                System.out.println("Bucle");
-                break;
-            case "NOBucle":
-                System.out.println("noBucle");
-                break;
-
+        switch (dato) {
+            case "Play" -> System.out.println("Play");
+            case "Previous" -> System.out.println("Previous");
+            case "Next" -> System.out.println("Next");
+            case "Like" -> System.out.println("Like");
+            case "NOLike" -> System.out.println("NoLike");
+            case "Bucle" -> System.out.println("Bucle");
+            case "NOBucle" -> System.out.println("noBucle");
         }
     }
 

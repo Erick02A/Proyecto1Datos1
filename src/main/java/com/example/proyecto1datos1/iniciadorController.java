@@ -12,12 +12,15 @@ public class iniciadorController {
     private Label Error;
     @FXML
     private TextField Correo;
+
     @FXML
     private PasswordField Contraseña;
 
 
-    public void user(ActionEvent event) throws IOException {
-
+    public void user(ActionEvent event) throws IOException, InterruptedException {
+        Hilo hilo = new Hilo();
+        hilo.start();
+        //Arduino.Arduino();
         Usuarios.Datos(Contraseña.getText(),Correo.getText(),Error);
     }
 }
