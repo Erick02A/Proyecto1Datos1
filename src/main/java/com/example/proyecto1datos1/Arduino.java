@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Arduino extends reproControler{
 
-
-    public static void Arduino() throws InterruptedException {
+    private static String Dato = "";
+    public static String Arduino() throws InterruptedException {
         var sp = SerialPort.getCommPort("COM5");
 
         sp.setComPortParameters(9600, Byte.SIZE, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
@@ -32,12 +32,21 @@ public class Arduino extends reproControler{
         }
 
 
+        return null;
     }
 
-    private static void Orden(String dato) {
-        System.out.println(dato);
+    public static String getDato() {
+        return Dato;
+    }
+
+    private static String Orden(String dato) {
         switch (dato) {
-            case "Play" -> System.out.println("Play");
+            case "Play" -> {
+
+                System.out.println(dato);
+                setDato(dato);
+                return dato;
+            }
             case "Previous" -> System.out.println("Previous");
             case "Next" -> System.out.println("Next");
             case "Like" -> System.out.println("Like");
@@ -45,6 +54,10 @@ public class Arduino extends reproControler{
             case "Bucle" -> System.out.println("Bucle");
             case "NOBucle" -> System.out.println("noBucle");
         }
+        return dato;
     }
 
+    public static void setDato(String dato) {
+        Dato = dato;
+    }
 }

@@ -23,7 +23,19 @@ import java.util.TimerTask;
 
 public class reproControler implements Initializable {
     @FXML
-    private Button pauseButton, PreviusButton, NextButton,BucleButton,LikeButton,buttonDelete,buttonAdd;
+    private Button pauseButton;
+    @FXML
+    private Button PreviusButton;
+    @FXML
+    private Button NextButton;
+    @FXML
+    private Button BucleButton;
+    @FXML
+    private Button LikeButton;
+    @FXML
+    private Button buttonDelete;
+    @FXML
+    private Button buttonAdd;
     @FXML
     private Slider volumenbar;
     @FXML
@@ -43,9 +55,12 @@ public class reproControler implements Initializable {
     private boolean like;
     private boolean runing;
     private Songs song;
+    private String Dato;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Hilo hilo = new Hilo();
+        hilo.start();
         songs = new listaSongs();
         directory = new File("music");
         files = directory.listFiles();
@@ -77,6 +92,19 @@ public class reproControler implements Initializable {
         System.out.println(song.getdata().toURI().toString());
         media= new Media(song.getdata().toURI().toString());
         mediaPlayer= new MediaPlayer(media);
+        try {
+            while (Dato != null){Ardu();}
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void Ardu() throws InterruptedException {
+        Dato = Hilo.getData();
+        System.out.println("si");
+        if(Dato.equals("Play")){
+            System.out.println("Saludos");
+        }
     }
     public void PlayPause(){
         if(play==false){
