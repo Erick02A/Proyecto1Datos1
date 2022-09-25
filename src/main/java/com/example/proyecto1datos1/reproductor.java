@@ -6,19 +6,14 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import java.io.*;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class reproductor {
     private File directory;
     private File[] files;
-    private listaSongs songs;
-    private Media media;
-    private MediaPlayer mediaPlayer;
-    private boolean like;
-    private boolean runing;
-    private Songs song;
-    private String Dato;
+    private static listaSongs songs;
+    private static Media media;
+    private static MediaPlayer mediaPlayer;
+    private static Songs song;
     public reproductor(){
         songs = new listaSongs();
         directory = new File("music");
@@ -45,37 +40,39 @@ public class reproductor {
         media= new Media(song.getdata().toURI().toString());
         mediaPlayer= new MediaPlayer(media);
     }
-    public void pausa(){
+    public static void pausa(){
         mediaPlayer.pause();
     }
-    public void play(){
+    public static void play(){
         mediaPlayer.play();
     }
-    public void previus(){
+    public static void previus(){
         if (song.getPrev() != null) {
             song = song.getPrev();
             mediaPlayer.stop();
             media = new Media(song.getdata().toURI().toString());
             mediaPlayer= new MediaPlayer(media);
+            play();
         }else {
             mediaPlayer.seek(Duration.seconds(0));
         }
     }
-    public void next(){
+    public static void next(){
         if (song.getNext() != null) {
             song = song.getNext();
             mediaPlayer.stop();
             media = new Media(song.getdata().toURI().toString());
             mediaPlayer= new MediaPlayer(media);
+            play();
         }
     }
-    public void setVolumen(double vol){
+    public static void setVolumen(double vol){
         mediaPlayer.setVolume(vol);
     }
-    public void Bucle(boolean bucle){
+    public static void Bucle(boolean bucle){
         songs.bucle(bucle);
     }
-    public void like(){
+    public static void like(boolean Like){
 
     }
     public double getCurrenttime(){

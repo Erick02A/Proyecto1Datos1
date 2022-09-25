@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment=".">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="Se separa el reproduntor del comtrolador">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproductor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproductor.java" afterDir="false" />
     </list>
@@ -78,7 +78,7 @@
       <workItem from="1663697509472" duration="10275000" />
       <workItem from="1663737091998" duration="3856000" />
       <workItem from="1664054081812" duration="623000" />
-      <workItem from="1664065121196" duration="2251000" />
+      <workItem from="1664065121196" duration="3383000" />
     </task>
     <task id="LOCAL-00001" summary="En proceso la creacion de usuarios">
       <created>1663226265352</created>
@@ -297,7 +297,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664065354841</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Se separa el reproduntor del comtrolador">
+      <created>1664067395023</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1664067395023</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -334,6 +341,7 @@
     <MESSAGE value="se añade el modulo media de JavaFx" />
     <MESSAGE value="se crea el reproductor" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="Se separa el reproduntor del comtrolador" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se separa el reproduntor del comtrolador" />
   </component>
 </project>

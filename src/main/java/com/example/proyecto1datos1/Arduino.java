@@ -5,8 +5,6 @@ import com.fazecast.jSerialComm.SerialPort;
 import java.util.Scanner;
 
 public class Arduino extends reproControler{
-
-    private static String Dato = "";
     public static String Arduino() throws InterruptedException {
         var sp = SerialPort.getCommPort("COM5");
 
@@ -34,30 +32,36 @@ public class Arduino extends reproControler{
 
         return null;
     }
-
-    public static String getDato() {
-        return Dato;
-    }
-
-    private static String Orden(String dato) {
+    private static void Orden(String dato) {
         switch (dato) {
             case "Play" -> {
-
-                System.out.println(dato);
-                setDato(dato);
-                return dato;
+                System.out.println("Play");
+                reproductor.play();
             }
-            case "Previous" -> System.out.println("Previous");
-            case "Next" -> System.out.println("Next");
-            case "Like" -> System.out.println("Like");
-            case "NOLike" -> System.out.println("NoLike");
-            case "Bucle" -> System.out.println("Bucle");
-            case "NOBucle" -> System.out.println("noBucle");
+            case "Previous" -> {
+                System.out.println("Previous");
+                reproductor.previus();
+            }
+            case "Next" -> {
+                System.out.println("Next");
+                reproductor.next();
+            }
+            case "Like" -> {
+                System.out.println("Like");
+                reproductor.like(false);
+            }
+            case "NOLike" -> {
+                System.out.println("NoLike");
+                reproductor.like(true);
+            }
+            case "Bucle" -> {
+                System.out.println("Bucle");
+                reproductor.Bucle(false);
+            }
+            case "NOBucle" -> {
+                System.out.println("noBucle");
+                reproductor.Bucle(true);
+            }
         }
-        return dato;
-    }
-
-    public static void setDato(String dato) {
-        Dato = dato;
     }
 }

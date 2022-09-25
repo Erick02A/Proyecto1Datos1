@@ -9,13 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
-import javafx.stage.FileChooser;
-import javafx.util.Duration;
 
-import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -64,19 +59,6 @@ public class reproControler implements Initializable {
                 repro.setVolumen(volumenbar.getValue());
             }
         });
-        /*try {
-            while (Dato != null){Ardu();}
-
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }*/
-    }
-    public void Ardu() throws InterruptedException {
-        Dato = Hilo.getData();
-        System.out.println("si");
-        if(Dato.equals("Play")){
-            System.out.println("Saludos");
-        }
     }
     public void PlayPause(){
         if(play==false){
@@ -110,9 +92,11 @@ public class reproControler implements Initializable {
     }
     public void LikeSong(){
         if(like==false) {
+            repro.like(like);
             LikeButton.setTextFill(Paint.valueOf("#e70606"));
             like= true;
         }else {
+            repro.like(like);
             LikeButton.setTextFill(Paint.valueOf("#000000"));
             like= false;
         }
