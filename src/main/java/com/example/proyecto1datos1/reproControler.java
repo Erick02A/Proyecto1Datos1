@@ -43,14 +43,9 @@ public class reproControler implements Initializable {
     @FXML
     private ComboBox<String> BiblioBox;
     private String[] Biblios ;
-    private File directory;
-    private File[] files;
-    private listaSongs songs;
-    private int songNumber;
+    private reproductor repro;
     private Timer timer;
     private TimerTask task;
-    private Media media;
-    private MediaPlayer mediaPlayer;
     private boolean play;
     private boolean bucle;
     private boolean like;
@@ -62,37 +57,13 @@ public class reproControler implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Hilo hilo = new Hilo();
         hilo.start();
-        songs = new listaSongs();
-        directory = new File("music");
-        files = directory.listFiles();
-        String activo = "";
-        try {
-            BufferedReader BR = new BufferedReader(new FileReader("activo.txt"));
-            activo= BR.readLine();
-            BufferedReader lista = new BufferedReader(new FileReader("src/main/java/com/example/proyecto1datos1/"+activo+".csv"));
-            System.out.println(lista.readLine());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        if (files != null){
-            for(File file: files){
-
-                    songs.addsonglast(file.getName(),"genero","artista","album","2001","letra",file);
+        repro = new reproductor();
+        volumenbar.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                repro.setVolumen(volumenbar.getValue());
             }
-            volumenbar.valueProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                    mediaPlayer.setVolume(volumenbar.getValue());
-                }
-            });
-        }
-        song = songs.getCabeza();
-        System.out.println(song.getdata().toURI().toString());
-        media= new Media(song.getdata().toURI().toString());
-        mediaPlayer= new MediaPlayer(media);
+        });
         /*try {
             while (Dato != null){Ardu();}
 
@@ -109,48 +80,31 @@ public class reproControler implements Initializable {
     }
     public void PlayPause(){
         if(play==false){
-            mediaPlayer.play();
+            repro.play();
             pauseButton.setText("⏸");
             beginTimer();
             play=true;
         }else {
-            mediaPlayer.pause();
+            repro.pausa();
             pauseButton.setText("▶");
             cancelTimer();
             play=false;
         }
     }
     public void previusSong(){
-        if (song.getPrev() != null) {
-            song = song.getPrev();
-            mediaPlayer.stop();
-            media = new Media(song.getdata().toURI().toString());
-            mediaPlayer= new MediaPlayer(media);
-            play=false;
-            PlayPause();
-        }else {
-            mediaPlayer.seek(Duration.seconds(0));
-            SongProgresbar.setProgress(0);
-        }
+        repro.previus();
     }
     public void NextSong(){
-        if (song.getNext() != null) {
-            song = song.getNext();
-            mediaPlayer.stop();
-            media = new Media(song.getdata().toURI().toString());
-            mediaPlayer= new MediaPlayer(media);
-            play=false;
-            PlayPause();
-        }
+        repro.next();
     }
     public void listBucle(){
         if (bucle==false) {
             BucleButton.setText("🔁");
-            songs.bucle(bucle);
+            repro.Bucle(bucle);
             bucle= true;
         }else {
             BucleButton.setText("🔀");
-            songs.bucle(bucle);
+            repro.Bucle(bucle);
             bucle= false;
         }
     }
@@ -169,8 +123,8 @@ public class reproControler implements Initializable {
             @Override
             public void run() {
                 runing = true;
-                double current = mediaPlayer.getCurrentTime().toSeconds();
-                double end = media.getDuration().toSeconds();
+                double current = repro.getCurrenttime();
+                double end = repro.getDuration();
                 SongProgresbar.setProgress(current/end);
 
                 if (current/end == 1){
@@ -185,12 +139,10 @@ public class reproControler implements Initializable {
         timer.cancel();
     }
     public void Delete(){
-        songs.eliminar(song);
+        repro.delete();
     }
     public void Add(){
-        FileChooser F = new FileChooser();
-        File file = F.showOpenDialog(null);
-        songs.addsongfirst(file.getName(),"genero","artista","album","2001","letra",file);
+        repro.ADD();
     }
     public void setBucle(boolean B){
         bucle=B;
