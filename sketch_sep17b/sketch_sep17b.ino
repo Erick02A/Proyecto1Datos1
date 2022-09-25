@@ -109,7 +109,7 @@ if (vol >= 0 && vol <= 100){
     digitalWrite(led3, LOW);
     digitalWrite(led4, LOW);
     digitalWrite(led5, LOW);
-    Serial.println(sensorValue);
+    Serial.println(0);
     delay(1);
  } 
   else if (vol >= 100 && vol <= 200){
@@ -118,7 +118,7 @@ if (vol >= 0 && vol <= 100){
     digitalWrite(led3, LOW);
     digitalWrite(led4, LOW);
     digitalWrite(led5, LOW);
-    Serial.println(sensorValue);
+    Serial.println(0.2);
     delay(1);
  }
  else if (vol >= 200 && vol <= 300){
@@ -127,7 +127,7 @@ if (vol >= 0 && vol <= 100){
     digitalWrite(led3, LOW);
     digitalWrite(led4, LOW);
     digitalWrite(led5, LOW);
-    Serial.println(sensorValue);
+    Serial.println(0.4);
     delay(1);
  }
  else if (vol >= 300 && vol <= 500){
@@ -136,7 +136,7 @@ if (vol >= 0 && vol <= 100){
     digitalWrite(led3, HIGH);
     digitalWrite(led4, LOW);
     digitalWrite(led5, LOW);
-    Serial.println(sensorValue);
+    Serial.println(0.6);
     delay(1);
  }
  else if (vol >= 500 && vol <= 700){
@@ -145,7 +145,7 @@ if (vol >= 0 && vol <= 100){
     digitalWrite(led3, HIGH);
     digitalWrite(led4, HIGH);
     digitalWrite(led5, LOW);
-    Serial.println(sensorValue);
+    Serial.println(0.8);
     delay(1);
  }
  else{
@@ -154,7 +154,7 @@ if (vol >= 0 && vol <= 100){
     digitalWrite(led3, HIGH);
     digitalWrite(led4, HIGH);
     digitalWrite(led5, HIGH);
-    Serial.println(sensorValue);
+    Serial.println(1);
     delay(1);
 
 

@@ -62,12 +62,12 @@ public class reproControler implements Initializable {
     }
     public void PlayPause(){
         if(play==false){
-            repro.play();
+            repro.playpause(play);
             pauseButton.setText("⏸");
             beginTimer();
             play=true;
         }else {
-            repro.pausa();
+            repro.playpause(play);
             pauseButton.setText("▶");
             cancelTimer();
             play=false;

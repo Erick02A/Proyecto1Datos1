@@ -11,7 +11,6 @@ public class Hilo extends  Thread{
             try {
                 Arduino.Arduino();
                 //Usuarios.Datos(Contraseña.getText(),Correo.getText(),Error);
-                data = Arduino.getDato();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

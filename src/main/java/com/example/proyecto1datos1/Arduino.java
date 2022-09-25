@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Arduino extends reproControler{
     public static String Arduino() throws InterruptedException {
-        var sp = SerialPort.getCommPort("COM5");
+        var sp = SerialPort.getCommPort("COM3");
 
         sp.setComPortParameters(9600, Byte.SIZE, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
         sp.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
@@ -36,7 +36,7 @@ public class Arduino extends reproControler{
         switch (dato) {
             case "Play" -> {
                 System.out.println("Play");
-                reproductor.play();
+                reproductor.playpause(false);
             }
             case "Previous" -> {
                 System.out.println("Previous");

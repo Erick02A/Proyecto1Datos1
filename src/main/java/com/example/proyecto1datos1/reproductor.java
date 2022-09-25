@@ -40,11 +40,12 @@ public class reproductor {
         media= new Media(song.getdata().toURI().toString());
         mediaPlayer= new MediaPlayer(media);
     }
-    public static void pausa(){
-        mediaPlayer.pause();
-    }
-    public static void play(){
-        mediaPlayer.play();
+    public static void playpause(boolean a){
+        if (a==false) {
+            mediaPlayer.play();
+        }else {
+            mediaPlayer.pause();
+        }
     }
     public static void previus(){
         if (song.getPrev() != null) {
@@ -52,7 +53,7 @@ public class reproductor {
             mediaPlayer.stop();
             media = new Media(song.getdata().toURI().toString());
             mediaPlayer= new MediaPlayer(media);
-            play();
+            playpause(false);
         }else {
             mediaPlayer.seek(Duration.seconds(0));
         }
@@ -63,7 +64,7 @@ public class reproductor {
             mediaPlayer.stop();
             media = new Media(song.getdata().toURI().toString());
             mediaPlayer= new MediaPlayer(media);
-            play();
+            playpause(false);
         }
     }
     public static void setVolumen(double vol){
