@@ -44,18 +44,18 @@ public class reproControler implements Initializable {
     private boolean play;
     private boolean bucle;
     private boolean like;
+    private double volumen;
     private boolean runing;
-    private Songs song;
-    private String Dato;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Hilo hilo = new Hilo();
-        hilo.start();
         repro = new reproductor();
+        hilo.start();
         volumenbar.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                volumen=volumenbar.getValue();
                 repro.setVolumen(volumenbar.getValue());
             }
         });
@@ -75,9 +75,11 @@ public class reproControler implements Initializable {
     }
     public void previusSong(){
         repro.previus();
+        repro.setVolumen(volumen);
     }
     public void NextSong(){
         repro.next();
+        repro.setVolumen(volumen);
     }
     public void listBucle(){
         if (bucle==false) {
@@ -113,6 +115,7 @@ public class reproControler implements Initializable {
 
                 if (current/end == 1){
                     cancelTimer();
+                    NextSong();
                 }
             }
         };
