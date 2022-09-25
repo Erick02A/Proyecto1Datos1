@@ -42,6 +42,7 @@ public class reproControler implements Initializable {
     private ProgressBar SongProgresbar;
     @FXML
     private ComboBox<String> BiblioBox;
+    private String[] Biblios ;
     private File directory;
     private File[] files;
     private listaSongs songs;
@@ -92,12 +93,12 @@ public class reproControler implements Initializable {
         System.out.println(song.getdata().toURI().toString());
         media= new Media(song.getdata().toURI().toString());
         mediaPlayer= new MediaPlayer(media);
-        try {
+        /*try {
             while (Dato != null){Ardu();}
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
     public void Ardu() throws InterruptedException {
         Dato = Hilo.getData();

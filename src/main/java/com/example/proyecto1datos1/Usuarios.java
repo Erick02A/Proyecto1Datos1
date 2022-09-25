@@ -1,6 +1,5 @@
 package com.example.proyecto1datos1;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 
 import java.io.*;
@@ -12,8 +11,8 @@ public class Usuarios{
         String linea, Name, correo, contraseña, Provincia;
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
-            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
             linea = "";
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(",");
