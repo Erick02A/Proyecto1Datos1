@@ -33,37 +33,41 @@ public class Arduino extends reproControler{
         return null;
     }
     private static void Orden(String dato) {
-            if (dato == "Play") {
-                System.out.println("Play");
-                reproductor.playpause(false);
-            }
-            else if (dato =="Previous") {
-                System.out.println("Previous");
-                reproductor.previus();
-            }
-            else if (dato =="Next") {
-                System.out.println("Next");
-                reproductor.next();
-            }
-            else if (dato == "Like") {
-                System.out.println("Like");
-                reproductor.like(false);
-            }
-            else if (dato=="NOLike") {
-                System.out.println("NoLike");
-                reproductor.like(true);
-            }
-            else if (dato == "Bucle") {
-                System.out.println("Bucle");
-                reproductor.Bucle(false);
-            }
-            else if (dato == "NOBucle") {
-                System.out.println("noBucle");
-                reproductor.Bucle(true);
-            }
-            else {
-                System.out.println(dato);
-                reproductor.setVolumen(Double.parseDouble(dato));
-            }
+        if (dato.equals("Play")) {
+            //System.out.println("Play");
+            reproductor.playpause(false);
+        }
+        else if(dato.equals("Pause")){
+            //System.out.println("Pause");
+            reproductor.playpause(true);
+        }
+        else if (dato.equals("Previous")) {
+            //System.out.println("Previous");
+            reproductor.previus(true);
+        }
+        else if (dato.equals("Next")) {
+            //System.out.println("Next");
+            reproductor.next(true);
+        }
+        else if (dato.equals("Like")) {
+            //System.out.println("Like");
+            reproductor.like(false);
+        }
+        else if (dato.equals("NOLike")) {
+            //System.out.println("NoLike");
+            reproductor.like(true);
+        }
+        else if (dato.equals("Bucle")) {
+            //System.out.println("Bucle");
+            reproductor.Bucle(false);
+        }
+        else if (dato.equals("NOBucle")) {
+            //System.out.println("noBucle");
+            reproductor.Bucle(true);
+        }
+        else {
+            //System.out.println(dato);
+            reproductor.setVolumen(Double.parseDouble(dato));
+        }
     }
 }

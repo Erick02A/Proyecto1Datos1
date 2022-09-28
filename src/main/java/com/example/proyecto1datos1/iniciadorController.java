@@ -17,8 +17,7 @@ public class iniciadorController {
     private PasswordField Contraseña;
 
 
-    public void user(ActionEvent event) throws IOException, InterruptedException {
-
+    public void user(ActionEvent event){
         //Arduino.Arduino();
         Usuarios.Datos(Contraseña.getText(),Correo.getText(),Error);
     }

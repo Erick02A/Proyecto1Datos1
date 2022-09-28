@@ -3,6 +3,7 @@ package com.example.proyecto1datos1;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -37,20 +38,20 @@ public class reproControler implements Initializable {
     private ProgressBar SongProgresbar;
     @FXML
     private ComboBox<String> BiblioBox;
-    private String[] Biblios ;
+    private String[] Biblios = {"Biblioteca01","Biblioteca02"};
     private reproductor repro;
     private Timer timer;
     private TimerTask task;
     private boolean play;
     private boolean bucle;
-    private boolean like;
+    private static boolean like;
     private double volumen;
     private boolean runing;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        repro = new reproductor("Biblioteca01");
         Hilo hilo = new Hilo();
-        repro = new reproductor();
         hilo.start();
         volumenbar.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -59,6 +60,9 @@ public class reproControler implements Initializable {
                 repro.setVolumen(volumenbar.getValue());
             }
         });
+        for (int i = 0;i <Biblios.length;i++){
+            BiblioBox.getItems().add(Biblios[i]);
+        }
     }
     public void PlayPause(){
         if(play==false){
@@ -74,12 +78,16 @@ public class reproControler implements Initializable {
         }
     }
     public void previusSong(){
-        repro.previus();
+        repro.previus(false);
         repro.setVolumen(volumen);
+        play = false;
+        PlayPause();
     }
     public void NextSong(){
-        repro.next();
+        repro.next(false);
         repro.setVolumen(volumen);
+        play = false;
+        PlayPause();
     }
     public void listBucle(){
         if (bucle==false) {
@@ -131,10 +139,13 @@ public class reproControler implements Initializable {
     public void Add(){
         repro.ADD();
     }
+    public void changeBiblio(ActionEvent event){
+        repro = new reproductor(BiblioBox.getValue());
+    }
     public void setBucle(boolean B){
         bucle=B;
     }
-    public void setLike(boolean D){
+    public static void setLike(boolean D){
         like=D;
     }
     public  void setPlay(boolean F){

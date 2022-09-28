@@ -14,7 +14,9 @@ public class reproductor {
     private static Media media;
     private static MediaPlayer mediaPlayer;
     private static Songs song;
-    public reproductor(){
+    private String biblioteca;
+    public reproductor(String biblio){
+        biblioteca = biblio;
         songs = new listaSongs();
         directory = new File("music");
         files = directory.listFiles();
@@ -24,8 +26,6 @@ public class reproductor {
             activo= BR.readLine();
             BufferedReader lista = new BufferedReader(new FileReader("src/main/java/com/example/proyecto1datos1/"+activo+".csv"));
             System.out.println(lista.readLine());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -47,24 +47,28 @@ public class reproductor {
             mediaPlayer.pause();
         }
     }
-    public static void previus(){
+    public static void previus(boolean ardu){
         if (song.getPrev() != null) {
             song = song.getPrev();
             mediaPlayer.stop();
             media = new Media(song.getdata().toURI().toString());
             mediaPlayer= new MediaPlayer(media);
-            playpause(false);
+            if (ardu == true){
+                playpause(false);
+            }
         }else {
             mediaPlayer.seek(Duration.seconds(0));
         }
     }
-    public static void next(){
+    public static void next(boolean ardu){
         if (song.getNext() != null) {
             song = song.getNext();
             mediaPlayer.stop();
             media = new Media(song.getdata().toURI().toString());
             mediaPlayer= new MediaPlayer(media);
-            playpause(false);
+            if (ardu == true){
+                playpause(false);
+            }
         }
     }
     public static void setVolumen(double vol){
@@ -74,7 +78,8 @@ public class reproductor {
         songs.bucle(bucle);
     }
     public static void like(boolean Like){
-
+        BufferedReader bf = new BufferedReader(new FileReader());
+        BufferedWriter BF = new BufferedWriter(new FileWriter());
     }
     public double getCurrenttime(){
        return mediaPlayer.getCurrentTime().toSeconds();

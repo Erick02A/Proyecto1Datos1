@@ -13,6 +13,7 @@ int buttonPrevious = 11;
 int buttonNext = 13;
 int buttonPlayPause = 12;
 int V = 0;
+boolean P = false;
 long vol;
 
 void setup() {
@@ -83,9 +84,16 @@ if(digitalRead(buttonBucle)== HIGH){
   }
 }
 if(digitalRead(buttonPlayPause)== HIGH){
-  //Serial.write("Play");
-  Serial.println("Play");
-  delay(300);
+  if (P==false){
+   Serial.println("Play");
+   P = true;
+   delay(300);
+  }
+  else{
+   Serial.println("Pause");
+   P = false;
+   delay(300);
+  }
   
   }
 if(digitalRead(buttonPrevious)== HIGH){
