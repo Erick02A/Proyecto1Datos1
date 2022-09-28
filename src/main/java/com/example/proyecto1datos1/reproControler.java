@@ -12,6 +12,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Paint;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -100,7 +101,7 @@ public class reproControler implements Initializable {
             bucle= false;
         }
     }
-    public void LikeSong(){
+    public void LikeSong() throws IOException {
         if(like==false) {
             repro.like(like);
             LikeButton.setTextFill(Paint.valueOf("#e70606"));
@@ -148,7 +149,7 @@ public class reproControler implements Initializable {
     public static void setLike(boolean D){
         like=D;
     }
-    public  void setPlay(boolean F){
-        play=F;
+    public  void setPlay(boolean F) {
+        play = F;
     }
 }

@@ -2,6 +2,7 @@ package com.example.proyecto1datos1;
 
 import com.fazecast.jSerialComm.SerialPort;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Arduino extends reproControler{
@@ -32,7 +33,7 @@ public class Arduino extends reproControler{
 
         return null;
     }
-    private static void Orden(String dato) {
+    private static void Orden(String dato) throws IOException {
         if (dato.equals("Play")) {
             //System.out.println("Play");
             reproductor.playpause(false);

@@ -77,9 +77,10 @@ public class reproductor {
     public static void Bucle(boolean bucle){
         songs.bucle(bucle);
     }
-    public static void like(boolean Like){
-        BufferedReader bf = new BufferedReader(new FileReader());
-        BufferedWriter BF = new BufferedWriter(new FileWriter());
+    public static void like(boolean Like) throws IOException {
+        BufferedReader bf = new BufferedReader(new FileReader("music/Like.txt"));
+        BufferedWriter BF = new BufferedWriter(new FileWriter("music/Like,txt"));
+
     }
     public double getCurrenttime(){
        return mediaPlayer.getCurrentTime().toSeconds();
