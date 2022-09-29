@@ -12,6 +12,9 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Paint;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -165,6 +168,9 @@ public class reproControler implements Initializable {
                 BiblioBox.getItems().add(Biblios[e]);
             }
         }
+    }
+    public void actualizaBiblio() throws FileNotFoundException {
+        BufferedReader BR = new BufferedReader(new FileReader(""));
     }
     public void changeBiblio(ActionEvent event){
         repro = new reproductor(BiblioBox.getValue());
