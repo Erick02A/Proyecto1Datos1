@@ -14,6 +14,7 @@ import javafx.scene.paint.Paint;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,6 +34,8 @@ public class reproControler implements Initializable {
     private Button buttonDelete;
     @FXML
     private Button buttonAdd;
+    @FXML
+    private Button addBiblio;
     @FXML
     private Slider volumenbar;
     @FXML
@@ -64,6 +67,7 @@ public class reproControler implements Initializable {
         for (int i = 0;i <Biblios.length;i++){
             BiblioBox.getItems().add(Biblios[i]);
         }
+        BiblioBox.setOnAction(this::changeBiblio);
     }
     public void PlayPause(){
         if(play==false){
@@ -139,6 +143,28 @@ public class reproControler implements Initializable {
     }
     public void Add(){
         repro.ADD();
+    }
+    public void AddBiblio(){
+        String[] nuevo = new String[Biblios.length+1];
+        int i=0;
+        for (String biblio: Biblios){
+            nuevo[i] = biblio;
+            i++;
+        }
+        int f = i+1;
+        if (f<10){
+            nuevo[i]="Biblioteca0"+f;
+        }else {
+            nuevo[i]="Biblioteca"+f;
+        }
+        Biblios = nuevo;
+        for (int e = 0;e <Biblios.length;e++){
+            if (e <= BiblioBox.getItems().size()-1) {
+                BiblioBox.getItems().set(e, Biblios[e]);
+            }else {
+                BiblioBox.getItems().add(Biblios[e]);
+            }
+        }
     }
     public void changeBiblio(ActionEvent event){
         repro = new reproductor(BiblioBox.getValue());

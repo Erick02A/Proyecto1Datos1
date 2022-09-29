@@ -18,5 +18,6 @@
       <Button fx:id="buttonDelete" layoutX="9.0" layoutY="15.0" mnemonicParsing="false" onAction="#Delete" text="❌" />
       <Button fx:id="buttonAdd" layoutX="49.0" layoutY="15.0" mnemonicParsing="false" onAction="#Add" text="➕" />
       <ComboBox fx:id="BiblioBox" layoutX="100.0" layoutY="15.0" prefWidth="150.0" />
+      <Button fx:id="addBiblio" layoutX="262.0" layoutY="15.0" mnemonicParsing="false" onAction="#AddBiblio" text="➕ Biblioteca" />
    </children>
 </Pane>
