@@ -4,9 +4,17 @@ import javafx.scene.control.*;
 
 import java.io.*;
 
+/**
+ * Esta se encarga de verificar el inicio de seción del usuario y guardar al usuario que se encuentra activo.
+ */
 public class Usuarios{
 
-
+    /**
+     *
+     * @param Contraseña
+     * @param Correo
+     * @param error
+     */
     public static void Datos(String Contraseña, String Correo, Label error){
         String linea, Name, correo, contraseña, Provincia;
 
