@@ -14,13 +14,14 @@ public class reproductor {
     private static Media media;
     private static MediaPlayer mediaPlayer;
     private static Songs song;
+    private static String activo;
     private String biblioteca;
     public reproductor(String biblio){
         biblioteca = biblio;
         songs = new listaSongs();
         directory = new File("music");
         files = directory.listFiles();
-        String activo = "";
+        activo = "";
         try {
             BufferedReader BR = new BufferedReader(new FileReader("activo.txt"));
             activo= BR.readLine();
@@ -95,5 +96,8 @@ public class reproductor {
         FileChooser F = new FileChooser();
         File file = F.showOpenDialog(null);
         songs.addsongfirst(file.getName(),"genero","artista","album","2001","letra",file);
+    }
+    public String getActivo(){
+        return activo;
     }
 }

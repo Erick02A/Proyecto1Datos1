@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Arduino extends reproControler{
     public static String Arduino() throws InterruptedException {
-        var sp = SerialPort.getCommPort("COM3");
+        var sp = SerialPort.getCommPort("COM4");
 
         sp.setComPortParameters(9600, Byte.SIZE, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
         sp.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);

@@ -12,10 +12,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Paint;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,7 +42,7 @@ public class reproControler implements Initializable {
     private ProgressBar SongProgresbar;
     @FXML
     private ComboBox<String> BiblioBox;
-    private String[] Biblios = {"Biblioteca01","Biblioteca02"};
+    private String[] Biblios = new String[200];
     private reproductor repro;
     private Timer timer;
     private TimerTask task;
@@ -60,6 +57,19 @@ public class reproControler implements Initializable {
         repro = new reproductor("Biblioteca01");
         Hilo hilo = new Hilo();
         hilo.start();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("src/main/java/com/example/proyecto1datos1/"+repro.getActivo()+".csv"));
+            String line ="0";
+            String biblios="";
+            while ((line=br.readLine())!=null){
+                String[] datos=line.split(";");
+                biblios+=datos[0]+";";
+            }
+            Biblios = biblios.split(";");
+            System.out.println(biblios);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         volumenbar.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -147,7 +157,7 @@ public class reproControler implements Initializable {
     public void Add(){
         repro.ADD();
     }
-    public void AddBiblio(){
+    public void AddBiblio() throws IOException {
         String[] nuevo = new String[Biblios.length+1];
         int i=0;
         for (String biblio: Biblios){
@@ -168,9 +178,22 @@ public class reproControler implements Initializable {
                 BiblioBox.getItems().add(Biblios[e]);
             }
         }
+        actualizaBiblio(Biblios[i]);
     }
-    public void actualizaBiblio() throws FileNotFoundException {
-        BufferedReader BR = new BufferedReader(new FileReader(""));
+    public void actualizaBiblio(String nuevo) throws IOException {
+        BufferedReader BR = new BufferedReader(new FileReader("src/main/java/com/example/proyecto1datos1/"+repro.getActivo()+".csv"));
+        String linea;
+        String lineas = "";
+        while ((linea = BR.readLine())!=null){
+            lineas += "\n"+ linea;
+        }
+        BR.close();
+        System.out.println(lineas+"\n"+nuevo);
+        BufferedWriter BW = new BufferedWriter(new FileWriter("src/main/java/com/example/proyecto1datos1/"+repro.getActivo()+".csv"));
+        PrintWriter PW = new PrintWriter(BW);
+        //PW.println(lineas+"\n"+nuevo);
+        PW.write(lineas+"\n"+nuevo);
+        BW.close();
     }
     public void changeBiblio(ActionEvent event){
         repro = new reproductor(BiblioBox.getValue());
