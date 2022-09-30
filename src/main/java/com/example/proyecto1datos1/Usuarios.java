@@ -10,10 +10,11 @@ import java.io.*;
 public class Usuarios{
 
     /**
-     *
-     * @param Contraseña
-     * @param Correo
-     * @param error
+     * Esta lee el archivo donde se encuantra la información de los usuarios registrados, los compara con lo que el
+     * usuario ingreso, en caso de alguna inconcistencia escribe el error en el Label para mostrarlo.
+     * @param Contraseña String de contraseña ingresada.
+     * @param Correo String de correo ingresado.
+     * @param error Label de error.
      */
     public static void Datos(String Contraseña, String Correo, Label error){
         String linea, Name, correo, contraseña, Provincia;

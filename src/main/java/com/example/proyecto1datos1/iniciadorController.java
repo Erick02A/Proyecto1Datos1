@@ -20,7 +20,8 @@ public class iniciadorController {
     private PasswordField Contraseña;
 
     /**
-     * Se encarga de llamar a la calse que verifica los usauarios pasandole lo que el usuario escribió en los espacios.
+     * Se encarga de llamar a la calse que verifica los usauarios pasandole lo que el
+     * usuario escribió en los espacios y un label para regresar un error a pantalla.
      * @param event
      */
     public void user(ActionEvent event){

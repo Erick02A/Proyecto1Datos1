@@ -19,6 +19,9 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Controlador de la pantalla del reproductor, implementando Initializable.
+ */
 public class reproControler implements Initializable {
     @FXML
     private Button pauseButton;
@@ -52,6 +55,11 @@ public class reproControler implements Initializable {
     private double volumen;
     private boolean runing;
 
+    /**
+     * Inicializa los recusos de la ventana y las principales cosas que usa, como el reproductor y las bibliotecas del usuario.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         repro = new reproductor("Biblioteca01");
@@ -88,6 +96,10 @@ public class reproControler implements Initializable {
             }
         });
     }
+
+    /**
+     * Se encarga de mandar el comando de dar play o pausa al reproductor segun correspoda cuando el respectivo boton es precionado.
+     */
     public void PlayPause(){
         if(play==false){
             repro.playpause(play);
@@ -101,6 +113,11 @@ public class reproControler implements Initializable {
             play=false;
         }
     }
+
+    /**
+     * Se encarga de mandar el comando de cancion anterior al reproductor cuando el respectivo boton es precionado.
+     * @throws IOException
+     */
     public void previusSong() throws IOException {
         repro.previus(false);
         repro.setVolumen(volumen);
@@ -108,6 +125,10 @@ public class reproControler implements Initializable {
         PlayPause();
         actualizaLike();
     }
+    /**
+     * Se encarga de mandar el comando de cancion siguiente al reproductor cuando el respectivo boton es precionado.
+     * @throws IOException
+     */
     public void NextSong() throws IOException {
         repro.next(false);
         repro.setVolumen(volumen);
@@ -115,6 +136,10 @@ public class reproControler implements Initializable {
         PlayPause();
         actualizaLike();
     }
+
+    /**
+     * Manda la intrucion para cambiar la lista en reproducion de circular a no circular y viceversa cuando su respectivo boton es precionado.
+     */
     public void listBucle(){
         if (bucle==false) {
             BucleButton.setText("🔁");
@@ -126,6 +151,11 @@ public class reproControler implements Initializable {
             bucle= false;
         }
     }
+
+    /**
+     *
+     * @throws IOException
+     */
     public void actualizaLike() throws IOException {
         BufferedReader Br = new  BufferedReader(new FileReader("Usuario/"+repro.getActivo()+"/Likelist.csv"));
         String line = "";
