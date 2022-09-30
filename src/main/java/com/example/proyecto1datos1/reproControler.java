@@ -59,8 +59,8 @@ public class reproControler implements Initializable {
         hilo.start();
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/main/java/com/example/proyecto1datos1/"+repro.getActivo()+".csv"));
-            String line ="0";
-            String biblios="";
+            String line ="";
+            String biblios ="";
             while ((line=br.readLine())!=null){
                 String[] datos=line.split(";");
                 biblios+=datos[0]+";";

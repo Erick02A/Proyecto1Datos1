@@ -16,6 +16,7 @@ public class reproductor {
     private static Songs song;
     private static String activo;
     private String biblioteca;
+    private String Biblioteca;
     public reproductor(String biblio){
         biblioteca = biblio;
         songs = new listaSongs();
@@ -26,7 +27,14 @@ public class reproductor {
             BufferedReader BR = new BufferedReader(new FileReader("activo.txt"));
             activo= BR.readLine();
             BufferedReader lista = new BufferedReader(new FileReader("src/main/java/com/example/proyecto1datos1/"+activo+".csv"));
-            System.out.println(lista.readLine());
+            String line="";
+            while ((line=lista.readLine())!=null){
+                String[] biblios=line.split(";");
+                if (biblios[0]==biblioteca){
+                    Biblioteca = line;
+                    System.out.println(Biblioteca);
+                }
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
