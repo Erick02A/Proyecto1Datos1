@@ -25,7 +25,7 @@ public class reproductor {
         files = directory.listFiles();
         activo = "";
         try {
-            BufferedReader BR = new BufferedReader(new FileReader("Ususario/activo.txt"));
+            BufferedReader BR = new BufferedReader(new FileReader("Usuario/activo.txt"));
             activo= BR.readLine();
             BufferedReader lista = new BufferedReader(new FileReader("Ususario/"+activo+"/Biblio.csv"));
             String line="";
