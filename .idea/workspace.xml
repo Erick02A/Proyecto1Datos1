@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment=".">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Usuario/a/Biblio.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Usuario/a/Biblio.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Usuario/a/Likelist.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Usuario/a/Likelist.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproductor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproductor.java" afterDir="false" />
-    </list>
+    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -110,7 +104,7 @@
       <workItem from="1664403144669" duration="7299000" />
       <workItem from="1664424649801" duration="304000" />
       <workItem from="1664491661693" duration="9706000" />
-      <workItem from="1664511504536" duration="6177000" />
+      <workItem from="1664511504536" duration="7067000" />
     </task>
     <task id="LOCAL-00001" summary="En proceso la creacion de usuarios">
       <created>1663226265352</created>
@@ -420,7 +414,21 @@
       <option name="project" value="LOCAL" />
       <updated>1664515775372</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Se implementa el like y reconozca las canciones que le gustan al usuario.">
+      <created>1664517876342</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1664517876342</updated>
+    </task>
+    <task id="LOCAL-00046" summary=".">
+      <created>1664518571446</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1664518571446</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -462,6 +470,7 @@
     <MESSAGE value="Se arregla el agrgar listas de reproduccion" />
     <MESSAGE value="Se arregla el verificar cada lista por ususario" />
     <MESSAGE value="Se arregla el verificar cada lista de canciones y likes por ususario" />
+    <MESSAGE value="Se implementa el like y reconozca las canciones que le gustan al usuario." />
     <MESSAGE value="." />
     <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
