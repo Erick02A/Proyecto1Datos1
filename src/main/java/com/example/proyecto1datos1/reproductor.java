@@ -25,11 +25,10 @@ public class reproductor {
         files = directory.listFiles();
         activo = "";
         try {
-            BufferedReader BR = new BufferedReader(new FileReader("activo.txt"));
+            BufferedReader BR = new BufferedReader(new FileReader("Ususario/activo.txt"));
             activo= BR.readLine();
-            BufferedReader lista = new BufferedReader(new FileReader("src/main/java/com/example/proyecto1datos1/"+activo+".csv"));
+            BufferedReader lista = new BufferedReader(new FileReader("Ususario/"+activo+"/Biblio.csv"));
             String line="";
-            System.out.println("nice");
             while ((line=lista.readLine())!=null){
                 String[] biblios=line.split(";");
                 if (Objects.equals(biblios[0], biblioteca)){
@@ -95,9 +94,29 @@ public class reproductor {
         songs.bucle(bucle);
     }
     public static void like(boolean Like) throws IOException {
-        BufferedReader bf = new BufferedReader(new FileReader("music/Like.txt"));
-        BufferedWriter BF = new BufferedWriter(new FileWriter("music/Like,txt"));
-
+        BufferedReader Br = new BufferedReader(new FileReader("Usuario/"+activo+"/Likelist.csv"));
+        String line="";
+        String res="";
+        if (Like==true){
+            while ((line=Br.readLine())!=null){
+                if (line.equals(song.getCancion())){
+                    res+="";
+                }else {
+                    res+=line+"\n";
+                }
+            }
+        }else {
+            while ((line=Br.readLine())!=null){
+                res+=line+"\n";
+            }
+            res+=song.getCancion();
+        }
+        Br.close();
+        System.out.println(res);
+        BufferedWriter Bw = new BufferedWriter(new FileWriter("Usuario/"+activo+"/Likelist.csv"));
+        PrintWriter Pw = new PrintWriter(Bw);
+        Pw.write(res);
+        Bw.close();
     }
     public double getCurrenttime(){
        return mediaPlayer.getCurrentTime().toSeconds();

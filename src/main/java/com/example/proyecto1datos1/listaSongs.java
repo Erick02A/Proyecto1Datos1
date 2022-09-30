@@ -3,7 +3,7 @@ package com.example.proyecto1datos1;
 import java.io.File;
 
 /**
- * listaSongs se encarga de crear listas doblemente enlasadas con objetos tipo Song.
+ * listaSongs se encarga de crear listas doblemente enlasadas con objetos tipo Songs.
  */
 public class listaSongs {
     private Songs cabeza;
@@ -22,7 +22,7 @@ public class listaSongs {
     }
 
     /**
-     * Añade un objeto de tipo cancion al principio de la lista, resiviendo como parametros los atributos que va a tener el objeto Song.
+     * Añade un objeto de tipo Songs al principio de la lista, resiviendo como parametros los atributos que va a tener el objeto Songs.
      * @param cancion
      * @param genero
      * @param artista
@@ -46,7 +46,7 @@ public class listaSongs {
     }
 
     /**
-     * Añade un objeto de tipo cancion al final de la lista, resiviendo como parametros los atributos que va a tener el objeto Song.
+     * Añade un objeto de tipo Songs al final de la lista, resiviendo como parametros los atributos que va a tener el objeto Songs.
      * @param cancion
      * @param genero
      * @param artista
@@ -69,8 +69,8 @@ public class listaSongs {
     }
 
     /**
-     * Esta elimina un objeto tipo Song de la lista enlasada de Songs.
-     * @param song Objeto tipo Song que se busca eliminar.
+     * Esta elimina un objeto tipo Songs de la lista enlasada de Songs.
+     * @param song Objeto tipo Songs que se busca eliminar.
      */
     public void eliminar(Songs song){
         if (bucle==true){
@@ -120,7 +120,7 @@ public class listaSongs {
 
     /**
      * Esta retorna la cabeza de la lista
-     * @return Objeto tipo Song, cabeza de la lista.
+     * @return Objeto tipo Songs, cabeza de la lista.
      */
     public Songs getCabeza(){
         return cabeza;

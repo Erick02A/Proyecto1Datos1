@@ -58,7 +58,7 @@ public class reproControler implements Initializable {
         Hilo hilo = new Hilo();
         hilo.start();
         try {
-            BufferedReader br = new BufferedReader(new FileReader("src/main/java/com/example/proyecto1datos1/"+repro.getActivo()+".csv"));
+            BufferedReader br = new BufferedReader(new FileReader("Usuario/"+repro.getActivo()+"/Biblio.csv"));
             String line ="";
             String biblios ="";
             while ((line=br.readLine())!=null){
@@ -181,7 +181,7 @@ public class reproControler implements Initializable {
         actualizaBiblio(Biblios[i]);
     }
     public void actualizaBiblio(String nuevo) throws IOException {
-        BufferedReader BR = new BufferedReader(new FileReader("src/main/java/com/example/proyecto1datos1/"+repro.getActivo()+".csv"));
+        BufferedReader BR = new BufferedReader(new FileReader("Usuario/"+repro.getActivo()+"/Biblio.csv"));
         String linea;
         String lineas = "";
         while ((linea = BR.readLine())!=null){
@@ -189,7 +189,7 @@ public class reproControler implements Initializable {
         }
         BR.close();
         System.out.println(lineas+"\n"+nuevo);
-        BufferedWriter BW = new BufferedWriter(new FileWriter("src/main/java/com/example/proyecto1datos1/"+repro.getActivo()+".csv"));
+        BufferedWriter BW = new BufferedWriter(new FileWriter("Usuario/"+repro.getActivo()+"/Biblio.csv"));
         PrintWriter PW = new PrintWriter(BW);
         PW.write(lineas+"\n"+nuevo);
         BW.close();

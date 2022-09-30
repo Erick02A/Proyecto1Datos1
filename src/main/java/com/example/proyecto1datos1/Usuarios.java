@@ -11,7 +11,7 @@ public class Usuarios{
         String linea, Name, correo, contraseña, Provincia;
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("src/main/java/com/example/proyecto1datos1/Users.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("Usuario/Users.csv"));
             linea = "";
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(",");
@@ -20,7 +20,7 @@ public class Usuarios{
                 Provincia = datos[2];
                 contraseña = datos[3];
                 if ( Contraseña.equals(contraseña) && Correo.equals(correo)) {
-                    BufferedWriter bw = new BufferedWriter(new FileWriter("activo.txt"));
+                    BufferedWriter bw = new BufferedWriter(new FileWriter("Usuario/activo.txt"));
                     PrintWriter pw = new PrintWriter(bw);
                     pw.write(Name);
                     bw.close();
