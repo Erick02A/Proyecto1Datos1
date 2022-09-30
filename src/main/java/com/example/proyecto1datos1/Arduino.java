@@ -5,7 +5,7 @@ import com.fazecast.jSerialComm.SerialPort;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Arduino extends reproControler{
+public class Arduino{
     public static String Arduino() throws InterruptedException {
         var sp = SerialPort.getCommPort("COM4");
 
