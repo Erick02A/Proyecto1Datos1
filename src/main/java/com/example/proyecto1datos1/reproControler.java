@@ -191,11 +191,11 @@ public class reproControler implements Initializable {
         System.out.println(lineas+"\n"+nuevo);
         BufferedWriter BW = new BufferedWriter(new FileWriter("src/main/java/com/example/proyecto1datos1/"+repro.getActivo()+".csv"));
         PrintWriter PW = new PrintWriter(BW);
-        //PW.println(lineas+"\n"+nuevo);
         PW.write(lineas+"\n"+nuevo);
         BW.close();
     }
     public void changeBiblio(ActionEvent event){
+        repro.stop();
         repro = new reproductor(BiblioBox.getValue());
     }
     public void setBucle(boolean B){

@@ -17,6 +17,7 @@ public class MusicPro extends Application {
         Window = stage;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("users.fxml")));
         stage.setTitle("MusicPro");
+        stage.setResizable(false);
         stage.setScene(new Scene(root, 600, 285));
         stage.show();
 

@@ -6,6 +6,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import java.io.*;
+import java.util.Objects;
 
 public class reproductor {
     private File directory;
@@ -28,9 +29,10 @@ public class reproductor {
             activo= BR.readLine();
             BufferedReader lista = new BufferedReader(new FileReader("src/main/java/com/example/proyecto1datos1/"+activo+".csv"));
             String line="";
+            System.out.println("nice");
             while ((line=lista.readLine())!=null){
                 String[] biblios=line.split(";");
-                if (biblios[0]==biblioteca){
+                if (Objects.equals(biblios[0], biblioteca)){
                     Biblioteca = line;
                     System.out.println(Biblioteca);
                 }
@@ -40,14 +42,18 @@ public class reproductor {
         }
         if (files != null){
             for(File file: files){
-
-                songs.addsonglast(file.getName(),"genero","artista","album","2001","letra",file);
+                for (String s:Biblioteca.split(";")) {
+                    if(s.equals(file.getName())) {
+                        songs.addsonglast(file.getName(),"genero","artista","album","2001","letra",file);
+                    }
+                }
             }
         }
         song = songs.getCabeza();
-        System.out.println(song.getdata().toURI().toString());
-        media= new Media(song.getdata().toURI().toString());
-        mediaPlayer= new MediaPlayer(media);
+        if(song!=null) {
+            media = new Media(song.getdata().toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+        }
     }
     public static void playpause(boolean a){
         if (a==false) {
@@ -81,7 +87,9 @@ public class reproductor {
         }
     }
     public static void setVolumen(double vol){
-        mediaPlayer.setVolume(vol);
+        if (mediaPlayer!=null) {
+            mediaPlayer.setVolume(vol);
+        }
     }
     public static void Bucle(boolean bucle){
         songs.bucle(bucle);
@@ -99,6 +107,9 @@ public class reproductor {
     }
     public void delete(){
         songs.eliminar(song);
+    }
+    public void stop(){
+        mediaPlayer.stop();
     }
     public void ADD(){
         FileChooser F = new FileChooser();
