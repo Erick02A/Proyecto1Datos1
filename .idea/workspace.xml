@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="Se arregla el verificar cada lista de canciones y likes por ususario" />
+    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment=".">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Usuario/a/Biblio.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Usuario/a/Biblio.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Usuario/a/Likelist.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Usuario/a/Likelist.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproductor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproductor.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,7 +110,7 @@
       <workItem from="1664403144669" duration="7299000" />
       <workItem from="1664424649801" duration="304000" />
       <workItem from="1664491661693" duration="9706000" />
-      <workItem from="1664511504536" duration="4225000" />
+      <workItem from="1664511504536" duration="6177000" />
     </task>
     <task id="LOCAL-00001" summary="En proceso la creacion de usuarios">
       <created>1663226265352</created>
@@ -407,7 +413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664515689346</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary=".">
+      <created>1664515775372</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1664515775372</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -443,13 +456,13 @@
     <MESSAGE value="implementacion de algunos enlaces en las listas" />
     <MESSAGE value="se añade el modulo media de JavaFx" />
     <MESSAGE value="se crea el reproductor" />
-    <MESSAGE value="." />
     <MESSAGE value="Se separa el reproduntor del comtrolador" />
     <MESSAGE value="Se arregla el volumen con el arduino" />
     <MESSAGE value="Se implementa el agrgar listas de reproduccion" />
     <MESSAGE value="Se arregla el agrgar listas de reproduccion" />
     <MESSAGE value="Se arregla el verificar cada lista por ususario" />
     <MESSAGE value="Se arregla el verificar cada lista de canciones y likes por ususario" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se arregla el verificar cada lista de canciones y likes por ususario" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
 </project>

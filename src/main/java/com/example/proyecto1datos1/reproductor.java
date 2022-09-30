@@ -27,7 +27,7 @@ public class reproductor {
         try {
             BufferedReader BR = new BufferedReader(new FileReader("Usuario/activo.txt"));
             activo= BR.readLine();
-            BufferedReader lista = new BufferedReader(new FileReader("Ususario/"+activo+"/Biblio.csv"));
+            BufferedReader lista = new BufferedReader(new FileReader("Usuario/"+activo+"/Biblio.csv"));
             String line="";
             while ((line=lista.readLine())!=null){
                 String[] biblios=line.split(";");
@@ -109,10 +109,10 @@ public class reproductor {
             while ((line=Br.readLine())!=null){
                 res+=line+"\n";
             }
+            System.out.println(song.getCancion());
             res+=song.getCancion();
         }
         Br.close();
-        System.out.println(res);
         BufferedWriter Bw = new BufferedWriter(new FileWriter("Usuario/"+activo+"/Likelist.csv"));
         PrintWriter Pw = new PrintWriter(Bw);
         Pw.write(res);
@@ -129,6 +129,9 @@ public class reproductor {
     }
     public void stop(){
         mediaPlayer.stop();
+    }
+    public String getNemeSong(){
+        return song.getCancion();
     }
     public void ADD(){
         FileChooser F = new FileChooser();

@@ -65,8 +65,8 @@ public class reproControler implements Initializable {
                 String[] datos=line.split(";");
                 biblios+=datos[0]+";";
             }
+            br.close();
             Biblios = biblios.split(";");
-            System.out.println(biblios);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -80,7 +80,13 @@ public class reproControler implements Initializable {
         for (int i = 0;i <Biblios.length;i++){
             BiblioBox.getItems().add(Biblios[i]);
         }
-        BiblioBox.setOnAction(this::changeBiblio);
+        BiblioBox.setOnAction(event -> {
+            try {
+                changeBiblio(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
     public void PlayPause(){
         if(play==false){
@@ -95,17 +101,19 @@ public class reproControler implements Initializable {
             play=false;
         }
     }
-    public void previusSong(){
+    public void previusSong() throws IOException {
         repro.previus(false);
         repro.setVolumen(volumen);
         play = false;
         PlayPause();
+        actualizaLike();
     }
-    public void NextSong(){
+    public void NextSong() throws IOException {
         repro.next(false);
         repro.setVolumen(volumen);
         play = false;
         PlayPause();
+        actualizaLike();
     }
     public void listBucle(){
         if (bucle==false) {
@@ -116,6 +124,20 @@ public class reproControler implements Initializable {
             BucleButton.setText("🔀");
             repro.Bucle(bucle);
             bucle= false;
+        }
+    }
+    public void actualizaLike() throws IOException {
+        BufferedReader Br = new  BufferedReader(new FileReader("Usuario/"+repro.getActivo()+"/Likelist.csv"));
+        String line = "";
+        boolean S = false;
+        while ((line=Br.readLine())!=null){
+            if (line.equals(repro.getNemeSong())){
+                S=true;
+            }
+        }
+        if (S==true){
+            like=true;
+            LikeButton.setTextFill(Paint.valueOf("#e70606"));
         }
     }
     public void LikeSong() throws IOException {
@@ -141,7 +163,11 @@ public class reproControler implements Initializable {
 
                 if (current/end == 1){
                     cancelTimer();
-                    NextSong();
+                    try {
+                        NextSong();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         };
@@ -194,9 +220,10 @@ public class reproControler implements Initializable {
         PW.write(lineas+"\n"+nuevo);
         BW.close();
     }
-    public void changeBiblio(ActionEvent event){
+    public void changeBiblio(ActionEvent event) throws IOException {
         repro.stop();
         repro = new reproductor(BiblioBox.getValue());
+        actualizaLike();
     }
     public void setBucle(boolean B){
         bucle=B;
