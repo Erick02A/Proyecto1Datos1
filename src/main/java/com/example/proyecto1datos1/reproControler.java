@@ -237,7 +237,7 @@ public class reproControler implements Initializable {
     /**
      * Se comunica con el reproductor para que active la funcion de agregar una cancion.
      */
-    public void Add(){
+    public void Add() throws IOException {
         repro.ADD();
     }
 
@@ -299,5 +299,6 @@ public class reproControler implements Initializable {
         repro = new reproductor(BiblioBox.getValue());
         actualizaLike();
         bucle = false;
+        BucleButton.setText("🔀");
     }
 }

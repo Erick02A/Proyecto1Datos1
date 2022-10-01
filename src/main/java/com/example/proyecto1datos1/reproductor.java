@@ -41,7 +41,7 @@ public class reproductor {
                 String[] biblios=line.split(";");
                 if (Objects.equals(biblios[0], biblioteca)){
                     Biblioteca = line;
-                    System.out.println(Biblioteca);
+                    //System.out.println(Biblioteca);
                 }
             }
         } catch (IOException e) {
@@ -195,12 +195,28 @@ public class reproductor {
     }
 
     /**
-     * Habre una funcion para buscar y agregar una cacion a la lista desde los archivos.
+     * Habre una funcion para buscar y agregar una cacion a la lista desde los archivos y actualiza el archivo con la lista de reproduccion.
      */
-    public void ADD(){
+    public void ADD() throws IOException {
         FileChooser F = new FileChooser();
         File file = F.showOpenDialog(null);
-        songs.addsongfirst(file.getName(),file);
+        songs.addsonglast(file.getName(),file);
+        BufferedReader br = new BufferedReader(new FileReader("Usuario/"+activo+"/Biblio.csv"));
+        String linea = "";
+        String res="";
+        while ((linea=br.readLine())!=null){
+            String[] datos = linea.split(";");
+            if (datos[0].equals(biblioteca)){
+                res+=linea+";"+file.getName()+"\n";
+            }else {
+                res+=linea+"\n";
+            }
+        }
+        br.close();
+        BufferedWriter bw = new  BufferedWriter(new FileWriter("Usuario/"+activo+"/Biblio.csv"));
+        PrintWriter pw = new PrintWriter(bw);
+        pw.write(res);
+        bw.close();
     }
 
     /**

@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="incorporando javadoc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Usuario/a/Biblio.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Usuario/a/Biblio.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproductor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproductor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,14 +111,7 @@
       <workItem from="1664491661693" duration="9706000" />
       <workItem from="1664511504536" duration="10031000" />
       <workItem from="1664572886920" duration="3915000" />
-      <workItem from="1664579140400" duration="5202000" />
-    </task>
-    <task id="LOCAL-00002" summary="En proceso la creacion de usuarios">
-      <created>1663228169550</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1663228169550</updated>
+      <workItem from="1664579140400" duration="8514000" />
     </task>
     <task id="LOCAL-00003" summary="En proceso la creacion de usuarios">
       <created>1663232482947</created>
@@ -453,7 +449,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664584765370</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="incorporando javadoc">
+      <created>1664587331073</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1664587331073</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
