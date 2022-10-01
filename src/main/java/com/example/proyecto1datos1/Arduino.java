@@ -2,10 +2,7 @@ package com.example.proyecto1datos1;
 
 import com.fazecast.jSerialComm.SerialPort;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class Arduino{
@@ -26,24 +23,8 @@ public class Arduino{
             while (data.hasNextLine() ) {
                 String dato = (data.nextLine());
                 Orden(dato);
-                BufferedReader br = new BufferedReader(new FileReader("Usuario/"+reproductor.getactivo()+"/Likelist.csv"));
-                String f="";
-                boolean s = false;
-                while ((f=br.readLine())!=null) {
-                    if (reproductor.getNemeSong().equals(f)){
-                        s = true;
-                    }
-                }
-                br.close();
-                if (s==true){
-                    PrintWriter p = new PrintWriter(sp.getOutputStream());
-                    p.print("L");
-                    p.flush();
-                }else {
-                    PrintWriter p = new PrintWriter(sp.getOutputStream());
-                    p.print("D");
-                    p.flush();
-                }
+                led(sp);
+
             }
 
         } catch (Exception e) {
@@ -90,6 +71,26 @@ public class Arduino{
         else {
             //System.out.println(dato);
             reproductor.setVolumen(Double.parseDouble(dato));
+        }
+    }
+    public static void led(SerialPort sp) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("Usuario/"+reproductor.getactivo()+"/Likelist.csv"));
+        String f="";
+        boolean s = false;
+        while ((f=br.readLine())!=null) {
+            if (reproductor.getNemeSong().equals(f)){
+                s = true;
+            }
+        }
+        br.close();
+        if (s==true){
+            PrintWriter p = new PrintWriter(sp.getOutputStream());
+            p.print("L");
+            p.flush();
+        }else {
+            PrintWriter p = new PrintWriter(sp.getOutputStream());
+            p.print("D");
+            p.flush();
         }
     }
 }
