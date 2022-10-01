@@ -23,21 +23,16 @@ public class listaSongs {
 
     /**
      * Añade un objeto de tipo Songs al principio de la lista, resiviendo como parametros los atributos que va a tener el objeto Songs.
-     * @param cancion
-     * @param genero
-     * @param artista
-     * @param album
-     * @param año
-     * @param letra
-     * @param data
+     * @param cancion Nombre de la cancion.
+     * @param data Objeto tipo File que guerda la cancion y la ruta.
      */
-    public void addsongfirst(String cancion, String genero, String artista, String album, String año, String letra, File data){
+    public void addsongfirst(String cancion, File data){
         if (cabeza==null){
-            cabeza = new Songs(cancion, genero, artista, album, año, letra, data);
+            cabeza = new Songs(cancion, data);
             last = cabeza;
         }else {
             Songs Temp = cabeza;
-            Songs nuevo = new Songs(cancion, genero, artista, album, año, letra, data);
+            Songs nuevo = new Songs(cancion, data);
             nuevo.setNext(Temp);
             Temp.setPrev(nuevo);
             cabeza = nuevo;
@@ -47,20 +42,15 @@ public class listaSongs {
 
     /**
      * Añade un objeto de tipo Songs al final de la lista, resiviendo como parametros los atributos que va a tener el objeto Songs.
-     * @param cancion
-     * @param genero
-     * @param artista
-     * @param album
-     * @param año
-     * @param letra
-     * @param data
+     * @param cancion nombre de la concion
+     * @param data Objeto tipo File que guerda la cancion y la ruta.
      */
-    public void addsonglast(String cancion, String genero, String artista, String album, String año, String letra, File data){
+    public void addsonglast(String cancion, File data){
         if (cabeza==null){
-            cabeza = new Songs(cancion, genero, artista, album, año, letra, data);
+            cabeza = new Songs(cancion, data);
             last = cabeza;
         }else {
-            Songs nuevo = new Songs(cancion, genero,artista, album, año, letra, data);
+            Songs nuevo = new Songs(cancion, data);
             last.setNext(nuevo);
             nuevo.setPrev(last);
             last = nuevo;

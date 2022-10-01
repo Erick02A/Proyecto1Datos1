@@ -153,7 +153,7 @@ public class reproControler implements Initializable {
     }
 
     /**
-     *
+     * Esta se encarga de verificar si la cancion a la que se pasa ya es una cancion que le gusta.
      * @throws IOException
      */
     public void actualizaLike() throws IOException {
@@ -165,11 +165,20 @@ public class reproControler implements Initializable {
                 S=true;
             }
         }
+        Br.close();
         if (S==true){
             like=true;
             LikeButton.setTextFill(Paint.valueOf("#e70606"));
+        }else{
+            like=false;
+            LikeButton.setTextFill(Paint.valueOf("#000000"));
         }
     }
+
+    /**
+     * Se encarga de decirle al reproductor que le dio like o dislike a la cancion segun corresponda.
+     * @throws IOException
+     */
     public void LikeSong() throws IOException {
         if(like==false) {
             repro.like(like);
@@ -181,6 +190,11 @@ public class reproControler implements Initializable {
             like= false;
         }
     }
+
+    /**
+     * Esta se encarga de contar cuanto de la cancion a transcurrido, de esta forma va rellenando la barra de progreso.
+     * tambien pasa a la siguiente cancion cuando esta llega al final.
+     */
     public void beginTimer(){
         timer = new Timer();
         task = new TimerTask() {
@@ -203,16 +217,34 @@ public class reproControler implements Initializable {
         };
         timer.scheduleAtFixedRate(task,1000,1000);
     }
+
+    /**
+     * se encarga de frenar la barra de progreso
+     */
     public void cancelTimer(){
         runing=false;
         timer.cancel();
     }
-    public void Delete(){
+
+    /**
+     * Se comunica con el reproductor para eliminar la cancion en que se encuentra reproduciendo en el momento.
+     */
+    public void Delete() throws IOException {
         repro.delete();
+        NextSong();
     }
+
+    /**
+     * Se comunica con el reproductor para que active la funcion de agregar una cancion.
+     */
     public void Add(){
         repro.ADD();
     }
+
+    /**
+     * Esta lo que hace es agregar una libreria a la lista de librerias que aparece para escoger.
+     * @throws IOException
+     */
     public void AddBiblio() throws IOException {
         String[] nuevo = new String[Biblios.length+1];
         int i=0;
@@ -236,6 +268,12 @@ public class reproControler implements Initializable {
         }
         actualizaBiblio(Biblios[i]);
     }
+
+    /**
+     * Actualiza el archivo en el que se guardan las bibliotecas agregando la nueva.
+     * @param nuevo String de la biblioteca que se agrego.
+     * @throws IOException
+     */
     public void actualizaBiblio(String nuevo) throws IOException {
         BufferedReader BR = new BufferedReader(new FileReader("Usuario/"+repro.getActivo()+"/Biblio.csv"));
         String linea;
@@ -250,18 +288,16 @@ public class reproControler implements Initializable {
         PW.write(lineas+"\n"+nuevo);
         BW.close();
     }
+
+    /**
+     * Inicia un nuevo reproductor con la biblioteca seleccionada
+     * @param event event de seleccion del BiblioBox
+     * @throws IOException
+     */
     public void changeBiblio(ActionEvent event) throws IOException {
         repro.stop();
         repro = new reproductor(BiblioBox.getValue());
         actualizaLike();
-    }
-    public void setBucle(boolean B){
-        bucle=B;
-    }
-    public static void setLike(boolean D){
-        like=D;
-    }
-    public  void setPlay(boolean F) {
-        play = F;
+        bucle = false;
     }
 }

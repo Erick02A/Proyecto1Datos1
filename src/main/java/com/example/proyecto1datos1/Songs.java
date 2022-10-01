@@ -2,95 +2,71 @@ package com.example.proyecto1datos1;
 
 import java.io.*;
 
+/**
+ * Nodo de canciones en las que se instancia cada una
+ */
 public class Songs {
     private String cancion;
-    private String genero;
-    private String artista;
-    private String album;
-    private String año;
-    private String letra;
     private File data;
     private Songs next;
     private Songs prev;
 
-    public Songs(String cancion, String genero, String artista, String album, String año, String letra, File data) {
+    /**
+     *
+     * @param cancion
+     * @param data
+     */
+    public Songs(String cancion, File data) {
         this.cancion = cancion;
-        this.genero = genero;
-        this.artista = artista;
-        this.album = album;
-        this.año = año;
-        this.letra = letra;
         this.data = data;
         this.next = null;
         this.prev = null;
     }
+
+    /**
+     *
+     * @return
+     */
     public Songs getPrev() {
         return prev;
     }
 
+    /**
+     *
+     * @param prev
+     */
     public void setPrev(Songs prev) {
         this.prev = prev;
     }
 
-    public void setPad(File data) {
-        this.data = data;
-    }
-
-    public void setLetra(String letra) {
-        this.letra = letra;
-    }
-
-    public void setAño(String año) {
-        this.año = año;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
-    }
-
-    public void setArtista(String artista) {
-        this.artista = artista;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public void setCancion(String cancion) {
-        this.cancion = cancion;
-    }
-
+    /**
+     *
+     * @return
+     */
     public File getdata() {
         return data;
     }
 
-    public String getLetra() {
-        return letra;
-    }
-
-    public String getAño() {
-        return año;
-    }
-
-    public String getAlbum() {
-        return album;
-    }
-
-    public String getArtista() {
-        return artista;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
+    /**
+     *
+     * @return
+     */
     public String getCancion() {
         return cancion;
     }
 
+    /**
+     *
+     * @param songs
+     */
     public void setNext(Songs songs){
         next = songs;
     }
+
+    /**
+     *
+     * @return
+     */
     public Songs getNext(){
         return next;
     }
