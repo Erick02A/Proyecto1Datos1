@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Arduino{
+    private static SerialPort porta;
+
     public static String Arduino() throws InterruptedException {
         var sp = SerialPort.getCommPort("COM5");
+        porta = sp;
 
         sp.setComPortParameters(9600, Byte.SIZE, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
         sp.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
@@ -70,5 +73,9 @@ public class Arduino{
             //System.out.println(dato);
             reproductor.setVolumen(Double.parseDouble(dato));
         }
+    }
+    public static SerialPort getSp(){
+        return porta;
+
     }
 }
