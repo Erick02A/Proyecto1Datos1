@@ -6,13 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="incorporando javadoc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Usuario/Tony Stark/Likelist.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Usuario/Tony Stark/Likelist.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Usuario/a/Likelist.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Usuario/a/Likelist.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Hilo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Hilo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Songs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Songs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/listaSongs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/listaSongs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproductor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproductor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,14 +108,7 @@
       <workItem from="1664491661693" duration="9706000" />
       <workItem from="1664511504536" duration="10031000" />
       <workItem from="1664572886920" duration="3915000" />
-      <workItem from="1664579140400" duration="4301000" />
-    </task>
-    <task id="LOCAL-00001" summary="En proceso la creacion de usuarios">
-      <created>1663226265352</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1663226265352</updated>
+      <workItem from="1664579140400" duration="5202000" />
     </task>
     <task id="LOCAL-00002" summary="En proceso la creacion de usuarios">
       <created>1663228169550</created>
@@ -460,7 +446,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664575039058</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="incorporando javadoc">
+      <created>1664584765370</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1664584765370</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
