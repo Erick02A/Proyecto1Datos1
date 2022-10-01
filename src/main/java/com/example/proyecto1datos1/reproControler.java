@@ -55,8 +55,6 @@ public class reproControler implements Initializable {
     private static boolean like;
     private double volumen;
     private boolean runing;
-
-    private SerialPort porta;
     /**
      * Inicializa los recusos de la ventana y las principales cosas que usa, como el reproductor y las bibliotecas del usuario.
      * @param url
@@ -162,7 +160,6 @@ public class reproControler implements Initializable {
         BufferedReader Br = new  BufferedReader(new FileReader("Usuario/"+repro.getActivo()+"/Likelist.csv"));
         String line = "";
         boolean S = false;
-        //porta = Arduino.getSp();
 
         while ((line=Br.readLine())!=null){
             if (line.equals(repro.getNemeSong())){
@@ -173,18 +170,11 @@ public class reproControler implements Initializable {
         if (S==true){
             like=true;
             LikeButton.setTextFill(Paint.valueOf("#e70606"));
-            PrintWriter output = new PrintWriter(porta.getOutputStream());
-            output.print("L");
-            output.flush();
         }else{
             like=false;
             LikeButton.setTextFill(Paint.valueOf("#000000"));
-            PrintWriter output = new PrintWriter(porta.getOutputStream());
-            output.print("D");
-            output.flush();
         }
     }
-
     /**
      * Se encarga de decirle al reproductor que le dio like o dislike a la cancion segun corresponda.
      * @throws IOException

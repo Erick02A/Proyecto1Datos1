@@ -215,8 +215,11 @@ public class reproductor {
      * Retorna el nombre de la cancion que esta reproduciendo.
      * @return String con ese nombre.
      */
-    public String getNemeSong(){
+    public static String getNemeSong(){
         return song.getCancion();
+    }
+    public static String getactivo(){
+        return activo;
     }
 
     /**
