@@ -5,7 +5,15 @@ import com.fazecast.jSerialComm.SerialPort;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * Clase encargada del la logica del arduino
+ */
 public class Arduino{
+    /**
+     * Funcion encargada de detectar el arduino y las señales que envia
+     * @return String
+     * @throws InterruptedException
+     */
     public static String Arduino() throws InterruptedException {
         var sp = SerialPort.getCommPort("COM5");
 
@@ -35,6 +43,12 @@ public class Arduino{
 
         return null;
     }
+
+    /**
+     * Funcion que verifica el tipo de dato que se recibe del arduino y le asigna una funcion
+     * @param dato String del dato que recibe del arduino
+     * @throws IOException
+     */
     private static void Orden(String dato) throws IOException {
         if (dato.equals("Play")) {
             //System.out.println("Play");
@@ -73,6 +87,12 @@ public class Arduino{
             reproductor.setVolumen(Double.parseDouble(dato));
         }
     }
+
+    /**
+     * Funcion que se encarga de verificar si una cancion tiene like o dislike para comunicarla con el led del arduino
+     * @param sp
+     * @throws IOException
+     */
     public static void led(SerialPort sp) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("Usuario/"+reproductor.getactivo()+"/Likelist.csv"));
         String f="";
