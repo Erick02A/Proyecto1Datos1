@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="." />
+    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="Loco">
+      <change beforePath="$PROJECT_DIR$/music/A Sky Full of Stars - Coldplay.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/Angels Fall - Breaking Benjamin.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/Anthem Of The Angels - Breaking Benjamin.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/Ashes of Eden - Breaking Benjamin.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/BLUTriumphs!(1).mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/BLUTriumphs!.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/Breaking the Silence - Breaking Benjamin.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/Yellow - Coldplay.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/breakin benjamin4.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/breaking bejamin6.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/breaking benjamin 9.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/breaking benjamin.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/breaking benjamin2.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/breaking benjaminp.mp3" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -107,20 +122,6 @@
       <workItem from="1664511504536" duration="10031000" />
       <workItem from="1664572886920" duration="3915000" />
       <workItem from="1664579140400" duration="11496000" />
-    </task>
-    <task id="LOCAL-00008" summary="Creacion de listas doblemente enlasadas y los nodos Songs">
-      <created>1663293580673</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1663293580673</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Creacion de listas doblemente enlasadas y los nodos Songs">
-      <created>1663293610470</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1663293610470</updated>
     </task>
     <task id="LOCAL-00010" summary="implementacion de algunos enlaces en las listas">
       <created>1663298944291</created>
@@ -451,7 +452,21 @@
       <option name="project" value="LOCAL" />
       <updated>1664603274005</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Loco">
+      <created>1664603820232</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1664603820232</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Loco">
+      <created>1664603956690</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1664603956690</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -498,6 +513,7 @@
     <MESSAGE value="Se arregla el añadir canciones y se agregen al archivo de biblios" />
     <MESSAGE value="se arregla el eliminar canciones del archivo de Bibliotecas" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="Loco" />
+    <option name="LAST_COMMIT_MESSAGE" value="Loco" />
   </component>
 </project>
