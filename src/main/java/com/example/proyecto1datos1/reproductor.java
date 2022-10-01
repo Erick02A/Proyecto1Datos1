@@ -176,8 +176,33 @@ public class reproductor {
     /**
      * Le dice a la lista de canciones que elimine la cancion en la que se encuentra en el momento.
      */
-    public void delete(){
+    public void delete() throws IOException {
         songs.eliminar(song);
+        BufferedReader br = new BufferedReader(new FileReader("Usuario/"+activo+"/Biblio.csv"));
+        String linea = "";
+        String res="";
+        while ((linea=br.readLine())!=null){
+            String[] datos = linea.split(";");
+            if (datos[0].equals(biblioteca)){
+                for (int i = 0; i<datos.length;i++){
+                    if (!datos[i].equals(song.getCancion())){
+                        if (i==datos.length-1){
+                            res+=datos[i];
+                        }else {
+                            res+=datos[i]+";";
+                        }
+                    }
+                }
+                res+="\n";
+            }else {
+                res+=linea+"\n";
+            }
+        }
+        br.close();
+        BufferedWriter bw = new  BufferedWriter(new FileWriter("Usuario/"+activo+"/Biblio.csv"));
+        PrintWriter pw = new PrintWriter(bw);
+        pw.write(res);
+        bw.close();
     }
     /**
      * Detiene por completo el reproductor.
