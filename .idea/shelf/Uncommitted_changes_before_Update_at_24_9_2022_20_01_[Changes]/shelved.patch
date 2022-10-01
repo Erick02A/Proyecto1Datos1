@@ -1,0 +1,504 @@
+Index: src/main/java/com/example/proyecto1datos1/Arduino.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto1datos1;\r\n\r\nimport com.fazecast.jSerialComm.SerialPort;\r\n\r\nimport java.util.Scanner;\r\n\r\npublic class Arduino extends reproControler{\r\n\r\n    private static String Dato = \"\";\r\n    public static String Arduino() throws InterruptedException {\r\n        var sp = SerialPort.getCommPort(\"COM5\");\r\n\r\n        sp.setComPortParameters(9600, Byte.SIZE, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);\r\n        sp.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);\r\n\r\n        var hasOpened = sp.openPort();\r\n        if (!hasOpened) {\r\n            throw new IllegalStateException(\"Error al abrir el serial port\");\r\n        }\r\n\r\n        Scanner data = new Scanner(sp.getInputStream());\r\n\r\n        try {\r\n            while (data.hasNextLine() ) {\r\n                String dato = (data.nextLine());\r\n                Orden(dato);\r\n            }\r\n\r\n        } catch (Exception e) {\r\n            System.out.println(\"3\");\r\n            throw new RuntimeException(e);\r\n        }\r\n\r\n\r\n        return null;\r\n    }\r\n\r\n    public static String getDato() {\r\n        return Dato;\r\n    }\r\n\r\n    private static String Orden(String dato) {\r\n        switch (dato) {\r\n            case \"Play\" -> {\r\n\r\n                System.out.println(dato);\r\n                setDato(dato);\r\n                return dato;\r\n            }\r\n            case \"Previous\" -> System.out.println(\"Previous\");\r\n            case \"Next\" -> System.out.println(\"Next\");\r\n            case \"Like\" -> System.out.println(\"Like\");\r\n            case \"NOLike\" -> System.out.println(\"NoLike\");\r\n            case \"Bucle\" -> System.out.println(\"Bucle\");\r\n            case \"NOBucle\" -> System.out.println(\"noBucle\");\r\n        }\r\n        return dato;\r\n    }\r\n\r\n    public static void setDato(String dato) {\r\n        Dato = dato;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/Arduino.java b/src/main/java/com/example/proyecto1datos1/Arduino.java
+--- a/src/main/java/com/example/proyecto1datos1/Arduino.java	(revision 140a7be151dd83583452da9d457a87224a358acc)
++++ b/src/main/java/com/example/proyecto1datos1/Arduino.java	(date 1663896303865)
+@@ -21,7 +21,7 @@
+         Scanner data = new Scanner(sp.getInputStream());
+ 
+         try {
+-            while (data.hasNextLine() ) {
++            while (data.hasNextLine()) {
+                 String dato = (data.nextLine());
+                 Orden(dato);
+             }
+@@ -42,7 +42,6 @@
+     private static String Orden(String dato) {
+         switch (dato) {
+             case "Play" -> {
+-
+                 System.out.println(dato);
+                 setDato(dato);
+                 return dato;
+Index: src/main/java/com/example/proyecto1datos1/reproControler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto1datos1;\r\n\r\n\r\nimport javafx.beans.value.ChangeListener;\r\nimport javafx.beans.value.ObservableValue;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.Initializable;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.ComboBox;\r\nimport javafx.scene.control.ProgressBar;\r\nimport javafx.scene.control.Slider;\r\nimport javafx.scene.media.Media;\r\nimport javafx.scene.media.MediaPlayer;\r\nimport javafx.scene.paint.Paint;\r\nimport javafx.stage.FileChooser;\r\nimport javafx.util.Duration;\r\n\r\nimport java.io.*;\r\nimport java.net.URL;\r\nimport java.util.ResourceBundle;\r\nimport java.util.Timer;\r\nimport java.util.TimerTask;\r\n\r\npublic class reproControler implements Initializable {\r\n    @FXML\r\n    private Button pauseButton;\r\n    @FXML\r\n    private Button PreviusButton;\r\n    @FXML\r\n    private Button NextButton;\r\n    @FXML\r\n    private Button BucleButton;\r\n    @FXML\r\n    private Button LikeButton;\r\n    @FXML\r\n    private Button buttonDelete;\r\n    @FXML\r\n    private Button buttonAdd;\r\n    @FXML\r\n    private Slider volumenbar;\r\n    @FXML\r\n    private ProgressBar SongProgresbar;\r\n    @FXML\r\n    private ComboBox<String> BiblioBox;\r\n    private File directory;\r\n    private File[] files;\r\n    private listaSongs songs;\r\n    private int songNumber;\r\n    private Timer timer;\r\n    private TimerTask task;\r\n    private Media media;\r\n    private MediaPlayer mediaPlayer;\r\n    private boolean play;\r\n    private boolean bucle;\r\n    private boolean like;\r\n    private boolean runing;\r\n    private Songs song;\r\n    private String Dato;\r\n\r\n    @Override\r\n    public void initialize(URL url, ResourceBundle resourceBundle) {\r\n        Hilo hilo = new Hilo();\r\n        hilo.start();\r\n        songs = new listaSongs();\r\n        directory = new File(\"music\");\r\n        files = directory.listFiles();\r\n        String activo = \"\";\r\n        try {\r\n            BufferedReader BR = new BufferedReader(new FileReader(\"activo.txt\"));\r\n            activo= BR.readLine();\r\n            BufferedReader lista = new BufferedReader(new FileReader(\"src/main/java/com/example/proyecto1datos1/\"+activo+\".csv\"));\r\n            System.out.println(lista.readLine());\r\n        } catch (FileNotFoundException e) {\r\n            throw new RuntimeException(e);\r\n        } catch (IOException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n\r\n        if (files != null){\r\n            for(File file: files){\r\n\r\n                    songs.addsonglast(file.getName(),\"genero\",\"artista\",\"album\",\"2001\",\"letra\",file);\r\n            }\r\n            volumenbar.valueProperty().addListener(new ChangeListener<Number>() {\r\n                @Override\r\n                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {\r\n                    mediaPlayer.setVolume(volumenbar.getValue());\r\n                }\r\n            });\r\n        }\r\n        song = songs.getCabeza();\r\n        System.out.println(song.getdata().toURI().toString());\r\n        media= new Media(song.getdata().toURI().toString());\r\n        mediaPlayer= new MediaPlayer(media);\r\n        try {\r\n            while (Dato != null){Ardu();}\r\n\r\n        } catch (InterruptedException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n    }\r\n    public void Ardu() throws InterruptedException {\r\n        Dato = Hilo.getData();\r\n        System.out.println(\"si\");\r\n        if(Dato.equals(\"Play\")){\r\n            System.out.println(\"Saludos\");\r\n        }\r\n    }\r\n    public void PlayPause(){\r\n        if(play==false){\r\n            mediaPlayer.play();\r\n            pauseButton.setText(\"⏸\");\r\n            beginTimer();\r\n            play=true;\r\n        }else {\r\n            mediaPlayer.pause();\r\n            pauseButton.setText(\"▶\");\r\n            cancelTimer();\r\n            play=false;\r\n        }\r\n    }\r\n    public void previusSong(){\r\n        if (song.getPrev() != null) {\r\n            song = song.getPrev();\r\n            mediaPlayer.stop();\r\n            media = new Media(song.getdata().toURI().toString());\r\n            mediaPlayer= new MediaPlayer(media);\r\n            play=false;\r\n            PlayPause();\r\n        }else {\r\n            mediaPlayer.seek(Duration.seconds(0));\r\n            SongProgresbar.setProgress(0);\r\n        }\r\n    }\r\n    public void NextSong(){\r\n        if (song.getNext() != null) {\r\n            song = song.getNext();\r\n            mediaPlayer.stop();\r\n            media = new Media(song.getdata().toURI().toString());\r\n            mediaPlayer= new MediaPlayer(media);\r\n            play=false;\r\n            PlayPause();\r\n        }\r\n    }\r\n    public void listBucle(){\r\n        if (bucle==false) {\r\n            BucleButton.setText(\"\uD83D\uDD01\");\r\n            songs.bucle(bucle);\r\n            bucle= true;\r\n        }else {\r\n            BucleButton.setText(\"\uD83D\uDD00\");\r\n            songs.bucle(bucle);\r\n            bucle= false;\r\n        }\r\n    }\r\n    public void LikeSong(){\r\n        if(like==false) {\r\n            LikeButton.setTextFill(Paint.valueOf(\"#e70606\"));\r\n            like= true;\r\n        }else {\r\n            LikeButton.setTextFill(Paint.valueOf(\"#000000\"));\r\n            like= false;\r\n        }\r\n    }\r\n    public void beginTimer(){\r\n        timer = new Timer();\r\n        task = new TimerTask() {\r\n            @Override\r\n            public void run() {\r\n                runing = true;\r\n                double current = mediaPlayer.getCurrentTime().toSeconds();\r\n                double end = media.getDuration().toSeconds();\r\n                SongProgresbar.setProgress(current/end);\r\n\r\n                if (current/end == 1){\r\n                    cancelTimer();\r\n                }\r\n            }\r\n        };\r\n        timer.scheduleAtFixedRate(task,1000,1000);\r\n    }\r\n    public void cancelTimer(){\r\n        runing=false;\r\n        timer.cancel();\r\n    }\r\n    public void Delete(){\r\n        songs.eliminar(song);\r\n    }\r\n    public void Add(){\r\n        FileChooser F = new FileChooser();\r\n        File file = F.showOpenDialog(null);\r\n        songs.addsongfirst(file.getName(),\"genero\",\"artista\",\"album\",\"2001\",\"letra\",file);\r\n    }\r\n    public void setBucle(boolean B){\r\n        bucle=B;\r\n    }\r\n    public void setLike(boolean D){\r\n        like=D;\r\n    }\r\n    public  void setPlay(boolean F){\r\n        play=F;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto1datos1/reproControler.java b/src/main/java/com/example/proyecto1datos1/reproControler.java
+--- a/src/main/java/com/example/proyecto1datos1/reproControler.java	(revision 140a7be151dd83583452da9d457a87224a358acc)
++++ b/src/main/java/com/example/proyecto1datos1/reproControler.java	(date 1663896096122)
+@@ -61,6 +61,7 @@
+     public void initialize(URL url, ResourceBundle resourceBundle) {
+         Hilo hilo = new Hilo();
+         hilo.start();
++        Dato = Hilo.getData();
+         songs = new listaSongs();
+         directory = new File("music");
+         files = directory.listFiles();
+@@ -93,14 +94,13 @@
+         media= new Media(song.getdata().toURI().toString());
+         mediaPlayer= new MediaPlayer(media);
+         try {
+-            while (Dato != null){Ardu();}
++            if (Dato == "Play"){Ardu();}
+ 
+         } catch (InterruptedException e) {
+             throw new RuntimeException(e);
+         }
+     }
+     public void Ardu() throws InterruptedException {
+-        Dato = Hilo.getData();
+         System.out.println("si");
+         if(Dato.equals("Play")){
+             System.out.println("Saludos");
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06__Changes_1.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06__Changes_1.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06__Changes_1.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06__Changes_1.xml	(revision 140a7be151dd83583452da9d457a87224a358acc)
++++ /dev/null	(revision 140a7be151dd83583452da9d457a87224a358acc)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_17_9_2022_01_06_[Changes]1" date="1663398392451" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06_[Changes]1/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 17/9/2022 01:06 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59_[Changes]1/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59_[Changes]1/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59_[Changes]1/shelved.patch	(revision 140a7be151dd83583452da9d457a87224a358acc)
++++ /dev/null	(revision 140a7be151dd83583452da9d457a87224a358acc)
+@@ -1,77 +0,0 @@
+-Index: src/main/java/com/example/proyecto1datos1/Usuarios.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/com/example/proyecto1datos1/Usuarios.java b/src/main/java/com/example/proyecto1datos1/Usuarios.java
+---- a/src/main/java/com/example/proyecto1datos1/Usuarios.java	
+-+++ b/src/main/java/com/example/proyecto1datos1/Usuarios.java	
+-@@ -13,8 +13,8 @@
+-         String linea, Name, correo, contraseña, Provincia;
+- 
+-         try {
+--            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+--            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-+            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-             linea = "";
+-             while ((linea = br.readLine()) != null) {
+-                 String[] datos = linea.split(",");
+-Index: src/main/resources/com/example/proyecto1datos1/hello-view.fxml
+-===================================================================
+-diff --git a/src/main/resources/com/example/proyecto1datos1/hello-view.fxml b/src/main/resources/com/example/proyecto1datos1/hello-view.fxml
+-deleted file mode 100644
+---- a/src/main/resources/com/example/proyecto1datos1/hello-view.fxml	
+-+++ /dev/null	
+-@@ -1,51 +0,0 @@
+--<?xml version="1.0" encoding="UTF-8"?>
+--
+--<?import javafx.scene.Cursor?>
+--<?import javafx.scene.control.Button?>
+--<?import javafx.scene.control.ContextMenu?>
+--<?import javafx.scene.control.MenuItem?>
+--<?import javafx.scene.control.ProgressBar?>
+--<?import javafx.scene.layout.Pane?>
+--<?import javafx.scene.text.Font?>
+--
+--<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+--   <children>
+--      <Button layoutX="207.0" layoutY="194.0" mnemonicParsing="false" text="⏮">
+--         <font>
+--            <Font size="15.0" />
+--         </font>
+--      </Button>
+--      <Button layoutX="274.0" layoutY="194.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="45.0" text="⏯">
+--         <font>
+--            <Font name="Broadway" size="18.0" />
+--         </font></Button>
+--      <Button layoutX="346.0" layoutY="194.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" text="⏭" textAlignment="CENTER">
+--         <font>
+--            <Font name="Berlin Sans FB Demi Bold" size="15.0" />
+--         </font></Button>
+--      <Button layoutX="58.0" layoutY="194.0" mnemonicParsing="false" text="🔁">
+--         <font>
+--            <Font size="15.0" />
+--         </font></Button>
+--      <Button layoutX="491.0" layoutY="194.0" mnemonicParsing="false" text="❤" textAlignment="JUSTIFY" textFill="#ea0303">
+--         <font>
+--            <Font name="Bell MT Italic" size="15.0" />
+--         </font>
+--         <cursor>
+--            <Cursor fx:constant="HAND" />
+--         </cursor></Button>
+--      <ProgressBar layoutX="58.0" layoutY="147.0" prefHeight="18.0" prefWidth="487.0" progress="0.0" />
+--      <Button accessibleRole="MENU" blendMode="HARD_LIGHT" cache="true" layoutX="58.0" layoutY="14.0" minWidth="53.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="53.0" text="⚙">
+--         <contextMenu>
+--            <ContextMenu>
+--              <items>
+--                <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+--              </items>
+--            </ContextMenu>
+--         </contextMenu>
+--         <font>
+--            <Font size="36.0" />
+--         </font>
+--      </Button>
+--   </children>
+--</Pane>
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_45_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_45_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_45_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_45_[Changes]/shelved.patch	(revision 140a7be151dd83583452da9d457a87224a358acc)
++++ /dev/null	(revision 140a7be151dd83583452da9d457a87224a358acc)
+@@ -1,119 +0,0 @@
+-Index: src/main/java/com/example/proyecto1datos1/Usuarios.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package com.example.proyecto1datos1;\r\n\r\nimport javafx.event.ActionEvent;\r\nimport javafx.scene.control.*;\r\nimport java.io.IOException;\r\nimport java.io.BufferedReader;\r\nimport java.io.FileReader;\r\n\r\npublic class Usuarios{\r\n\r\n\r\n    public static void Datos(String Contraseña, String Correo, Label error) {\r\n        String linea, Name, correo, contraseña, Provincia;\r\n\r\n        try {\r\n            //BufferedReader br = new BufferedReader(new FileReader(\"C:\\\\Users\\\\andre\\\\Desktop\\\\java\\\\Proyecto1Datos1\\\\src\\\\main\\\\java\\\\com\\\\example\\\\proyecto1datos1\\\\Users.csv\"));\r\n            BufferedReader br = new BufferedReader(new FileReader(\"C:\\\\Users\\\\Erick\\\\Desktop\\\\Datos I\\\\Proyecto1Datos1\\\\src\\\\main\\\\java\\\\com\\\\example\\\\proyecto1datos1\\\\Users.csv\"));\r\n            linea = \"\";\r\n            while ((linea = br.readLine()) != null) {\r\n                String[] datos = linea.split(\",\");\r\n                Name = datos[0];\r\n                correo = datos[1];\r\n                Provincia = datos[2];\r\n                contraseña = datos[3];\r\n                if ( Contraseña.equals(contraseña) && Correo.equals(correo)) {\r\n                    MusicPro m = new MusicPro();\r\n                    m.CambiarPantalla(\"repro.fxml\");\r\n\r\n\r\n\r\n                }else if (Contraseña.isEmpty() | Correo.isEmpty()) {\r\n                    error.setText(\"Verifique que todos los espacios esten llenos\");\r\n\r\n                }else{error.setText(\"Usuario incorrecto\");}\r\n            }\r\n\r\n\r\n\r\n        } catch (IOException est) {\r\n            System.out.println(\"error\");\r\n            throw new RuntimeException(est);\r\n\r\n        }\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/com/example/proyecto1datos1/Usuarios.java b/src/main/java/com/example/proyecto1datos1/Usuarios.java
+---- a/src/main/java/com/example/proyecto1datos1/Usuarios.java	(revision 5b47ec3ab70e60062bc0ceddd386195b8f93606f)
+-+++ b/src/main/java/com/example/proyecto1datos1/Usuarios.java	(date 1663457815926)
+-@@ -12,9 +12,11 @@
+-     public static void Datos(String Contraseña, String Correo, Label error) {
+-         String linea, Name, correo, contraseña, Provincia;
+- 
+-+
+-         try {
+--            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+--            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-+            //reproControler.PlayPause();
+-+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-+            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-             linea = "";
+-             while ((linea = br.readLine()) != null) {
+-                 String[] datos = linea.split(",");
+-Index: src/main/resources/com/example/proyecto1datos1/hello-view.fxml
+-===================================================================
+-diff --git a/src/main/resources/com/example/proyecto1datos1/hello-view.fxml b/src/main/resources/com/example/proyecto1datos1/hello-view.fxml
+-deleted file mode 100644
+---- a/src/main/resources/com/example/proyecto1datos1/hello-view.fxml	(revision 5b47ec3ab70e60062bc0ceddd386195b8f93606f)
+-+++ /dev/null	(revision 5b47ec3ab70e60062bc0ceddd386195b8f93606f)
+-@@ -1,51 +0,0 @@
+--<?xml version="1.0" encoding="UTF-8"?>
+--
+--<?import javafx.scene.Cursor?>
+--<?import javafx.scene.control.Button?>
+--<?import javafx.scene.control.ContextMenu?>
+--<?import javafx.scene.control.MenuItem?>
+--<?import javafx.scene.control.ProgressBar?>
+--<?import javafx.scene.layout.Pane?>
+--<?import javafx.scene.text.Font?>
+--
+--<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+--   <children>
+--      <Button layoutX="207.0" layoutY="194.0" mnemonicParsing="false" text="⏮">
+--         <font>
+--            <Font size="15.0" />
+--         </font>
+--      </Button>
+--      <Button layoutX="274.0" layoutY="194.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="45.0" text="⏯">
+--         <font>
+--            <Font name="Broadway" size="18.0" />
+--         </font></Button>
+--      <Button layoutX="346.0" layoutY="194.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" text="⏭" textAlignment="CENTER">
+--         <font>
+--            <Font name="Berlin Sans FB Demi Bold" size="15.0" />
+--         </font></Button>
+--      <Button layoutX="58.0" layoutY="194.0" mnemonicParsing="false" text="🔁">
+--         <font>
+--            <Font size="15.0" />
+--         </font></Button>
+--      <Button layoutX="491.0" layoutY="194.0" mnemonicParsing="false" text="❤" textAlignment="JUSTIFY" textFill="#ea0303">
+--         <font>
+--            <Font name="Bell MT Italic" size="15.0" />
+--         </font>
+--         <cursor>
+--            <Cursor fx:constant="HAND" />
+--         </cursor></Button>
+--      <ProgressBar layoutX="58.0" layoutY="147.0" prefHeight="18.0" prefWidth="487.0" progress="0.0" />
+--      <Button accessibleRole="MENU" blendMode="HARD_LIGHT" cache="true" layoutX="58.0" layoutY="14.0" minWidth="53.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="53.0" text="⚙">
+--         <contextMenu>
+--            <ContextMenu>
+--              <items>
+--                <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+--              </items>
+--            </ContextMenu>
+--         </contextMenu>
+--         <font>
+--            <Font size="36.0" />
+--         </font>
+--      </Button>
+--   </children>
+--</Pane>
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9ea46d4f-d316-429e-ada4-fa297ebef67e\" name=\"Changes\" comment=\".\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Songs.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Songs.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Users.csv\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Users.csv\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2E3mjmP8QNO53OdoooJO9JQe7My\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"last_opened_file_path\": \"C:/Users/Erick/Desktop/Datos I/Proyecto1Datos1\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"project.structure.last.edited\": \"Libraries\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9ea46d4f-d316-429e-ada4-fa297ebef67e\" name=\"Changes\" comment=\"\" />\r\n      <created>1661832780494</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1661832780494</updated>\r\n      <workItem from=\"1661833183187\" duration=\"267000\" />\r\n      <workItem from=\"1662499465006\" duration=\"200000\" />\r\n      <workItem from=\"1663221256831\" duration=\"10341000\" />\r\n      <workItem from=\"1663271767878\" duration=\"647000\" />\r\n      <workItem from=\"1663298907889\" duration=\"57000\" />\r\n      <workItem from=\"1663366788605\" duration=\"4543000\" />\r\n      <workItem from=\"1663427805154\" duration=\"4168000\" />\r\n      <workItem from=\"1663431992219\" duration=\"3939000\" />\r\n      <workItem from=\"1663438336385\" duration=\"2464000\" />\r\n      <workItem from=\"1663449902459\" duration=\"111000\" />\r\n      <workItem from=\"1663451768021\" duration=\"680000\" />\r\n      <workItem from=\"1663453186145\" duration=\"4397000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663226265352</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663226265352</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663228169550</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663228169550</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663232482947</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663232482947</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663272288606</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663272288606</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"cambio de ventana\">\r\n      <created>1663278993330</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663278993330</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"cambio de ventana\">\r\n      <created>1663279048897</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663279048897</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"Detalles menores\">\r\n      <created>1663282487809</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663282487809</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"Creacion de listas doblemente enlasadas y los nodos Songs\">\r\n      <created>1663293580673</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663293580673</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"Creacion de listas doblemente enlasadas y los nodos Songs\">\r\n      <created>1663293610470</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663293610470</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"implementacion de algunos enlaces en las listas\">\r\n      <created>1663298944291</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663298944291</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\".\">\r\n      <created>1663385264192</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663385264192</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\".\">\r\n      <created>1663386377019</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663386377019</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"se añade el modulo media de JavaFx\">\r\n      <created>1663431252753</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663431252753</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"se crea el reproductor\">\r\n      <created>1663433507016</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663433507016</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\".\">\r\n      <created>1663437753420</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663437753420</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"16\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"En proceso la creacion de usuarios\" />\r\n    <MESSAGE value=\"cambio de ventana\" />\r\n    <MESSAGE value=\"Detalles menores\" />\r\n    <MESSAGE value=\"Creacion de listas doblemente enlasadas y los nodos Songs\" />\r\n    <MESSAGE value=\"implementacion de algunos enlaces en las listas\" />\r\n    <MESSAGE value=\"se añade el modulo media de JavaFx\" />\r\n    <MESSAGE value=\"se crea el reproductor\" />\r\n    <MESSAGE value=\".\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\".\" />\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision 5b47ec3ab70e60062bc0ceddd386195b8f93606f)
+-+++ b/.idea/workspace.xml	(date 1663458338951)
+-@@ -4,11 +4,10 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment=".">
+--      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Songs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Songs.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Users.csv" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
+-+    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="cambio de ventana">
+-+      <change beforePath="$PROJECT_DIR$/music/Sonido 3D- Cover Sin Miedo a Nada (original de Alex Ubago).mp3" beforeDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Usuarios.java" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/proyecto1datos1/hello-view.fxml" beforeDir="false" />
+-     </list>
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-@@ -35,6 +34,10 @@
+-   </component>
+-   <component name="PropertiesComponent"><![CDATA[{
+-   "keyToString": {
+-+    "Downloaded.Files.Path.Enabled": "false",
+-+    "Repository.Attach.Annotations": "false",
+-+    "Repository.Attach.JavaDocs": "false",
+-+    "Repository.Attach.Sources": "false",
+-     "RunOnceActivity.OpenProjectViewOnStart": "true",
+-     "RunOnceActivity.ShowReadmeOnStart": "true",
+-     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06_[Changes]1/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06_[Changes]1/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_01_06_[Changes]1/shelved.patch	(revision 140a7be151dd83583452da9d457a87224a358acc)
++++ /dev/null	(revision 140a7be151dd83583452da9d457a87224a358acc)
+@@ -1,77 +0,0 @@
+-Index: src/main/java/com/example/proyecto1datos1/Usuarios.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/com/example/proyecto1datos1/Usuarios.java b/src/main/java/com/example/proyecto1datos1/Usuarios.java
+---- a/src/main/java/com/example/proyecto1datos1/Usuarios.java	
+-+++ b/src/main/java/com/example/proyecto1datos1/Usuarios.java	
+-@@ -13,8 +13,8 @@
+-         String linea, Name, correo, contraseña, Provincia;
+- 
+-         try {
+--            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+--            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-+            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-             linea = "";
+-             while ((linea = br.readLine()) != null) {
+-                 String[] datos = linea.split(",");
+-Index: src/main/resources/com/example/proyecto1datos1/hello-view.fxml
+-===================================================================
+-diff --git a/src/main/resources/com/example/proyecto1datos1/hello-view.fxml b/src/main/resources/com/example/proyecto1datos1/hello-view.fxml
+-deleted file mode 100644
+---- a/src/main/resources/com/example/proyecto1datos1/hello-view.fxml	
+-+++ /dev/null	
+-@@ -1,51 +0,0 @@
+--<?xml version="1.0" encoding="UTF-8"?>
+--
+--<?import javafx.scene.Cursor?>
+--<?import javafx.scene.control.Button?>
+--<?import javafx.scene.control.ContextMenu?>
+--<?import javafx.scene.control.MenuItem?>
+--<?import javafx.scene.control.ProgressBar?>
+--<?import javafx.scene.layout.Pane?>
+--<?import javafx.scene.text.Font?>
+--
+--<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+--   <children>
+--      <Button layoutX="207.0" layoutY="194.0" mnemonicParsing="false" text="⏮">
+--         <font>
+--            <Font size="15.0" />
+--         </font>
+--      </Button>
+--      <Button layoutX="274.0" layoutY="194.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="45.0" text="⏯">
+--         <font>
+--            <Font name="Broadway" size="18.0" />
+--         </font></Button>
+--      <Button layoutX="346.0" layoutY="194.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" text="⏭" textAlignment="CENTER">
+--         <font>
+--            <Font name="Berlin Sans FB Demi Bold" size="15.0" />
+--         </font></Button>
+--      <Button layoutX="58.0" layoutY="194.0" mnemonicParsing="false" text="🔁">
+--         <font>
+--            <Font size="15.0" />
+--         </font></Button>
+--      <Button layoutX="491.0" layoutY="194.0" mnemonicParsing="false" text="❤" textAlignment="JUSTIFY" textFill="#ea0303">
+--         <font>
+--            <Font name="Bell MT Italic" size="15.0" />
+--         </font>
+--         <cursor>
+--            <Cursor fx:constant="HAND" />
+--         </cursor></Button>
+--      <ProgressBar layoutX="58.0" layoutY="147.0" prefHeight="18.0" prefWidth="487.0" progress="0.0" />
+--      <Button accessibleRole="MENU" blendMode="HARD_LIGHT" cache="true" layoutX="58.0" layoutY="14.0" minWidth="53.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="53.0" text="⚙">
+--         <contextMenu>
+--            <ContextMenu>
+--              <items>
+--                <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+--              </items>
+--            </ContextMenu>
+--         </contextMenu>
+--         <font>
+--            <Font size="36.0" />
+--         </font>
+--      </Button>
+--   </children>
+--</Pane>
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_45__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_45__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_45__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_45__Changes_.xml	(revision 140a7be151dd83583452da9d457a87224a358acc)
++++ /dev/null	(revision 140a7be151dd83583452da9d457a87224a358acc)
+@@ -1,9 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_17_9_2022_17_45_[Changes]" date="1663458370538" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_17_45_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 17/9/2022 17:45 [Changes]" />
+-  <binary>
+-    <option name="BEFORE_PATH" value="music/Sonido 3D- Cover Sin Miedo a Nada (original de Alex Ubago).mp3" />
+-    <option name="AFTER_PATH" />
+-    <option name="SHELVED_PATH" />
+-  </binary>
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13__Changes_1.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13__Changes_1.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13__Changes_1.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13__Changes_1.xml	(revision 140a7be151dd83583452da9d457a87224a358acc)
++++ /dev/null	(revision 140a7be151dd83583452da9d457a87224a358acc)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_17_9_2022_12_13_[Changes]1" date="1663438464316" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13_[Changes]1/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 17/9/2022 12:13 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_22_9_2022_18_25__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_22_9_2022_18_25__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_22_9_2022_18_25__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_22_9_2022_18_25__Changes_.xml	(revision 140a7be151dd83583452da9d457a87224a358acc)
++++ /dev/null	(revision 140a7be151dd83583452da9d457a87224a358acc)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_22_9_2022_18_25_[Changes]" date="1663892715039" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_9_2022_18_25_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 22/9/2022 18:25 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13_[Changes]1/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13_[Changes]1/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_12_13_[Changes]1/shelved.patch	(revision 140a7be151dd83583452da9d457a87224a358acc)
++++ /dev/null	(revision 140a7be151dd83583452da9d457a87224a358acc)
+@@ -1,36 +0,0 @@
+-Index: src/main/java/com/example/proyecto1datos1/Usuarios.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/com/example/proyecto1datos1/Usuarios.java b/src/main/java/com/example/proyecto1datos1/Usuarios.java
+---- a/src/main/java/com/example/proyecto1datos1/Usuarios.java	
+-+++ b/src/main/java/com/example/proyecto1datos1/Usuarios.java	
+-@@ -13,8 +13,8 @@
+-         String linea, Name, correo, contraseña, Provincia;
+- 
+-         try {
+--            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+--            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\java\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-+            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Erick\\Desktop\\Datos I\\Proyecto1Datos1\\src\\main\\java\\com\\example\\proyecto1datos1\\Users.csv"));
+-             linea = "";
+-             while ((linea = br.readLine()) != null) {
+-                 String[] datos = linea.split(",");
+-Index: src/main/java/module-info.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/module-info.java b/src/main/java/module-info.java
+---- a/src/main/java/module-info.java	
+-+++ b/src/main/java/module-info.java	
+-@@ -4,6 +4,7 @@
+-     requires javafx.media;
+- 
+- 
+-+
+-     opens com.example.proyecto1datos1 to javafx.fxml;
+-     exports com.example.proyecto1datos1;
+- }
+-\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59__Changes_1.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59__Changes_1.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59__Changes_1.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59__Changes_1.xml	(revision 140a7be151dd83583452da9d457a87224a358acc)
++++ /dev/null	(revision 140a7be151dd83583452da9d457a87224a358acc)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_17_9_2022_10_59_[Changes]1" date="1663433959756" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_9_2022_10_59_[Changes]1/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 17/9/2022 10:59 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9ea46d4f-d316-429e-ada4-fa297ebef67e\" name=\"Changes\" comment=\".\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/a.csv\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_9_2022_18_25__Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_9_2022_18_25__Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Hilo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Hilo.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/iniciadorController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/iniciadorController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2E3mjmP8QNO53OdoooJO9JQe7My\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,\r\n    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/Erick/Desktop/Datos I/Proyecto1Datos1/lib/cdc-1.1.2-stub-1.0.1.jar&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;\r\n  }\r\n}</component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9ea46d4f-d316-429e-ada4-fa297ebef67e\" name=\"Changes\" comment=\"\" />\r\n      <created>1661832780494</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1661832780494</updated>\r\n      <workItem from=\"1661833183187\" duration=\"267000\" />\r\n      <workItem from=\"1662499465006\" duration=\"200000\" />\r\n      <workItem from=\"1663221256831\" duration=\"10341000\" />\r\n      <workItem from=\"1663271767878\" duration=\"647000\" />\r\n      <workItem from=\"1663298907889\" duration=\"57000\" />\r\n      <workItem from=\"1663366788605\" duration=\"4543000\" />\r\n      <workItem from=\"1663427805154\" duration=\"4168000\" />\r\n      <workItem from=\"1663431992219\" duration=\"3939000\" />\r\n      <workItem from=\"1663438336385\" duration=\"2464000\" />\r\n      <workItem from=\"1663449902459\" duration=\"111000\" />\r\n      <workItem from=\"1663451768021\" duration=\"680000\" />\r\n      <workItem from=\"1663453186145\" duration=\"6753000\" />\r\n      <workItem from=\"1663633106892\" duration=\"8933000\" />\r\n      <workItem from=\"1663650458425\" duration=\"730000\" />\r\n      <workItem from=\"1663697509472\" duration=\"10275000\" />\r\n      <workItem from=\"1663737091998\" duration=\"3856000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663226265352</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663226265352</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663228169550</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663228169550</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663232482947</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663232482947</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"En proceso la creacion de usuarios\">\r\n      <created>1663272288606</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663272288606</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"cambio de ventana\">\r\n      <created>1663278993330</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663278993330</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"cambio de ventana\">\r\n      <created>1663279048897</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663279048897</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"Detalles menores\">\r\n      <created>1663282487809</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663282487809</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"Creacion de listas doblemente enlasadas y los nodos Songs\">\r\n      <created>1663293580673</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663293580673</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"Creacion de listas doblemente enlasadas y los nodos Songs\">\r\n      <created>1663293610470</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663293610470</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"implementacion de algunos enlaces en las listas\">\r\n      <created>1663298944291</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663298944291</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\".\">\r\n      <created>1663385264192</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663385264192</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\".\">\r\n      <created>1663386377019</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663386377019</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"se añade el modulo media de JavaFx\">\r\n      <created>1663431252753</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663431252753</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"se crea el reproductor\">\r\n      <created>1663433507016</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663433507016</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\".\">\r\n      <created>1663437753420</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663437753420</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\".\">\r\n      <created>1663457642600</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663457642600</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\".\">\r\n      <created>1663458303484</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663458303484</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00018\" summary=\".\">\r\n      <created>1663631382645</created>\r\n      <option name=\"number\" value=\"00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00018\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663631382645</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00019\" summary=\".\">\r\n      <created>1663631397610</created>\r\n      <option name=\"number\" value=\"00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00019\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663631397610</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00020\" summary=\".\">\r\n      <created>1663635253587</created>\r\n      <option name=\"number\" value=\"00020\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00020\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663635253587</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00021\" summary=\".\">\r\n      <created>1663636210870</created>\r\n      <option name=\"number\" value=\"00021\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00021\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663636210870</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00022\" summary=\".\">\r\n      <created>1663638594392</created>\r\n      <option name=\"number\" value=\"00022\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00022\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663638594392</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00023\" summary=\".\">\r\n      <created>1663638627672</created>\r\n      <option name=\"number\" value=\"00023\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00023\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663638627672</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00024\" summary=\".\">\r\n      <created>1663640973443</created>\r\n      <option name=\"number\" value=\"00024\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00024\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663640973443</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00025\" summary=\".\">\r\n      <created>1663720245466</created>\r\n      <option name=\"number\" value=\"00025\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00025\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663720245466</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00026\" summary=\".\">\r\n      <created>1663779166891</created>\r\n      <option name=\"number\" value=\"00026\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00026\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663779166891</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00027\" summary=\".\">\r\n      <created>1663779181502</created>\r\n      <option name=\"number\" value=\"00027\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00027\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663779181502</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00028\" summary=\".\">\r\n      <created>1663796035436</created>\r\n      <option name=\"number\" value=\"00028\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00028\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663796035436</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00029\" summary=\"Arduinooo\">\r\n      <created>1663892674942</created>\r\n      <option name=\"number\" value=\"00029\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00029\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1663892674942</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"30\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.History.Properties\">\r\n    <option name=\"COLUMN_ID_ORDER\">\r\n      <list>\r\n        <option value=\"Default.Root\" />\r\n        <option value=\"Default.Author\" />\r\n        <option value=\"Default.Date\" />\r\n        <option value=\"Default.Subject\" />\r\n        <option value=\"Space.CommitStatus\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"En proceso la creacion de usuarios\" />\r\n    <MESSAGE value=\"cambio de ventana\" />\r\n    <MESSAGE value=\"Detalles menores\" />\r\n    <MESSAGE value=\"Creacion de listas doblemente enlasadas y los nodos Songs\" />\r\n    <MESSAGE value=\"implementacion de algunos enlaces en las listas\" />\r\n    <MESSAGE value=\"se añade el modulo media de JavaFx\" />\r\n    <MESSAGE value=\"se crea el reproductor\" />\r\n    <MESSAGE value=\".\" />\r\n    <MESSAGE value=\"Arduinooo\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Arduinooo\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 140a7be151dd83583452da9d457a87224a358acc)
++++ b/.idea/workspace.xml	(date 1663897641183)
+@@ -4,13 +4,9 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment=".">
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/a.csv" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_9_2022_18_25__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_9_2022_18_25__Changes_.xml" afterDir="false" />
++    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="Arduinooo">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Hilo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Hilo.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/iniciadorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/iniciadorController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -286,7 +282,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1663892674942</updated>
+     </task>
+-    <option name="localTasksCounter" value="30" />
++    <task id="LOCAL-00030" summary="Arduinooo">
++      <created>1663895616568</created>
++      <option name="number" value="00030" />
++      <option name="presentableId" value="LOCAL-00030" />
++      <option name="project" value="LOCAL" />
++      <updated>1663895616568</updated>
++    </task>
++    <option name="localTasksCounter" value="31" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">

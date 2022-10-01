@@ -1,6 +1,7 @@
 package com.example.proyecto1datos1;
 
 
+import com.fazecast.jSerialComm.SerialPort;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -55,6 +56,7 @@ public class reproControler implements Initializable {
     private double volumen;
     private boolean runing;
 
+    private SerialPort porta;
     /**
      * Inicializa los recusos de la ventana y las principales cosas que usa, como el reproductor y las bibliotecas del usuario.
      * @param url
@@ -160,6 +162,8 @@ public class reproControler implements Initializable {
         BufferedReader Br = new  BufferedReader(new FileReader("Usuario/"+repro.getActivo()+"/Likelist.csv"));
         String line = "";
         boolean S = false;
+        porta = SerialPort.getCommPort("COM5");
+
         while ((line=Br.readLine())!=null){
             if (line.equals(repro.getNemeSong())){
                 S=true;
@@ -169,9 +173,15 @@ public class reproControler implements Initializable {
         if (S==true){
             like=true;
             LikeButton.setTextFill(Paint.valueOf("#e70606"));
+            PrintWriter output = new PrintWriter(porta.getOutputStream());
+            output.print("L");
+            output.flush();
         }else{
             like=false;
             LikeButton.setTextFill(Paint.valueOf("#000000"));
+            PrintWriter output = new PrintWriter(porta.getOutputStream());
+            output.print("D");
+            output.flush();
         }
     }
 

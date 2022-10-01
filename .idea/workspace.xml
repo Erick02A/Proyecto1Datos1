@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="se arregla el eliminar canciones del archivo de Bibliotecas">
+    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="Se implementa el agrgar listas de reproduccion">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_9_2022_18_53_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_9_2022_18_53__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Usuario/a/Biblio.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Usuario/a/Biblio.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Usuario/a/Likelist.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Usuario/a/Likelist.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sketch_sep17b/sketch_sep17b.ino" beforeDir="false" afterPath="$PROJECT_DIR$/sketch_sep17b/sketch_sep17b.ino" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
