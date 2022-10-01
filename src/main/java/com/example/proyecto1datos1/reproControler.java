@@ -162,7 +162,7 @@ public class reproControler implements Initializable {
         BufferedReader Br = new  BufferedReader(new FileReader("Usuario/"+repro.getActivo()+"/Likelist.csv"));
         String line = "";
         boolean S = false;
-        porta = Arduino.getSp();
+        //porta = Arduino.getSp();
 
         while ((line=Br.readLine())!=null){
             if (line.equals(repro.getNemeSong())){

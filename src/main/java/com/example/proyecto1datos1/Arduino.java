@@ -74,8 +74,4 @@ public class Arduino{
             reproductor.setVolumen(Double.parseDouble(dato));
         }
     }
-    public static SerialPort getSp(){
-        return porta;
-
-    }
 }
