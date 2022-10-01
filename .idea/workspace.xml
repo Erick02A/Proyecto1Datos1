@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment="Se implementa el agrgar listas de reproduccion">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_9_2022_22_10__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_9_2022_22_10__Changes_.xml" afterDir="false" />
+    <list default="true" id="9ea46d4f-d316-429e-ada4-fa297ebef67e" name="Changes" comment=".">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_9_2022_22_45__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_9_2022_22_45__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Usuario/a/Likelist.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Usuario/a/Likelist.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/Arduino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto1datos1/reproControler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/proyecto1datos1/repro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/proyecto1datos1/repro.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,13 +113,6 @@
       <workItem from="1664511504536" duration="10031000" />
       <workItem from="1664572886920" duration="3915000" />
       <workItem from="1664579140400" duration="11496000" />
-    </task>
-    <task id="LOCAL-00005" summary="cambio de ventana">
-      <created>1663278993330</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1663278993330</updated>
     </task>
     <task id="LOCAL-00006" summary="cambio de ventana">
       <created>1663279048897</created>
@@ -456,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664592504910</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary=".">
+      <created>1664601848352</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1664601848352</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,10 +500,10 @@
     <MESSAGE value="Se arregla el verificar cada lista por ususario" />
     <MESSAGE value="Se arregla el verificar cada lista de canciones y likes por ususario" />
     <MESSAGE value="Se implementa el like y reconozca las canciones que le gustan al usuario." />
-    <MESSAGE value="." />
     <MESSAGE value="incorporando javadoc" />
     <MESSAGE value="Se arregla el añadir canciones y se agregen al archivo de biblios" />
     <MESSAGE value="se arregla el eliminar canciones del archivo de Bibliotecas" />
-    <option name="LAST_COMMIT_MESSAGE" value="se arregla el eliminar canciones del archivo de Bibliotecas" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
 </project>

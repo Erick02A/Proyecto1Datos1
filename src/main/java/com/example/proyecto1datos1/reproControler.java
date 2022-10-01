@@ -46,7 +46,10 @@ public class reproControler implements Initializable {
     private ProgressBar SongProgresbar;
     @FXML
     private ComboBox<String> BiblioBox;
+    @FXML
+    private ComboBox<String> BoxLikes;
     private String[] Biblios = new String[200];
+    private String[] Likes = new String[200];
     private reproductor repro;
     private Timer timer;
     private TimerTask task;
@@ -75,6 +78,12 @@ public class reproControler implements Initializable {
             }
             br.close();
             Biblios = biblios.split(";");
+            biblios="";
+            BufferedReader as = new BufferedReader(new FileReader("Usuario/"+repro.getActivo()+"/Likelist.csv"));
+            while ((line= as.readLine())!=null){
+                biblios+=line+";";
+            }
+            Likes = biblios.split(";");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -87,6 +96,9 @@ public class reproControler implements Initializable {
         });
         for (int i = 0;i <Biblios.length;i++){
             BiblioBox.getItems().add(Biblios[i]);
+        }
+        for (int i = 0;i<Likes.length;i++){
+            BoxLikes.getItems().add(Likes[i]);
         }
         BiblioBox.setOnAction(event -> {
             try {
@@ -160,8 +172,9 @@ public class reproControler implements Initializable {
         BufferedReader Br = new  BufferedReader(new FileReader("Usuario/"+repro.getActivo()+"/Likelist.csv"));
         String line = "";
         boolean S = false;
-
+        String l = "";
         while ((line=Br.readLine())!=null){
+            l+=line+";";
             if (line.equals(repro.getNemeSong())){
                 S=true;
             }
@@ -173,6 +186,14 @@ public class reproControler implements Initializable {
         }else{
             like=false;
             LikeButton.setTextFill(Paint.valueOf("#000000"));
+        }
+        Likes = l.split(";");
+        for (int e = 0;e <Likes.length;e++) {
+            if (e <= BoxLikes.getItems().size() - 1) {
+                BoxLikes.getItems().set(e, Likes[e]);
+            } else {
+                BoxLikes.getItems().add(Likes[e]);
+            }
         }
     }
     /**
